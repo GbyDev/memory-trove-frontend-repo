@@ -3,17 +3,21 @@ import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export function Headers(){
+
     const {isLoggedIn} = useContext(AuthContext);
+
     if (isLoggedIn == true){
         return (
-            <LoggedInHeader/> 
+            <GuestHeader/>
         );
+        //change back to <LoggedInHeader/>  after testing login/logout
     }
     else {
         return(
             <GuestHeader/>
         );
     }
+        
 } 
 
 

@@ -1,5 +1,5 @@
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-import {useState, useContext, /*useEffect*/} from "react";
+import {useState, useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -51,11 +51,10 @@ export default function Login(){
             }
         }
         
-
         async function submitToBackend(){
-            let response = {}; // Initialize response variable
+            let response = {}; 
             try {
-                    response = await axios.post('http://localhost/memory-trove-backend/register.php', {
+                    response = await axios.post('http://localhost/memory-trove-backend/login.php', {
                     username_email: username_email,
                     password: password,
                 }, 
@@ -68,12 +67,13 @@ export default function Login(){
                 setPromptColor(response.data.messageType);
                 setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error('Error sending data', error);
                 setPromptColor('error');
                 setPrompt("There was an error during registration.");
             }
-            return response.data; // Return the response
+            return response.data; 
         }
 
         function evaluateResponse(response) {
@@ -88,11 +88,13 @@ export default function Login(){
         //Function process order
         setPrompt(''); //clear previous prompt
         if (areInputsInvalid()) return; //Check if input is valid
-        let response = submitToBackend(); //Submit to backend
-
+        console.log('Submitting to backend...');
+        let response = await submitToBackend(); //Submit to backend
+        console.log('Response received:', response);
+        login({username_email, password});
         //unexecutable code, for now
         if (unexecutableCodeBlockForTestingPurposes < 1){
-            login({username_email, password});//Login the user, set user data and token in local storage and authorization bla bla
+            //Login the user, set user data and token in local storage and authorization bla bla
             evaluateResponse(response)
             alert(`${username_email} is logged in.` );
         }
@@ -104,14 +106,17 @@ export default function Login(){
     }
 
     //If the user is logged in, redirect sa All Albums Page
-    isLoggedIn();
-    /*
-
     useEffect(() => {
-        if (isLoggedIn)
-            navigate('/pages/allALbums');
+        if (isLoggedIn){
+            /*
+            setTimeout(() => {
+                navigate('/pages/accountSettings'); //account settings temporarily to quick log out
+            }, 5000); // Redirect to login 5 seconds
+            */
+        }
+            
     }, [isLoggedIn, navigate]);
-    */
+    
     return (
         <>
             <h1>Login Page</h1>
