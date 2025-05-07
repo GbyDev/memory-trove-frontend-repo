@@ -1,13 +1,10 @@
-import {Link} from 'react-router-dom';
-import { useContext} from 'react';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
-export function Headers(){
-    const { isLoggedIn, loading } = useContext(AuthContext);
-
-    if (loading) return null; // Prevent rendering while loading
-
-    return isLoggedIn ? <LoggedInHeader/> : <GuestHeader/>;
+export function Headers() {
+    const { isLoggedIn } = useContext(AuthContext);
+    return isLoggedIn ? <LoggedInHeader /> : <GuestHeader />;
 }
 
 

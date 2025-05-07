@@ -1,0 +1,34 @@
+How to set up (front end), after cloning repository from github
+
+
+PREQUISITES:
+IF WALA PAKA KAINSTALL UG NODE.JS, PAG INSTALL NA DONG
+
+1. place it on any folder where you can easily locate it
+
+1. open said folder in Visual Studio Code
+
+2. open vscode terminal
+- TERMINAL (Tab at the top)
+- TERMINAL > NEW TERMINAL
+
+3. run command
+cd memory-trove-frontend
+
+4. install node.js
+npm install 
+
+5. run command
+npm run dev
+
+if an output like this appears: (Local:   http://localhost:5173/)
+press the localhost link to run the code
+
+6. run command
+npm install sass
+
+7. run command
+npm install react-router-dom
+
+8. run command
+npm install npm install axios

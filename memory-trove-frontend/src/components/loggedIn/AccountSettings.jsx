@@ -14,13 +14,9 @@ export default function AccountSettings(){
 
     useEffect(() => {
         if (isLoggedIn == false){
-            setTimeout(() => {
-                navigate('/pages/welcome');
-            }, 2000);
-            
+            navigate('/pages/welcome');
         }
     })
-
 
     return(
         <>

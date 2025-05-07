@@ -104,7 +104,6 @@ export default function Login(){
         let extractedPassword = response.password; //Get the password from the response 
 
         //If response returns errors, return and cannot redirect/store data to AuthContext
-        alert(response.messageType); //Display message from backend
         if (responseReturnsErrors(response)) return; //If there is an error, return
 
         //Store to AuthContext and localStorage
@@ -119,9 +118,8 @@ export default function Login(){
     //If the user is logged in, redirect sa All Albums Page (Automatic)
     useEffect(() => {
         if (isLoggedIn){
-            setTimeout(() => {
-                navigate('/pages/accountSettings'); //account settings temporarily to quick log out
-            }, 5000); // Redirect to login 5 seconds
+            alert("User is logged in. Redirecting to Dashboard...");
+            navigate('/pages/accountSettings'); 
         }
             
     }, [isLoggedIn, navigate]);

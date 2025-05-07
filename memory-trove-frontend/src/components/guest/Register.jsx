@@ -95,7 +95,6 @@ export default function Register(){
         setPrompt('') //clear previous prompt
         if (areInputsInvalid()) return; //Check if input is valid
         let backEndResponse = await submitToBackend(); //Submit to backend if input is valid
-        alert("Message is: " + backEndResponse.messageType); //Display message from backend
         evaluateResponse(backEndResponse); //if all inputs are valid, redirect to login page
         
     }
