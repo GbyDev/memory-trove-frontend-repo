@@ -1,5 +1,5 @@
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-import {useState, useContext, useEffect} from "react";
+import {useState, useContext, /*useEffect*/} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -11,7 +11,10 @@ export default function Login(){
     const [password_reveal, set_password_reveal] = useState(false);
     const [prompt, setPrompt] = useState('');
 
+    const unexecutableCodeBlockForTestingPurposes = 1; //test number
+
     async function handle_submit(e){
+        
         e.preventDefault();
 
         const promptElement = document.querySelector('.prompt');
@@ -25,76 +28,90 @@ export default function Login(){
                 promptElement.style.color = "black"; // Default color
         }
         
-        setPrompt('');
-
-        //Input Checking
-
-        //1. Check if null/blank/empty
-        if (username_email === '' || password === ''){
-            setPromptColor('error');
-            setPrompt("Please fill in all fields.");
-            return;
-        }
-
-        //Check if username_email is an email or a username
-        //If input is an email
-        if (username_email.includes('@')){
-            //Check if email is valid
-            const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            //If email is not valid, set prompt and return
-            if (!email_regex.test(username_email)){
+        function areInputsInvalid(){
+            //1. Check if null/blank/empty
+            if (username_email === '' || password === ''){
                 setPromptColor('error');
-                setPrompt("Please enter a valid email address.");
-                return;
+                setPrompt("Please fill in all fields.");
+                return true;
+            }
+
+            //Check if username_email is an email or a username
+            //If input is an email
+            if (username_email.includes('@')){
+                //Check if email is valid
+                const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                //If email is not valid, set prompt and return
+                if (!email_regex.test(username_email)){
+                    setPromptColor('error');
+                    setPrompt("Please enter a valid email address.");
+                    return true;
+                }
             }
         }
+        
 
-        //If input is a username:
-        try {
-            const response = await axios.post('http://localhost/memory-trove-backend/login.php', {
-                username_email: username_email,
-                password: password,
-            }, 
-            {
-                headers: {
-                    'Content-Type': 'application/json', 
-                }
-            });
-            console.log('Data sent!');
-            setPromptColor(response.data.messageType);
-            setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
-
-            //FINAL STEP
-            //Redirect to login page if registration is successful
-            if (response.data.messageType === 'success') {
-                setTimeout(() => {
-                    navigate('/pages/login');
-                }, 2000); // Redirect after 2 seconds
+        async function submitToBackend(){
+            let response = {}; // Initialize response variable
+            try {
+                    response = await axios.post('http://localhost/memory-trove-backend/register.php', {
+                    username_email: username_email,
+                    password: password,
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    }
+                });
+                console.log('Data sent!');
+                setPromptColor(response.data.messageType);
+                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
+    
+            } catch (error) {
+                console.error('Error sending data', error);
+                setPromptColor('error');
+                setPrompt("There was an error during registration.");
             }
+            return response.data; // Return the response
+        }
 
-        } catch (error) {
-            console.error('Error sending data', error);
-            setPromptColor('error');
-            setPrompt("There was an error during registration.");
+        function evaluateResponse(response) {
+            //If the response is all valid, set the prompt to success
+            if (response.messageType == 'success') {
+                setPromptColor('success');
+                setPrompt("User has been logged in successfully. Redirecting to Dashboard...");
+                navigate('/pages/allAlbums'); //Redirect to the dashboard page
+            }
+        }
+        
+        //Function process order
+        setPrompt(''); //clear previous prompt
+        if (areInputsInvalid()) return; //Check if input is valid
+        let response = submitToBackend(); //Submit to backend
+
+        //unexecutable code, for now
+        if (unexecutableCodeBlockForTestingPurposes < 1){
+            login({username_email, password});//Login the user, set user data and token in local storage and authorization bla bla
+            evaluateResponse(response)
+            alert(`${username_email} is logged in.` );
         }
         
 
 
-        login({username_email, password});
-
-
-
-        alert(`${username_email} is logged in.` );
+        
         
     }
 
     //If the user is logged in, redirect sa All Albums Page
+    isLoggedIn();
+    /*
+
     useEffect(() => {
         if (isLoggedIn)
             navigate('/pages/allALbums');
     }, [isLoggedIn, navigate]);
-    
+    */
     return (
         <>
             <h1>Login Page</h1>
