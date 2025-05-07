@@ -7,9 +7,9 @@ export function AuthProvider({ children }) {
     const [password, setPassword] = useState(null);
     const [userId, setUserId] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true); // Add loading state
 
     useEffect(() => {
-        // Check if there's data in localStorage on mount
         const storedUsername = localStorage.getItem("username");
         const storedPassword = localStorage.getItem("password");
         const storedUserId = localStorage.getItem("userId");
@@ -21,17 +21,18 @@ export function AuthProvider({ children }) {
             setUserId(storedUserId);
             setIsLoggedIn(true);
         }
+        setLoading(false); // Done loading
     }, []);
 
     function login(userData) {
         setUserName(userData.username);
-        setPassword(userData.password);
+        setPassword(userData.contextPassword);
         setUserId(userData.userId); 
         setIsLoggedIn(true);
 
         // Store in localStorage
         localStorage.setItem("username", userData.username);
-        localStorage.setItem("password", userData.password);
+        localStorage.setItem("password", userData.contextPassword);
         localStorage.setItem("userId", userData.userId); 
         localStorage.setItem("isLoggedIn", "true");
     }
@@ -50,7 +51,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ username, password, userId, isLoggedIn, login, logout }}>
+        <AuthContext.Provider value={{ username, password, userId, isLoggedIn, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

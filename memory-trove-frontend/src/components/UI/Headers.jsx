@@ -3,20 +3,12 @@ import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export function Headers(){
-    const {isLoggedIn} = useContext(AuthContext);
+    const { isLoggedIn, loading } = useContext(AuthContext);
 
-    if (isLoggedIn == true){
-        return (
-            <LoggedInHeader/> 
-        );
-    }
-    else {
-        return(
-            <GuestHeader/>
-        );
-    }
-        
-} 
+    if (loading) return null; // Prevent rendering while loading
+
+    return isLoggedIn ? <LoggedInHeader/> : <GuestHeader/>;
+}
 
 
 export function GuestHeader(){
@@ -47,9 +39,15 @@ export function LoggedInHeader(){
                     <h1>Memory Trove</h1>
                 </div>
                 <nav>
-                    <Link to = "/pages/allAlbums">All Albums</Link>
-                    <Link to = "/pages/createAnAlbum">Create an Album</Link>
-                    <Link to = "/pages/accountSettings">{username}, user {userId}</Link>
+                    <Link to = "/pages/allAlbums">
+                        All Albums
+                    </Link>
+                    <Link to = "/pages/createAnAlbum">
+                        Create an Album
+                    </Link>
+                    <Link to = "/pages/accountSettings">
+                        {username ? username : "User"}, ID {userId ? userId : "?"}
+                    </Link>
                 </nav>
             </header>
         </>

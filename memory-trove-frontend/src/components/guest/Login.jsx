@@ -47,6 +47,7 @@ export default function Login(){
                     return true;
                 }
             }
+            return false;
         }
         
         async function submitToBackend(){
@@ -74,19 +75,21 @@ export default function Login(){
             return response.data; 
         }
 
-        function evaluateResponse(response) {
+        function responseReturnsErrors(response) {
             //If the response is all valid, set the prompt to success
             if (response.messageType == 'success') {
                 setPromptColor('success');
                 setPrompt("User has been logged in successfully. Redirecting to Dashboard...");
-                setTimeout(() => {
-                    navigate('/pages/allAlbums');
-                    //alert("You have been redirected to dashboard now bleh");
-                }, 2000); // Redirect to login 2 seconds
-                    
-                 //Redirect to the dashboard page
+                return false;
             }
+            if (response.messageType == 'error'){
+                setPromptColor('error');
+                setPrompt("Invalid username/email or password. Please try again.");
+                return true;
+            }
+            return false; // Default case
         }
+
         
         //Function process order
         setPrompt(''); //clear previous prompt
@@ -97,29 +100,28 @@ export default function Login(){
 
         //Store all extracted data in the AuthContext for access everywhere sheesh
         let extractedUsername = response.username; 
-        let extractedUserId = response.userId; 
-        login({extractedUsername, extractedUserId, password});
+        let extractedUserId = response.userId;
+        let extractedPassword = response.password; //Get the password from the response 
 
-        //Evaluate the response from backendy
-        evaluateResponse(response);
-        
-        //Debugging purposes only
-        //alert(`${extractedUsername} is logged in.` );
-        
+        //If response returns errors, return and cannot redirect/store data to AuthContext
+        alert(response.messageType); //Display message from backend
+        if (responseReturnsErrors(response)) return; //If there is an error, return
 
+        //Store to AuthContext and localStorage
+        login({
+            username: extractedUsername, 
+            userId: extractedUserId, 
+            contextPassword: extractedPassword
+        });
 
-        
-        
     }
 
-    //If the user is logged in, redirect sa All Albums Page
+    //If the user is logged in, redirect sa All Albums Page (Automatic)
     useEffect(() => {
         if (isLoggedIn){
-            /*
             setTimeout(() => {
                 navigate('/pages/accountSettings'); //account settings temporarily to quick log out
             }, 5000); // Redirect to login 5 seconds
-            */
         }
             
     }, [isLoggedIn, navigate]);

@@ -3,17 +3,21 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountSettings(){
-    const {logout, username, isLoggedIn} = useContext(AuthContext);
+    //const {logout, username, isLoggedIn} = useContext(AuthContext);
+    const {logout, isLoggedIn} = useContext(AuthContext);
     const navigate = useNavigate();
 
     function handleLogOut(){
-        alert(`${username} is logged out.`);
+        //alert(`${username} is logged out.`);
         logout();
     }
 
     useEffect(() => {
         if (isLoggedIn == false){
-            navigate('/pages/welcome');
+            setTimeout(() => {
+                navigate('/pages/welcome');
+            }, 2000);
+            
         }
     })
 
