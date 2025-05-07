@@ -1,6 +1,7 @@
 import { AuthContext } from "../../contexts/AuthContext.jsx";
 import {useState, useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login(){
     const {login, isLoggedIn} = useContext(AuthContext);
@@ -8,37 +9,80 @@ export default function Login(){
     const [username_email, set_username_Email] = useState('');
     const [password, set_password] = useState('');
     const [password_reveal, set_password_reveal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [prompt, setPrompt] = useState('');
 
-    function handle_submit(e){
-        let prompt = document.querySelector('.error-prompt');
-        prompt.style.color = 'red';
+    async function handle_submit(e){
         e.preventDefault();
-        
-        setErrorMessage('');
 
+        const promptElement = document.querySelector('.prompt');
+
+        function setPromptColor(msgType) {
+            if (msgType === 'error') 
+                promptElement.style.color = "red";
+            else if (msgType === 'success') 
+                promptElement.style.color = "green";
+            else 
+                promptElement.style.color = "black"; // Default color
+        }
+        
+        setPrompt('');
 
         //Input Checking
-        //Check if null/blank/empty
+
+        //1. Check if null/blank/empty
         if (username_email === '' || password === ''){
-            setErrorMessage("Please fill in all fields.");
+            setPromptColor('error');
+            setPrompt("Please fill in all fields.");
             return;
         }
 
-        //Check if inputted value is a username or an email, and check if exists in the db
+        //Check if username_email is an email or a username
+        //If input is an email
         if (username_email.includes('@')){
-            let email = username_email;
-        } 
-        else {
-            let username = username_email;
+            //Check if email is valid
+            const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            //If email is not valid, set prompt and return
+            if (!email_regex.test(username_email)){
+                setPromptColor('error');
+                setPrompt("Please enter a valid email address.");
+                return;
+            }
         }
 
+        //If input is a username:
+        try {
+            const response = await axios.post('http://localhost/memory-trove-backend/login.php', {
+                username_email: username_email,
+                password: password,
+            }, 
+            {
+                headers: {
+                    'Content-Type': 'application/json', 
+                }
+            });
+            console.log('Data sent!');
+            setPromptColor(response.data.messageType);
+            setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
+
+            //FINAL STEP
+            //Redirect to login page if registration is successful
+            if (response.data.messageType === 'success') {
+                setTimeout(() => {
+                    navigate('/pages/login');
+                }, 2000); // Redirect after 2 seconds
+            }
+
+        } catch (error) {
+            console.error('Error sending data', error);
+            setPromptColor('error');
+            setPrompt("There was an error during registration.");
+        }
+        
 
 
         login({username_email, password});
-        console.log("Logged in.");
-        console.log(`Username/Email is ${username_email}`);
-        console.log(`Password is ${password}`);
+
 
 
         alert(`${username_email} is logged in.` );
@@ -80,7 +124,7 @@ export default function Login(){
                 </button>
                 <br/>
                 <button>Login</button>
-                <p className="error-prompt">{errorMessage}</p>
+                <p className="prompt">{prompt}</p>
             </form>
         </> 
     );

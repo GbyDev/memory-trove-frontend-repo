@@ -1,12 +1,15 @@
 import {useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Register(){
     const [username, set_username] = useState('');
     const [email, set_email] = useState('');
     const [password, set_password] = useState('');
     const [password_reveal, set_password_reveal] = useState(false);
-    const [prompt, set_prompt] = useState('');
+    const [prompt, setPrompt] = useState('');
+    const navigate = useNavigate();
 
     async function handle_submit(e){
         e.preventDefault();
@@ -22,60 +25,79 @@ export default function Register(){
                 promptElement.style.color = "black"; // Default color
             
         }
-
-        //Clear prompt
-        set_prompt('')
-
-        //If username has an @ symbol
-        if (username.includes('@')){
-            setPromptColor('error');
-            set_prompt("Username cannot contain an '@' symbol.");
-            return;
-        }
-
-        //If empty
-        if (username === '' || email === '' || password === ''){ 
-            setPromptColor('error');
-            set_prompt("Please fill in all fields.");
-            return;
-        }   
-
-        //If username is less than 3 characters
-        if (username.length < 3){
-            setPromptColor('error');
-            set_prompt("Username must be at least 3 characters long.");
-            return;
-        }
-
-        //If password is less than 8 characters
-        if (password.length < 8){
-            setPromptColor('error');
-            set_prompt("Password must be at least 8 characters long.");
-            return;
-        }
-
         
+        function areInputsInvalid(){
+            //If username has an @ symbol
+            if (username.includes('@')){
+                setPromptColor('error');
+                setPrompt("Username cannot contain an '@' symbol.");
+                return true;
+            }
 
-        //If input passes through the following checks, 
-        // send data to the backend to check if the username and email already exist in the database
-        try {
-            const response = await axios.post('http://localhost/memory-trove-backend/register.php', {
-                username: username,
-                email: email,
-                password: password,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json', 
-                }
-            });
-            console.log('Data sent!');
-            setPromptColor(response.data.messageType);
-            set_prompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
-        } catch (error) {
-            console.error('Error sending data', error);
-            setPromptColor('error');
-            set_prompt("There was an error during registration.");
+            //If empty
+            if (username === '' || email === '' || password === ''){ 
+                setPromptColor('error');
+                setPrompt("Please fill in all fields.");
+                return true;
+            }   
+
+            //If username is less than 3 characters
+            if (username.length < 3){
+                setPromptColor('error');
+                setPrompt("Username must be at least 3 characters long.");
+                return true;
+            }
+
+            //If password is less than 8 characters
+            if (password.length < 8){
+                setPromptColor('error');
+                setPrompt("Password must be at least 8 characters long.");
+                return true;
+            }
+            return false; // All inputs are valid
         }
+
+        async function submitToBackend(){
+            let response = {}; // Initialize response variable
+            try {
+                    response = await axios.post('http://localhost/memory-trove-backend/register.php', {
+                    username: username,
+                    email: email,
+                    password: password,
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    }
+                });
+                console.log('Data sent!');
+                setPromptColor(response.data.messageType);
+                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
+    
+            } catch (error) {
+                console.error('Error sending data', error);
+                setPromptColor('error');
+                setPrompt("There was an error during registration.");
+            }
+            return response.data; // Return the response
+        }
+
+        function evaluateResponse(response) {
+            //If the response is all valid, set the prompt to success
+            if (response.messageType == 'success') {
+                setTimeout(() => {
+                    navigate('/pages/login');
+                }, 2000); // Redirect to login 2 seconds
+            }
+        }
+        
+        // Function Execution Order
+        setPrompt('') //clear previous prompt
+        if (areInputsInvalid()) return; //Check if input is valid
+        let backEndResponse = await submitToBackend(); //Submit to backend if input is valid
+        alert("Message is: " + backEndResponse.messageType); //Display message from backend
+        evaluateResponse(backEndResponse); //if all inputs are valid, redirect to login page
+        
     }
 
     return (
