@@ -3,14 +3,12 @@ import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export function Headers(){
-
     const {isLoggedIn} = useContext(AuthContext);
 
     if (isLoggedIn == true){
         return (
-            <GuestHeader/>
+            <LoggedInHeader/> 
         );
-        //change back to <LoggedInHeader/>  after testing login/logout
     }
     else {
         return(
@@ -40,6 +38,8 @@ export function GuestHeader(){
 }
 
 export function LoggedInHeader(){
+    const {userId} = useContext(AuthContext);
+    const {username} = useContext(AuthContext);
     return(
         <>
             <header>
@@ -49,7 +49,7 @@ export function LoggedInHeader(){
                 <nav>
                     <Link to = "/pages/allAlbums">All Albums</Link>
                     <Link to = "/pages/createAnAlbum">Create an Album</Link>
-                    <Link to = "/pages/accountSettings">Account Settings</Link>
+                    <Link to = "/pages/accountSettings">{username}, user {userId}</Link>
                 </nav>
             </header>
         </>

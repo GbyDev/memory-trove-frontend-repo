@@ -11,8 +11,6 @@ export default function Login(){
     const [password_reveal, set_password_reveal] = useState(false);
     const [prompt, setPrompt] = useState('');
 
-    const unexecutableCodeBlockForTestingPurposes = 1; //test number
-
     async function handle_submit(e){
         
         e.preventDefault();
@@ -81,23 +79,32 @@ export default function Login(){
             if (response.messageType == 'success') {
                 setPromptColor('success');
                 setPrompt("User has been logged in successfully. Redirecting to Dashboard...");
-                navigate('/pages/allAlbums'); //Redirect to the dashboard page
+                setTimeout(() => {
+                    navigate('/pages/allAlbums');
+                    //alert("You have been redirected to dashboard now bleh");
+                }, 2000); // Redirect to login 2 seconds
+                    
+                 //Redirect to the dashboard page
             }
         }
         
         //Function process order
         setPrompt(''); //clear previous prompt
+
         if (areInputsInvalid()) return; //Check if input is valid
-        console.log('Submitting to backend...');
+
         let response = await submitToBackend(); //Submit to backend
-        console.log('Response received:', response);
-        login({username_email, password});
-        //unexecutable code, for now
-        if (unexecutableCodeBlockForTestingPurposes < 1){
-            //Login the user, set user data and token in local storage and authorization bla bla
-            evaluateResponse(response)
-            alert(`${username_email} is logged in.` );
-        }
+
+        //Store all extracted data in the AuthContext for access everywhere sheesh
+        let extractedUsername = response.username; 
+        let extractedUserId = response.userId; 
+        login({extractedUsername, extractedUserId, password});
+
+        //Evaluate the response from backendy
+        evaluateResponse(response);
+        
+        //Debugging purposes only
+        //alert(`${extractedUsername} is logged in.` );
         
 
 
