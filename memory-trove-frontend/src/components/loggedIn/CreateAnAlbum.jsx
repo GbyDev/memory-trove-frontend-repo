@@ -6,6 +6,7 @@ export default function CreateAnAlbum(){
     const {userId} = useContext(AuthContext);
     const [albumName, setAlbumName] = useState("");
     const [prompt, setPrompt] = useState("");
+    const [description, setDescription] = useState("");
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -29,6 +30,20 @@ export default function CreateAnAlbum(){
                 setPrompt("Please enter a valid album name.");
                 return true;
             } 
+            if (albumName.length > 30) {
+                setPromptColor("error");
+                setPrompt("Album name cannot exceed 30 characters.");
+                return true;
+            }
+            return false;
+        }
+
+        function description_exceeds_110_chars(){
+            if (description.length > 110) {
+                setPromptColor("error");
+                setPrompt("Description cannot exceed 110 characters.");
+                return true;
+            } 
             return false;
         }
 
@@ -40,6 +55,7 @@ export default function CreateAnAlbum(){
                     user_id: userId,
                     album_name: albumName,
                     url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                    album_desc : description,
                 }, 
                 {
                     headers: {
@@ -62,6 +78,7 @@ export default function CreateAnAlbum(){
 
         //Function calls
         if (albumNameIsInvalid()) return;
+        if (description_exceeds_110_chars()) return;
         let response = await createTheAlbum();
         if (response.messageType == "error") return;
 
@@ -79,6 +96,15 @@ export default function CreateAnAlbum(){
                     name = "album_name" 
                     value = {albumName}
                     onChange = {(e) => setAlbumName(e.target.value)}
+                />
+                <br/>
+                <label>Description</label>
+                <br/>
+                <textarea
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="description-textarea"  
                 />
                 <br/>
                 <button type = "submit">Create</button>

@@ -48,6 +48,13 @@ export default function Register(){
                 return true;
             }
 
+            //If username exceeds 30 characters
+            if (username.length > 30){
+                setPromptColor('error');
+                setPrompt("Username cannot exceed 30 characters.");
+                return true;
+            }
+
             //If password is less than 8 characters
             if (password.length < 8){
                 setPromptColor('error');
