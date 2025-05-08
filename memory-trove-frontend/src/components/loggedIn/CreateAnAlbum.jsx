@@ -36,7 +36,7 @@ export default function CreateAnAlbum(){
             let response = {}; // Initialize response variable
             try {
                     response = await axios.post('http://localhost/memory-trove-backend/createAnAlbum.php', {
-                    //Data to be sent (as an object para isa)
+                    //Data to be sent 
                     user_id: userId,
                     album_name: albumName,
                 }, 
@@ -60,7 +60,7 @@ export default function CreateAnAlbum(){
 
         //Function calls
         if (albumNameIsInvalid()) return;
-        createTheAlbum();
+        await createTheAlbum();
         
     } 
     return(

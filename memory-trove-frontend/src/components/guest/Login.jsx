@@ -98,7 +98,7 @@ export default function Login(){
 
         let response = await submitToBackend(); //Submit to backend
 
-        //Store all extracted data in the AuthContext for access everywhere sheesh
+        //Store all extracted data in the AuthContext for access everywhere 
         let extractedUsername = response.username; 
         let extractedUserId = response.userId;
         let extractedPassword = response.password; //Get the password from the response 

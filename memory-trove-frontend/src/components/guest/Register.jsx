@@ -57,7 +57,8 @@ export default function Register(){
             return false; // All inputs are valid
         }
 
-        //You'll probably see this code pattern regularly, i've been using this basically as boilerplate code for my backend communication events.
+        //You'll probably see this code pattern regularly, 
+        // i've been using this basically as boilerplate code for my backend communication events.
         async function submitToBackend(){
             let response = {}; // Initialize response variable
             try {
