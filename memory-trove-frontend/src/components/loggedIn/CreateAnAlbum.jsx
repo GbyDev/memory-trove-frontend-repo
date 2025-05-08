@@ -2,34 +2,32 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
 
-export default function CreateAnAlbum(){
-    const {userId} = useContext(AuthContext);
+export default function CreateAnAlbum() {
+    const { userId } = useContext(AuthContext);
     const [albumName, setAlbumName] = useState("");
     const [prompt, setPrompt] = useState("");
     const [description, setDescription] = useState("");
+    const [coverPhoto, setCoverPhoto] = useState(null); // New state for image
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-
         const promptElement = document.querySelector(".prompt");
 
         function setPromptColor(msgType) {
-            if (msgType === 'error') 
+            if (msgType === "error")
                 promptElement.style.color = "red";
-            else if (msgType === 'success') 
+            else if (msgType === "success")
                 promptElement.style.color = "green";
-            else 
-                promptElement.style.color = "black"; // Default color
-            
+            else
+                promptElement.style.color = "black";
         }
 
-        //Check for invalid album name
-        function albumNameIsInvalid(){
+        function albumNameIsInvalid() {
             if (!albumName.trim()) {
                 setPromptColor("error");
                 setPrompt("Please enter a valid album name.");
                 return true;
-            } 
+            }
             if (albumName.length > 30) {
                 setPromptColor("error");
                 setPrompt("Album name cannot exceed 30 characters.");
@@ -38,79 +36,87 @@ export default function CreateAnAlbum(){
             return false;
         }
 
-        function description_exceeds_110_chars(){
+        function descriptionExceeds110Chars() {
             if (description.length > 110) {
                 setPromptColor("error");
                 setPrompt("Description cannot exceed 110 characters.");
                 return true;
-            } 
+            }
             return false;
         }
 
-        async function createTheAlbum(){
-            let response = {}; // Initialize response variable
+        async function createTheAlbum() {
+            const formData = new FormData();
+            formData.append("user_id", userId);
+            formData.append("album_name", albumName);
+            formData.append("album_desc", description);
+            formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Optional, or remove
+            if (coverPhoto) {
+                formData.append("cover_photo", coverPhoto);
+            }
+
+            let response = {};
             try {
-                    response = await axios.post('http://localhost/memory-trove-backend/createAnAlbum.php', {
-                    //Data to be sent 
-                    user_id: userId,
-                    album_name: albumName,
-                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                    album_desc : description,
-                }, 
-                {
-                    headers: {
-                        'Content-Type': 'application/json', 
+                response = await axios.post(
+                    "http://localhost/memory-trove-backend/createAnAlbum.php",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
                     }
-                });
+                );
                 console.log(response.data);
                 setPromptColor(response.data.messageType);
-                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
-    
-            } 
-            catch (error) {
-                console.error('Error sending data', error);
-                setPromptColor('error');
-                setPrompt("There was an error during registration.");
+                setPrompt(response.data.message);
+            } catch (error) {
+                console.error("Error sending data", error);
+                setPromptColor("error");
+                setPrompt("There was an error creating the album.");
             }
-            return response.data; // Return the response
+            return response.data;
         }
 
-
-        //Function calls
         if (albumNameIsInvalid()) return;
-        if (description_exceeds_110_chars()) return;
-        let response = await createTheAlbum();
-        if (response.messageType == "error") return;
+        if (descriptionExceeds110Chars()) return;
 
-        
-    } 
-    return(
+        let response = await createTheAlbum();
+        if (response.messageType === "error") return;
+    }
+
+    return (
         <>
             <h1>Create an Album</h1>
-
-            <form onSubmit = {handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <label>Album Name</label>
-                <br/>
-                <input 
-                    type = "text" 
-                    name = "album_name" 
-                    value = {albumName}
-                    onChange = {(e) => setAlbumName(e.target.value)}
+                <br />
+                <input
+                    type="text"
+                    name="album_name"
+                    value={albumName}
+                    onChange={(e) => setAlbumName(e.target.value)}
                 />
-                <br/>
+                <br />
                 <label>Description</label>
-                <br/>
+                <br />
                 <textarea
                     name="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="description-textarea"  
+                    className="description-textarea"
                 />
-                <br/>
-                <button type = "submit">Create</button>
-                <p className = "prompt">{prompt}</p>
+                <br />
+                <label>Cover Photo</label>
+                <br />
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setCoverPhoto(e.target.files[0])}
+                />
+                <br />
+                <button type="submit">Create</button>
+                <p className="prompt">{prompt}</p>
             </form>
-
         </>
     );
 }
