@@ -3,7 +3,6 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountSettings(){
-    //const {logout, username, isLoggedIn} = useContext(AuthContext);
     const {logout, isLoggedIn} = useContext(AuthContext);
     const navigate = useNavigate();
 

@@ -57,6 +57,7 @@ export default function Register(){
             return false; // All inputs are valid
         }
 
+        //You'll probably see this code pattern regularly, i've been using this basically as boilerplate code for my backend communication events.
         async function submitToBackend(){
             let response = {}; // Initialize response variable
             try {
@@ -74,7 +75,8 @@ export default function Register(){
                 setPromptColor(response.data.messageType);
                 setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error('Error sending data', error);
                 setPromptColor('error');
                 setPrompt("There was an error during registration.");
