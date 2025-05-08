@@ -58,9 +58,36 @@ export default function CreateAnAlbum(){
             return response.data; // Return the response
         }
 
+        async function createQrCode(){
+            let response = {}; // Initialize response variable
+            try {
+                    response = await axios.post('http://localhost/memory-trove-backend/createQRCode.php', {
+                    //Data to be sent 
+                    user_id: userId,
+                    album_name: albumName,
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    }
+                });
+                console.log('Data sent!');
+                setPromptColor(response.data.messageType);
+                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
+    
+            } 
+            catch (error) {
+                console.error('Error sending data', error);
+                setPromptColor('error');
+                setPrompt("There was an error during registration.");
+            }
+            return response.data; // Return the respons
+        }
+
         //Function calls
         if (albumNameIsInvalid()) return;
         await createTheAlbum();
+        await createQrCode();
         
     } 
     return(
