@@ -9,3 +9,8 @@ header{
         gap: 10px;
     }
 }
+
+.album-list-container{
+    display: flex;
+    flex-wrap: wrap;
+}

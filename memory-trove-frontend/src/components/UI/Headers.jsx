@@ -36,7 +36,7 @@ export function LoggedInHeader(){
                     <h1>Memory Trove</h1>
                 </div>
                 <nav>
-                    <Link to = "/pages/allAlbums">
+                    <Link to = "/pages/albumList">
                         All Albums
                     </Link>
                     <Link to = "/pages/createAnAlbum">

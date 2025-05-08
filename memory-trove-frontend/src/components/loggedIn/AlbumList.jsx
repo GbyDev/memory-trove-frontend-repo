@@ -1,29 +1,34 @@
 import { useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
+import EmptyAlbums from "./album_list_components/EmptyAlbums";
+import AllAvailableAlbums from "./album_list_components/AllAvailableAlbums";
 
-
-
-export default function AllAlbums() {
+//NOTE: This component serves as a junction, between the album list and the empty album list components.
+//You know the thing bla bla if empty, the empty
+export default function AlbumList() {
     const { userId } = useContext(AuthContext);
     const [numOfAlbums, setNumOfAlbums] = useState(null); // Use null as initial state to indicate loading
 
     useEffect(() => {
-        async function loadAlbums() {
+        async function determineAlbumCount() {
             try {
                 const response = await axios.post(
                     "http://localhost/memory-trove-backend/countNumberOfAlbums.php",
-                    { userId },
+                    JSON.stringify({ 
+                        user_id: userId 
+                    }),
                     {
                         headers: {
                             "Content-Type": "application/json",
                         },
                     }
-                );
+                ); 
                 console.log(response.data);
                 //alert(response.data.message);
                 setNumOfAlbums(response.data.albumCount);
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error("Error sending data", error);
                 alert("There was an error during backend connection.");
                 setNumOfAlbums(0); // Optional: default to 0 on error
@@ -31,9 +36,12 @@ export default function AllAlbums() {
         }
 
         //This conditional ensures that a valid userId must be extracted first before loading albums.
-        if (userId) {
-            loadAlbums();
+        async function checkUserId() {
+            if (userId) {
+                await determineAlbumCount();
+            }
         }
+        checkUserId();
     }, [userId]);
 
     // Render loading state while data is being fetched
@@ -43,7 +51,7 @@ export default function AllAlbums() {
 
     return numOfAlbums > 0 ? 
     (
-        <AlbumList />
+        <AllAvailableAlbums albumCount={numOfAlbums} />
     ) 
     : 
     (
@@ -51,23 +59,3 @@ export default function AllAlbums() {
     );
 }
 
-export function EmptyAlbums(){
-    return(
-        <>  
-            <h1>All Albums</h1>
-            <h2>No albums found.</h2>
-            <p>Click the button below to create an album.</p>
-        </>
-    );
-}
-
-export function AlbumList(){
-    const {numOfAlbums} = useContext(AuthContext);
-
-    return(
-        <>
-            <h1>All Albums</h1>
-            <p>You have {numOfAlbums} albums.</p>
-        </>
-    );
-}

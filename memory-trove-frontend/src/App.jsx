@@ -7,7 +7,7 @@ import Login from './components/guest/Login.jsx';
 import Register from './components/guest/Register.jsx';
 import OpenAnAlbum from './components/guest/OpenAnAlbum.jsx';
 
-import AllAlbums from './components/loggedIn/AllAlbums.jsx';
+import AlbumList from './components/loggedIn/AlbumList.jsx';
 import CreateAnAlbum from './components/loggedIn/CreateAnAlbum.jsx';
 import AccountSettings from './components/loggedIn/AccountSettings.jsx';
 
@@ -31,7 +31,7 @@ function App() {
           {/*Default route*/}
           <Route path="/" element={
             isLoggedIn
-              ? <Navigate to="/pages/allAlbums" replace />
+              ? <Navigate to="/pages/albumList" replace />
               : <Navigate to="/pages/welcome" replace />
           }/>
 
@@ -39,7 +39,7 @@ function App() {
           <Route path="/pages/login" element={<Login/>}/>
           <Route path="/pages/register" element={<Register/>}/>
           <Route path="/pages/openAnAlbum" element={<OpenAnAlbum/>}/>
-          <Route path="/pages/allAlbums" element={<AllAlbums/>}/>
+          <Route path="/pages/albumList" element={<AlbumList/>}/>
           <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
           <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
         </Routes>
