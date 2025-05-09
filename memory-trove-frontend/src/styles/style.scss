@@ -1,7 +1,18 @@
+* {
+    border: 1px solid red;
+}
+
+.container{
+    position: absolute;
+    top: 100px;
+}
+
 header{
     display: flex;
     align-items: center;
     gap: 20px;
+    position: fixed;
+    width: 100%;
 
     
     nav{

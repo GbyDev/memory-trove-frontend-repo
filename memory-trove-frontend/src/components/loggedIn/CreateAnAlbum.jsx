@@ -86,37 +86,39 @@ export default function CreateAnAlbum() {
 
     return (
         <>
-            <h1>Create an Album</h1>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <label>Album Name</label>
-                <br />
-                <input
-                    type="text"
-                    name="album_name"
-                    value={albumName}
-                    onChange={(e) => setAlbumName(e.target.value)}
-                />
-                <br />
-                <label>Description</label>
-                <br />
-                <textarea
-                    name="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="description-textarea"
-                />
-                <br />
-                <label>Cover Photo</label>
-                <br />
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => setCoverPhoto(e.target.files[0])}
-                />
-                <br />
-                <button type="submit">Create</button>
-                <p className="prompt">{prompt}</p>
-            </form>
+            <div className="container">
+                <h1>Create an Album</h1>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                    <label>Album Name</label>
+                    <br />
+                    <input
+                        type="text"
+                        name="album_name"
+                        value={albumName}
+                        onChange={(e) => setAlbumName(e.target.value)}
+                    />
+                    <br />
+                    <label>Description</label>
+                    <br />
+                    <textarea
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="description-textarea"
+                    />
+                    <br />
+                    <label>Cover Photo</label>
+                    <br />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setCoverPhoto(e.target.files[0])}
+                    />
+                    <br />
+                    <button type="submit">Create</button>
+                    <p className="prompt">{prompt}</p>
+                </form>
+            </div>
         </>
     );
 }

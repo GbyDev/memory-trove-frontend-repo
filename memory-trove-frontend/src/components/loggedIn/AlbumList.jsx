@@ -5,7 +5,7 @@ import EmptyAlbums from "./album_list_components/EmptyAlbums";
 import AllAvailableAlbums from "./album_list_components/AllAvailableAlbums";
 
 //NOTE: This component serves as a junction, between the album list and the empty album list components.
-//You know the thing bla bla if empty, the empty
+//You know the thing bla bla if empty, the empty component is used
 export default function AlbumList() {
     const { userId } = useContext(AuthContext);
     const [numOfAlbums, setNumOfAlbums] = useState(null); // Use null as initial state to indicate loading
@@ -48,14 +48,23 @@ export default function AlbumList() {
     if (numOfAlbums === null) {
         return <p>Loading albums...</p>;
     }
-
+    
     return numOfAlbums > 0 ? 
     (
-        <AllAvailableAlbums albumCount={numOfAlbums} />
+        <>
+            <div className="container">
+                <AllAvailableAlbums albumCount={numOfAlbums} />
+            </div>
+        </>
+        
     ) 
     : 
     (
-        <EmptyAlbums />
+        <>
+            <div className="container">
+                <EmptyAlbums />
+            </div>
+        </>
     );
 }
 
