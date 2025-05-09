@@ -6,7 +6,7 @@ export default function OpenAnAlbum(){
             <div className="OpenAnAlbumPage">
                 <div className="text-content">
                     <h1>Scan QR Code</h1>
-                    <p>bla bla bla</p>
+                    <p>To access an events album as a guest.</p>
                 </div>
                 <div className="img-content">
                     <img src={sampleQrCode} alt="Sample QR Code"></img>

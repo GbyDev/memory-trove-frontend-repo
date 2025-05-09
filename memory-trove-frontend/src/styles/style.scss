@@ -1,15 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 //CSS reset
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
+html, body{
+    overflow-x: hidden;
+}
+
+
+//Variables
+$site-default-blue:#51c3c4;
+$site-default-yellow:#fbc363;
 
 //For debug
+/**/
 * {
-    border: 1px solid red;
+    border: 1px solid rgba(255, 0, 0, 0); //set to 100 for debugging, because bla bla bla
 }
 
+//Global Styles
+//Default font
+*{
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background-color: $site-default-yellow;
+}
+button:hover{
+    background-color: $site-default-yellow;
+}
+
+
+/**/
 //Header Component
 header{
     display: flex;
@@ -17,38 +43,85 @@ header{
     gap: 20px;
     position: fixed;
     width: 100%;
+    max-width: 100%;
     height: 70px;
+    background-color: white;
 
+    //default bg color
+    *{
+        background-color: white;
+    }
     .logo{
+        padding-left: 3vw;
         flex-grow: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
     }
     
     nav{
         display: flex;
         flex-grow: 0.1;
-        gap: 10px;
         justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        a{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0px 10px;
+            color: black;
+        }
+        a:hover{
+            background-color: $site-default-blue;
+        }
+        a:active{
+            background-color: $site-default-yellow;
+        }
     }
 }
 
 
-
 .main-container{
     //position: absolute;
-    top: 100px;
+    margin-top: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 80vh;
+    overflow-y: hidden;
 
     .WelcomePage{
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 20px;
-        padding: 10%;
-        padding-top: 20%;
+        padding: 6%;
+        
+        .text-content{
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            button{
+                width: 200px;
+                height: 40px;
+                border-radius: 15px;
+            }
+
+            button:hover{
+                background-color: $site-default-blue;
+            }
+        }
+
+        .img-content{
+            img{
+                border-radius: 15px;
+            }
+        }
     }
 
     .LoginPage{
@@ -57,7 +130,53 @@ header{
         align-items: center;
         flex-direction: column;
         gap: 20px;
-        padding: 6%;
+        padding: 3%;
+        background-color: $site-default-blue;
+        border-radius: 15px;
+
+
+        form {
+            width: 300px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            
+
+            input{
+                width: 230px;
+                height: 25px;
+                border-radius: 15px;
+            }
+
+            .password-field{
+                display: flex;
+                margin-bottom: 20px; //push submit button lower
+
+                input{
+                    width: 230px;
+                    //border-radius: top-left top-right bottom-right bottom-left;
+                    border-radius: 15px 0px 0px 15px;
+                }
+                button{
+                    width: 50px;
+                    //border-radius: top-left top-right bottom-right bottom-left;
+                    border-radius: 0px 15px 15px 0px;
+                }
+            }
+
+            .submit-btn{
+                display: flex;
+                justify-content: center;
+
+                button{
+                    width: 100px;
+                    height: 30px;
+                    border-radius: 15px;
+                }
+            }
+        }
     }
     
     .RegisterPage{
@@ -66,7 +185,52 @@ header{
         align-items: center;
         flex-direction: column;
         gap: 20px;
-        padding: 6%;
+        padding: 3%;
+        background-color: $site-default-blue;
+        border-radius: 15px;
+
+
+        form {
+            width: 300px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+
+            input{
+                width: 230px;
+                height: 25px;
+                border-radius: 15px;
+            }
+
+            .password-field{
+                display: flex;
+                margin-bottom: 20px; //push submit button lower
+
+                input{
+                    width: 230px;
+                    //border-radius: top-left top-right bottom-right bottom-left;
+                    border-radius: 15px 0px 0px 15px;
+                }
+                button{
+                    width: 50px;
+                    //border-radius: top-left top-right bottom-right bottom-left;
+                    border-radius: 0px 15px 15px 0px;
+                }
+            }
+
+            .submit-btn{
+                display: flex;
+                justify-content: center;
+
+                button{
+                    width: 100px;
+                    height: 30px;
+                    border-radius: 15px;
+                }
+            }
+        }
     }
 
     .OpenAnAlbumPage{
@@ -76,11 +240,19 @@ header{
         gap: 20px;
         padding: 1%;
     }
+
+    .AccountSettingsPage{
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    
+    
 }
 
-
-//Album List Component
-.album-list-container{
+.AllAlbumsContainer{
     display: flex;
-    flex-wrap: wrap;
+    
 }
+

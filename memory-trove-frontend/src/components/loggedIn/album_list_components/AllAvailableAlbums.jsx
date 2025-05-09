@@ -63,10 +63,13 @@ export default function AllAvailableAlbums({ albumCount }) {
     const { username } = useContext(AuthContext);
 
     return (
-        <>
+        <>  
+        <div className="AllAvailableAlbumsPage">
             <h1>{username}&apos;s Album Collection</h1>
             <p>You have {albumCount} albums.</p>
-            <ListOfAlbums albumTotal={albumCount} />
+            <ListOfAlbums className="AlbumItemContainer" albumTotal={albumCount} />
+        </div>
+            
         </>
     );
 }

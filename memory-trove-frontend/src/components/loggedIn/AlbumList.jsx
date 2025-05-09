@@ -51,12 +51,21 @@ export default function AlbumList() {
     
     return numOfAlbums > 0 ? 
     (
+        <>
+            <div className="main-container">
+                <AllAvailableAlbums albumCount={numOfAlbums} />
+            </div>
+        </>
         
-        <AllAvailableAlbums albumCount={numOfAlbums} />
     ) 
     : 
     (
-        <EmptyAlbums />
+        <>
+            <div className="main-container">
+                <EmptyAlbums />
+            </div>
+        </>
+        
     );
 }
 

@@ -18,8 +18,6 @@ import './styles/style.scss';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { AuthContext } from './contexts/AuthContext.jsx';
 
-
-
 function App() {
   const {isLoggedIn} = useContext(AuthContext);
 

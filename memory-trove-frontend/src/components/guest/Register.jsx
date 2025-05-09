@@ -117,40 +117,38 @@ export default function Register(){
                 <h1>Register Page</h1>
                 <form onSubmit={handle_submit}>
                     <label>Username</label>
-                    <br/>
                     <input 
                         type = "text" 
                         name = "username"
                         value = {username}
                         onChange = {(e) => set_username(e.target.value)}
                     />
-                    <br/>
                     <label>Email</label>
-                    <br/>
                     <input 
                         type = "email" 
                         name = "email"
                         value = {email}
                         onChange = {(e) => set_email(e.target.value)}
                     />
-                    <br/>
                     <label>Password</label>
-                    <br/>
-                    <input 
-                        type = {password_reveal ? "text" : "password"}
-                        name = "password"
-                        value={password}
-                        onChange = {(e) => set_password(e.target.value)}
-                    />
-                    
-                    <button 
-                        type = "button"
-                        onClick = {() => set_password_reveal(!password_reveal)}
-                    >
-                        <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
-                    </button>
-                    <br/>
-                    <button type = "submit">Register</button>
+                    <div className="password-field">
+                        <input 
+                            type = {password_reveal ? "text" : "password"}
+                            name = "password"
+                            value={password}
+                            onChange = {(e) => set_password(e.target.value)}
+                        />
+                        
+                        <button 
+                            type = "button"
+                            onClick = {() => set_password_reveal(!password_reveal)}
+                        >
+                            <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
+                        </button>
+                    </div>
+                    <div className="submit-btn">
+                        <button type = "submit">Register</button>
+                    </div>
                     <p className="prompt">{prompt}</p>
                 </form>
             </div>
