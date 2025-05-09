@@ -32,3 +32,6 @@ npm install react-router-dom
 
 8. run command
 npm install npm install axios
+
+9. run command
+npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons

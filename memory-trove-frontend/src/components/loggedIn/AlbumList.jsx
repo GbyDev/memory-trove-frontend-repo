@@ -51,6 +51,7 @@ export default function AlbumList() {
     
     return numOfAlbums > 0 ? 
     (
+        
         <AllAvailableAlbums albumCount={numOfAlbums} />
     ) 
     : 
