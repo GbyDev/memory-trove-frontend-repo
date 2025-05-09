@@ -126,37 +126,35 @@ export default function Login(){
     
     return (
         <>
-            <div className="container">
-                <h1>Login Page</h1>
-                <form onSubmit = {handle_submit}>
-                    <label>Username or Email</label>
-                    <br/>
-                    <input 
-                        type = "text" 
-                        name = "username_email" 
-                        value = {username_email} 
-                        onChange = {(e) => set_username_Email(e.target.value)}
-                    />
-                    <br/>
-                    <label>Password</label>
-                    <br/>
-                    <input 
-                        type = {password_reveal ? "text" : "password"}
-                        name = "password"
-                        value = {password}
-                        onChange = {(e) => set_password(e.target.value)}
-                    />
-                    <button
-                        type = "button"
-                        onClick = {() => set_password_reveal(!password_reveal)}    
-                    >
-                        {password_reveal ? "Hide" : "Reveal"}
-                    </button>
-                    <br/>
-                    <button>Login</button>
-                    <p className="prompt">{prompt}</p>
-                </form>
-            </div>
+            <h1>Login Page</h1>
+            <form onSubmit = {handle_submit}>
+                <label>Username or Email</label>
+                <br/>
+                <input 
+                    type = "text" 
+                    name = "username_email" 
+                    value = {username_email} 
+                    onChange = {(e) => set_username_Email(e.target.value)}
+                />
+                <br/>
+                <label>Password</label>
+                <br/>
+                <input 
+                    type = {password_reveal ? "text" : "password"}
+                    name = "password"
+                    value = {password}
+                    onChange = {(e) => set_password(e.target.value)}
+                />
+                <button
+                    type = "button"
+                    onClick = {() => set_password_reveal(!password_reveal)}    
+                >
+                    {password_reveal ? "Hide" : "Reveal"}
+                </button>
+                <br/>
+                <button>Login</button>
+                <p className="prompt">{prompt}</p>
+            </form>
         </> 
     );
 }

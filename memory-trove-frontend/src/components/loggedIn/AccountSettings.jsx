@@ -19,12 +19,10 @@ export default function AccountSettings(){
 
     return(
         <>
-            <div className="container">
-                <h1>Account Settings</h1>
-                <button type = "button" onClick = {handleLogOut}>
-                    Click to log out
-                </button>
-            </div>
+            <h1>Account Settings</h1>
+            <button type = "button" onClick = {handleLogOut}>
+                Click to log out
+            </button>
         </>
     );
 }

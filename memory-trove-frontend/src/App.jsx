@@ -27,22 +27,25 @@ function App() {
     <>
       <BrowserRouter>
         <Headers/>
-        <Routes>  
-          {/*Default route*/}
-          <Route path="/" element={
-            isLoggedIn
-              ? <Navigate to="/pages/albumList" replace />
-              : <Navigate to="/pages/welcome" replace />
-          }/>
+        <div className="main-body">
+          <Routes>  
+            {/*Default route*/}
+            <Route path="/" element={
+              isLoggedIn
+                ? <Navigate to="/pages/albumList" replace />
+                : <Navigate to="/pages/welcome" replace />
+            }/>
 
-          <Route path="/pages/welcome" element={<Welcome/>} />
-          <Route path="/pages/login" element={<Login/>}/>
-          <Route path="/pages/register" element={<Register/>}/>
-          <Route path="/pages/openAnAlbum" element={<OpenAnAlbum/>}/>
-          <Route path="/pages/albumList" element={<AlbumList/>}/>
-          <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
-          <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
-        </Routes>
+            <Route path="/pages/welcome" element={<Welcome/>} />
+            <Route path="/pages/login" element={<Login/>}/>
+            <Route path="/pages/register" element={<Register/>}/>
+            <Route path="/pages/openAnAlbum" element={<OpenAnAlbum/>}/>
+            <Route path="/pages/albumList" element={<AlbumList/>}/>
+            <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
+            <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
+          </Routes>
+        </div>
+        
       </BrowserRouter>
     </>
   )
