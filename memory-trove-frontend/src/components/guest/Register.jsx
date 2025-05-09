@@ -1,6 +1,8 @@
 import {useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Register(){
@@ -145,7 +147,7 @@ export default function Register(){
                         type = "button"
                         onClick = {() => set_password_reveal(!password_reveal)}
                     >
-                        {password_reveal ? "Hide" : "Reveal"}
+                        <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
                     </button>
                     <br/>
                     <button type = "submit">Register</button>

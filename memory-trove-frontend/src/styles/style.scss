@@ -48,6 +48,7 @@ header{
         align-items: center;
         gap: 20px;
         padding: 10%;
+        padding-top: 20%;
     }
 
     .LoginPage{
@@ -57,6 +58,23 @@ header{
         flex-direction: column;
         gap: 20px;
         padding: 6%;
+    }
+    
+    .RegisterPage{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        padding: 6%;
+    }
+
+    .OpenAnAlbumPage{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 1%;
     }
 }
 

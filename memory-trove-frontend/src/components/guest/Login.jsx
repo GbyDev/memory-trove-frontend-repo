@@ -2,6 +2,8 @@ import { AuthContext } from "../../contexts/AuthContext.jsx";
 import {useState, useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login(){
     const {login, isLoggedIn} = useContext(AuthContext);
@@ -149,8 +151,8 @@ export default function Login(){
                     <button
                         type = "button"
                         onClick = {() => set_password_reveal(!password_reveal)}    
-                    >
-                        {password_reveal ? "Hide" : "Reveal"}
+                    >   
+                        <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
                     </button>
                     <br/>
                     <button>Login</button>
