@@ -1,12 +1,14 @@
 import { AuthContext } from "../../../contexts/AuthContext";
-import { useContext, useEffect, useState } from "react";
-import AlbumItem from "../../UI/AlbumItem";
+import { useContext, useEffect, useState, useRef } from "react";
+import AlbumItem from "./AlbumItem";
 import axios from "axios";
 
-async function GetAlbumFromBackend(albumTotal, userId) {
+async function fetchAlbums(albumTotal, userId) {
     const albumDataList = [];
 
     for (let i = 0; i < albumTotal; i++) {
+        console.log(`📦 Fetching album #${i}`);
+
         const formData = new FormData();
         formData.append("user_id", userId);
         formData.append("current_album_num", i);
@@ -21,13 +23,10 @@ async function GetAlbumFromBackend(albumTotal, userId) {
                     },
                 }
             );
-            console.log(response.data);
-            //alert(response.data.message);
+            console.log(`✅ Response for album #${i}:`, response.data);
             albumDataList.push(response.data);
-        } 
-        catch (error) {
-            console.error("Error sending data", error);
-            alert("There was an error getting the album details.");
+        } catch (error) {
+            console.error(`❌ Error fetching album #${i}:`, error);
             break;
         }
     }
@@ -35,23 +34,27 @@ async function GetAlbumFromBackend(albumTotal, userId) {
     return albumDataList;
 }
 
-export function ListOfAlbums({ albumTotal }) {
+function ListOfAlbums({ albumTotal }) {
     const { userId } = useContext(AuthContext);
     const [albumList, setAlbumList] = useState([]);
+    const hasFetched = useRef(false); // 🛡 Prevent duplicate fetching
 
     useEffect(() => {
-        async function handleAlbumLoad() {
-            const albums = await GetAlbumFromBackend(albumTotal, userId);
+        if (!userId || albumTotal <= 0 || hasFetched.current) return;
+
+        console.log("🔥 Fetching albums with albumTotal:", albumTotal, "userId:", userId);
+        hasFetched.current = true; // ✅ Ensure only one fetch
+
+        async function loadAlbums() {
+            const albums = await fetchAlbums(albumTotal, userId);
             setAlbumList(albums);
         }
 
-        if (albumTotal > 0) {
-            handleAlbumLoad();
-        }
+        loadAlbums();
     }, [albumTotal, userId]);
 
     return (
-        <div>
+        <div className="album-item-container">
             {albumList.map((album, index) => (
                 <AlbumItem key={index} album={album} />
             ))}
@@ -61,15 +64,20 @@ export function ListOfAlbums({ albumTotal }) {
 
 export default function AllAvailableAlbums({ albumCount }) {
     const { username } = useContext(AuthContext);
+    console.log("🚀 albumCount passed to AllAvailableAlbums:", albumCount);
 
     return (
-        <>  
-        <div className="AllAvailableAlbumsPage">
-            <h1>{username}&apos;s Album Collection</h1>
-            <p>You have {albumCount} albums.</p>
-            <ListOfAlbums className="AlbumItemContainer" albumTotal={albumCount} />
-        </div>
-            
+        <>
+            <div className="album-list-header">
+                <h1>{username}&apos;s Album Collection</h1>
+                <p>You have {albumCount} albums.</p>
+            </div>
+            <div className = "album-list-sidebar">
+                <p>Sort by</p>
+                <button>Date Created</button>
+                <button>Alphabetical</button>
+            </div>
+            <ListOfAlbums albumTotal={albumCount} />
         </>
     );
 }

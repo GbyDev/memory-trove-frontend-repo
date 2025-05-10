@@ -10,6 +10,7 @@ import OpenAnAlbum from './components/guest/OpenAnAlbum.jsx';
 import AlbumList from './components/loggedIn/AlbumList.jsx';
 import CreateAnAlbum from './components/loggedIn/CreateAnAlbum.jsx';
 import AccountSettings from './components/loggedIn/AccountSettings.jsx';
+import AlbumOpened from './components/loggedIn/album_list_components/AlbumOpened.jsx';
 
 //UI
 import { Headers } from './components/UI/Headers.jsx';
@@ -41,6 +42,7 @@ function App() {
               <Route path="/pages/albumList" element={<AlbumList/>}/>
               <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
               <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
+              <Route path ="/pages/albumList/:albumId" element={<AlbumOpened/>}/>
             </Routes>
         </div>
       </BrowserRouter>
