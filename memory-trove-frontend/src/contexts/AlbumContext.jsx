@@ -1,8 +1,9 @@
-import { createContext, useState, useEffect} from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AlbumContext = createContext();
 
 export function AlbumDataProvider({ children }) {
+    const [albumId, setAlbumId] = useState(0);
     const [albumName, setAlbumName] = useState("");
     const [albumFolderPath, setAlbumFolderPath] = useState("");
     const [dateCreated, setDateCreated] = useState("");
@@ -10,13 +11,12 @@ export function AlbumDataProvider({ children }) {
     const [albumDescription, setAlbumDescription] = useState("");
     const [albumCoverImagePath, setAlbumCoverImagePath] = useState("");
     
+    const [openAlbumState, setOpenAlbumState] = useState(false);
 
-    const [openAlbumState , setOpenAlbumState] = useState(false);
-
-     // Load from localStorage on mount
     useEffect(() => {
         const storedOpen = localStorage.getItem("openAlbumState");
         if (storedOpen === "true") {
+            setAlbumId(localStorage.getItem("albumId") || "");
             setAlbumName(localStorage.getItem("albumName") || "");
             setAlbumFolderPath(localStorage.getItem("albumFolderPath") || "");
             setDateCreated(localStorage.getItem("dateCreated") || "");
@@ -28,6 +28,7 @@ export function AlbumDataProvider({ children }) {
     }, []);
 
     function openAlbum(albumData) {
+        setAlbumId(albumData.albumId);
         setAlbumName(albumData.albumName);
         setAlbumFolderPath(albumData.albumFolderPath);
         setDateCreated(albumData.dateCreated);
@@ -36,7 +37,7 @@ export function AlbumDataProvider({ children }) {
         setAlbumCoverImagePath(albumData.albumCoverImagePath);
         setOpenAlbumState(true);
 
-        //Store in storage
+        localStorage.setItem("albumId", albumData.albumId);
         localStorage.setItem("albumName", albumData.albumName);
         localStorage.setItem("albumFolderPath", albumData.albumFolderPath);
         localStorage.setItem("dateCreated", albumData.dateCreated);
@@ -46,7 +47,8 @@ export function AlbumDataProvider({ children }) {
         localStorage.setItem("openAlbumState", "true");
     }
 
-    function closeAlbum(){
+    function closeAlbum() {
+        setAlbumId(null);
         setAlbumName(null);
         setAlbumFolderPath(null);
         setDateCreated(null);
@@ -55,17 +57,19 @@ export function AlbumDataProvider({ children }) {
         setAlbumCoverImagePath(null);
         setOpenAlbumState(false);
 
-        //Remove from storage
+        localStorage.removeItem("albumId");
         localStorage.removeItem("albumName");
         localStorage.removeItem("albumFolderPath");
         localStorage.removeItem("dateCreated");
         localStorage.removeItem("welcomeText");
         localStorage.removeItem("albumDescription");
         localStorage.removeItem("albumCoverImagePath");
-        localStorage.removeItem("openedAlbum");
+        localStorage.removeItem("openAlbumState");
     }
 
     return (
-        <AlbumContext.Provider value={{ albumName, albumFolderPath, dateCreated, welcomeText,albumDescription, albumCoverImagePath, openAlbumState, openAlbum, closeAlbum }}>{children}</AlbumContext.Provider>
+        <AlbumContext.Provider value={{ albumId, albumName, albumFolderPath, dateCreated, welcomeText, albumDescription, albumCoverImagePath, openAlbumState, openAlbum, closeAlbum }}>
+            {children}
+        </AlbumContext.Provider>
     );
 }
