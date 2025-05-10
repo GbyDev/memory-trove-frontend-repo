@@ -10,7 +10,10 @@ import OpenAnAlbum from './components/guest/OpenAnAlbum.jsx';
 import AlbumList from './components/loggedIn/AlbumList.jsx';
 import CreateAnAlbum from './components/loggedIn/CreateAnAlbum.jsx';
 import AccountSettings from './components/loggedIn/AccountSettings.jsx';
-import AlbumOpened from './components/loggedIn/album_list_components/AlbumOpened.jsx';
+
+import Media from './components/albumOpenPages/Media.jsx';
+import GetQRCode from './components/albumOpenPages/GetQRCode.jsx';
+import EditAlbum from './components/albumOpenPages/EditAlbum.jsx';
 
 //UI
 import { Headers } from './components/UI/Headers.jsx';
@@ -41,7 +44,10 @@ function App() {
               <Route path="/pages/albumList" element={<AlbumList/>}/>
               <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
               <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
-              <Route path ="/pages/albumList/albumOpened" element={<AlbumOpened/>}/>
+              <Route path ="/pages/media" element={<Media/>}/>
+              <Route path="/pages/getQRCode" element={<GetQRCode/>}/>
+              <Route path="/pages/editAlbum" element={<EditAlbum/>}/>
+
             </Routes>
         </div>
       </BrowserRouter>

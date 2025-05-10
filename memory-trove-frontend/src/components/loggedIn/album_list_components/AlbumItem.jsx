@@ -13,7 +13,7 @@ export default function AlbumItem({ album }) {
     function handleClick(){
         console.log(album);
         openAlbum(album);
-        navigate(`/pages/albumList/albumOpened`);
+        navigate(`/pages/media`);
     }
 
     return (

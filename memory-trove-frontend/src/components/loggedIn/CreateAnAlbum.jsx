@@ -59,6 +59,7 @@ export default function CreateAnAlbum() {
             const formData = new FormData();
             formData.append("user_id", userId);
             formData.append("album_name", albumName);
+            formData.append("welcome_text", welcomeTxt);
             formData.append("album_desc", description);
             formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Optional, or remove
             if (coverPhoto) {

@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link} from 'react-router-dom';
+import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AlbumContext } from '../../contexts/AlbumContext';
 
 export function Headers() {
     const { isLoggedIn } = useContext(AuthContext);
-    const {openAlbumState} = useContext(AlbumContext);
+    const { openAlbumState} = useContext(AlbumContext);
+
     if (openAlbumState) return <AlbumHeader />;
     return isLoggedIn ? <LoggedInHeader /> : <GuestHeader />;
 }
-
 
 export function GuestHeader(){
     return(
@@ -62,16 +62,16 @@ export function AlbumHeader(){
                 <h1>{albumName}</h1>
             </div>
             <nav>
-                <Link>
+                <Link to = "/pages/media">
                     Media
                 </Link>
-                <Link>
+                <Link to = "/pages/getQRCode">
                     Get QR Code
                 </Link>
-                <Link>
+                <Link to = "/pages/editAlbum">
                     Edit Album
                 </Link>
-                <Link>
+                <Link to = "/pages/albumList">
                     Back to Album List
                 </Link>
             </nav>

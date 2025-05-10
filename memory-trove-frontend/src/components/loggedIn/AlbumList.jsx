@@ -1,16 +1,24 @@
 import { useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { AlbumContext } from "../../contexts/AlbumContext";
 import axios from "axios";
 import EmptyAlbums from "./album_list_components/EmptyAlbums";
 import AllAvailableAlbums from "./album_list_components/AllAvailableAlbums";
+import {useNavigationType } from "react-router-dom";
 
 //NOTE: This component serves as a junction, between the album list and the empty album list components.
 //You know the thing bla bla if empty, the empty component is used
 export default function AlbumList() {
     const { userId } = useContext(AuthContext);
+    const {closeAlbum} = useContext(AlbumContext);
     const [numOfAlbums, setNumOfAlbums] = useState(null); // Use null as initial state to indicate loading
+    const { navigationType } = useNavigationType();
 
     useEffect(() => {
+        //When you press back button from browsers, automatically remove album data
+        if (navigationType !== "POP") {
+        closeAlbum();
+    }
         async function determineAlbumCount() {
             try {
                 const response = await axios.post(
@@ -45,9 +53,9 @@ export default function AlbumList() {
     }, [userId]);
 
     // Render loading state while data is being fetched
-    if (numOfAlbums === null) {
+    if (numOfAlbums === null) 
         return <p>Loading albums...</p>;
-    }
+
     
     return numOfAlbums > 0 ? 
     (

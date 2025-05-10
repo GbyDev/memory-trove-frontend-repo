@@ -12,6 +12,7 @@ export default function AccountSettings(){
     }
 
     useEffect(() => {
+        
         if (isLoggedIn == false){
             navigate('/pages/welcome');
         }
