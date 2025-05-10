@@ -61,7 +61,7 @@ export default function CreateAnAlbum() {
             formData.append("album_name", albumName);
             formData.append("welcome_text", welcomeTxt);
             formData.append("album_desc", description);
-            formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Optional, or remove
+            formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Optional, or remove, link is still placeholder
             if (coverPhoto) {
                 formData.append("cover_photo", coverPhoto);
             }

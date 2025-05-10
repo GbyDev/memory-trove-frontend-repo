@@ -14,6 +14,7 @@ import AccountSettings from './components/loggedIn/AccountSettings.jsx';
 import Media from './components/albumOpenPages/Media.jsx';
 import GetQRCode from './components/albumOpenPages/GetQRCode.jsx';
 import EditAlbum from './components/albumOpenPages/EditAlbum.jsx';
+import UploadImage from './components/albumOpenPages/UploadImage.jsx';
 
 //UI
 import { Headers } from './components/UI/Headers.jsx';
@@ -47,6 +48,7 @@ function App() {
               <Route path ="/pages/media" element={<Media/>}/>
               <Route path="/pages/getQRCode" element={<GetQRCode/>}/>
               <Route path="/pages/editAlbum" element={<EditAlbum/>}/>
+              <Route path="/pages/uploadImage" element={<UploadImage/>}/>
 
             </Routes>
         </div>

@@ -18,9 +18,19 @@ export default function Media() {
     //Main page
     return (
         <div className="main-container">
-            <h3>{welcomeText}</h3>
-            <p>{albumDescription}</p>
-            <p>{dateCreated}</p>
+            <div className="text-content">
+                <h3>{welcomeText}</h3>
+                <p>{albumDescription}</p>
+                <p>{dateCreated}</p>
+            </div>
+            <div className="section">
+                <div className="sidebar">
+                    
+                </div>
+                <div className="img-list">
+                    
+                </div>
+            </div>
         </div>
     );
 }

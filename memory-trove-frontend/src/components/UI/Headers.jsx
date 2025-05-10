@@ -65,14 +65,14 @@ export function AlbumHeader(){
                 <Link to = "/pages/media">
                     Media
                 </Link>
+                <Link to = "/pages/uploadImage">
+                    Upload an Image
+                </Link>
                 <Link to = "/pages/getQRCode">
                     Get QR Code
                 </Link>
                 <Link to = "/pages/editAlbum">
                     Edit Album
-                </Link>
-                <Link to = "/pages/albumList">
-                    Back to Album List
                 </Link>
             </nav>
 
