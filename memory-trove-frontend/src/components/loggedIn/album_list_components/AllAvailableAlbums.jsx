@@ -7,7 +7,7 @@ async function fetchAlbums(albumTotal, userId) {
     const albumDataList = [];
 
     for (let i = 0; i < albumTotal; i++) {
-        console.log(`📦 Fetching album #${i}`);
+        console.log(`Fetching album #${i}`);
 
         const formData = new FormData();
         formData.append("user_id", userId);
@@ -37,13 +37,11 @@ async function fetchAlbums(albumTotal, userId) {
 function ListOfAlbums({ albumTotal }) {
     const { userId } = useContext(AuthContext);
     const [albumList, setAlbumList] = useState([]);
-    const hasFetched = useRef(false); // 🛡 Prevent duplicate fetching
+    const hasFetched = useRef(false); // Prevent duplicate fetching
 
     useEffect(() => {
         if (!userId || albumTotal <= 0 || hasFetched.current) return;
-
-        console.log("🔥 Fetching albums with albumTotal:", albumTotal, "userId:", userId);
-        hasFetched.current = true; // ✅ Ensure only one fetch
+        hasFetched.current = true; // Ensure only one fetch
 
         async function loadAlbums() {
             const albums = await fetchAlbums(albumTotal, userId);
@@ -64,7 +62,7 @@ function ListOfAlbums({ albumTotal }) {
 
 export default function AllAvailableAlbums({ albumCount }) {
     const { username } = useContext(AuthContext);
-    console.log("🚀 albumCount passed to AllAvailableAlbums:", albumCount);
+    console.log("albumCount passed to AllAvailableAlbums:", albumCount);
 
     return (
         <>

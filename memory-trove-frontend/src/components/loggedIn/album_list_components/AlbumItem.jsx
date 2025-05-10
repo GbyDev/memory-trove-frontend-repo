@@ -11,8 +11,9 @@ export default function AlbumItem({ album }) {
     const navigate = useNavigate();
     const {openAlbum} = useContext(AlbumContext);
     function handleClick(){
+        console.log(album);
+        openAlbum(album);
         navigate(`/pages/albumList/albumOpened`);
-
     }
 
     return (
