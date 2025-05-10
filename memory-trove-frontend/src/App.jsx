@@ -16,7 +16,6 @@ import AlbumOpened from './components/loggedIn/album_list_components/AlbumOpened
 import { Headers } from './components/UI/Headers.jsx';
 
 import './styles/style.scss';
-import { AuthProvider } from './contexts/AuthContext.jsx';
 import { AuthContext } from './contexts/AuthContext.jsx';
 
 function App() {

@@ -7,6 +7,7 @@ export default function CreateAnAlbum() {
     const [albumName, setAlbumName] = useState("");
     const [prompt, setPrompt] = useState("");
     const [description, setDescription] = useState("");
+    const [welcomeTxt, setWelcomeTxt] = useState("");
     const [coverPhoto, setCoverPhoto] = useState(null); // New state for image
 
     async function handleSubmit(e) {
@@ -36,8 +37,17 @@ export default function CreateAnAlbum() {
             return false;
         }
 
-        function descriptionExceeds110Chars() {
-            if (description.length > 110) {
+        function welcomeTextExceeds100Chars() {
+            if (welcomeTxt.length > 100) {
+                setPromptColor("error");
+                setPrompt("Welcome text cannot exceed 100 characters.");
+                return true;
+            }
+            return false;
+        }
+
+        function descriptionExceeds300Chars() {
+            if (description.length > 300) {
                 setPromptColor("error");
                 setPrompt("Description cannot exceed 110 characters.");
                 return true;
@@ -69,7 +79,8 @@ export default function CreateAnAlbum() {
                 console.log(response.data);
                 setPromptColor(response.data.messageType);
                 setPrompt(response.data.message);
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error("Error sending data", error);
                 setPromptColor("error");
                 setPrompt("There was an error creating the album.");
@@ -77,8 +88,10 @@ export default function CreateAnAlbum() {
             return response.data;
         }
 
+        //Function calls
         if (albumNameIsInvalid()) return;
-        if (descriptionExceeds110Chars()) return;
+        if (welcomeTextExceeds100Chars()) return;
+        if (descriptionExceeds300Chars()) return;
 
         let response = await createTheAlbum();
         if (response.messageType === "error") return;
@@ -89,6 +102,7 @@ export default function CreateAnAlbum() {
             <div className="CreateAnAlbumPage">
                 <h1>Create an Album</h1>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
+
                     <label>Album Name</label>
                     <br />
                     <input
@@ -97,8 +111,20 @@ export default function CreateAnAlbum() {
                         value={albumName}
                         onChange={(e) => setAlbumName(e.target.value)}
                     />
+                    <p>The following options below are optional. You may fill them in later.</p>
                     <br />
-                    <label>Description</label>
+
+                    <label>Welcome text</label>
+                    <br />
+                    <textarea
+                        name="welcomeTxt"
+                        value={welcomeTxt}
+                        onChange={(e) => setWelcomeTxt(e.target.value)}
+                        className="welcomeTxt-textarea"
+                    />
+                    <br />
+
+                    <label>Description (maximum 110 characters)</label>
                     <br />
                     <textarea
                         name="description"
@@ -107,7 +133,8 @@ export default function CreateAnAlbum() {
                         className="description-textarea"
                     />
                     <br />
-                    <label>Cover Photo</label>
+                    
+                    <label>Cover Photo </label>
                     <br />
                     <input
                         type="file"
@@ -115,6 +142,7 @@ export default function CreateAnAlbum() {
                         onChange={(e) => setCoverPhoto(e.target.files[0])}
                     />
                     <br />
+
                     <button type="submit">Create</button>
                     <p className="prompt">{prompt}</p>
                 </form>
