@@ -42,7 +42,7 @@ function App() {
               <Route path="/pages/albumList" element={<AlbumList/>}/>
               <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
               <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
-              <Route path ="/pages/albumList/:albumId" element={<AlbumOpened/>}/>
+              <Route path ="/pages/albumList/albumOpened" element={<AlbumOpened/>}/>
             </Routes>
         </div>
       </BrowserRouter>

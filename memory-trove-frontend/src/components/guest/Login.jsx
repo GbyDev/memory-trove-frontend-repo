@@ -121,7 +121,7 @@ export default function Login(){
     useEffect(() => {
         if (isLoggedIn){
             alert("User is logged in. Redirecting to Dashboard...");
-            navigate('/pages/accountSettings'); 
+            navigate('/pages/albumList'); 
         }
             
     }, [isLoggedIn, navigate]);

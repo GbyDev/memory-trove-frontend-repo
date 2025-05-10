@@ -1,8 +1,22 @@
 
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+
 import defaultCoverImg from '../../../assets/default-album-cover.jpg';
+import { AlbumContext } from '../../../contexts/AlbumContext';
+
+
+
 export default function AlbumItem({ album }) {
+    const navigate = useNavigate();
+    const {openAlbum} = useContext(AlbumContext);
+    function handleClick(){
+        navigate(`/pages/albumList/albumOpened`);
+
+    }
+
     return (
-        <div className="album-item">
+        <div className="album-item" onClick={handleClick} style={{ cursor: 'pointer' }}>
             <img 
                 src={convertToWebPath(album.albumCoverImagePath)} 
                 height="200px" 
@@ -13,6 +27,7 @@ export default function AlbumItem({ album }) {
             <p>Date Created: {album.dateCreated}</p>
             <p>Description: {album.albumDescription || "No description"}</p>
         </div>
+        
     );
 }
 
