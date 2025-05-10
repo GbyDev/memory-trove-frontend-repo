@@ -14,7 +14,7 @@ export default function AlbumList() {
     const [numOfAlbums, setNumOfAlbums] = useState(null); // Use null as initial state to indicate loading
     const { navigationType } = useNavigationType();
 
-    useEffect(() => {
+    useEffect(() => {   
         //When you press back button from browsers, automatically remove album data
         if (navigationType !== "POP") {
         closeAlbum();

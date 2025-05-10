@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import { AlbumContext } from '../../contexts/AlbumContext';
+import ListOfImages from './image_list_components/ListOfImages';
 
 export default function Media() {
     const {openAlbumState, welcomeText, albumDescription, dateCreated} = useContext(AlbumContext);
@@ -24,11 +25,11 @@ export default function Media() {
                 <p>{dateCreated}</p>
             </div>
             <div className="section">
-                <div className="sidebar">
-                    
+                <div className="floating-toolbar">
+                    <p>bla bla</p>
                 </div>
                 <div className="img-list">
-                    
+                    <ListOfImages/>
                 </div>
             </div>
         </div>
