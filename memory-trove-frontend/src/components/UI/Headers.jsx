@@ -74,6 +74,9 @@ export function AlbumHeader(){
                 <Link to = "/pages/editAlbum">
                     Edit Album
                 </Link>
+                <Link to = "/pages/albumList">
+                    Back to Albums List
+                </Link>
             </nav>
 
         </header>

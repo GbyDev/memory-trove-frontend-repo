@@ -68,7 +68,17 @@ export function AlbumDataProvider({ children }) {
     }
 
     return (
-        <AlbumContext.Provider value={{ albumId, albumName, albumFolderPath, dateCreated, welcomeText, albumDescription, albumCoverImagePath, openAlbumState, openAlbum, closeAlbum }}>
+        <AlbumContext.Provider value={{ 
+            albumId, 
+            albumName, 
+            albumFolderPath, 
+            dateCreated, 
+            welcomeText, 
+            albumDescription, 
+            albumCoverImagePath, 
+            openAlbumState, 
+            openAlbum, 
+            closeAlbum }}>
             {children}
         </AlbumContext.Provider>
     );
