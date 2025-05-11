@@ -8,7 +8,8 @@ export default function CreateAnAlbum() {
     const [prompt, setPrompt] = useState("");
     const [description, setDescription] = useState("");
     const [welcomeTxt, setWelcomeTxt] = useState("");
-    const [coverPhoto, setCoverPhoto] = useState(null); // New state for image
+    const [coverPhoto, setCoverPhoto] = useState(null);
+    const [coverPhotoPreview, setCoverPhotoPreview] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -61,7 +62,7 @@ export default function CreateAnAlbum() {
             formData.append("album_name", albumName);
             formData.append("welcome_text", welcomeTxt);
             formData.append("album_desc", description);
-            formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Optional, or remove, link is still placeholder
+            formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             if (coverPhoto) {
                 formData.append("cover_photo", coverPhoto);
             }
@@ -89,7 +90,6 @@ export default function CreateAnAlbum() {
             return response.data;
         }
 
-        //Function calls
         if (albumNameIsInvalid()) return;
         if (welcomeTextExceeds100Chars()) return;
         if (descriptionExceeds300Chars()) return;
@@ -97,6 +97,14 @@ export default function CreateAnAlbum() {
         let response = await createTheAlbum();
         if (response.messageType === "error") return;
     }
+
+    const handleCoverPhotoChange = (e) => {
+        const file = e.target.files[0];
+        setCoverPhoto(file);
+        if (file) {
+            setCoverPhotoPreview(URL.createObjectURL(file));
+        }
+    };
 
     return (
         <>
@@ -140,15 +148,25 @@ export default function CreateAnAlbum() {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setCoverPhoto(e.target.files[0])}
+                        onChange={handleCoverPhotoChange}
                     />
                     <br />
+
+                    {coverPhotoPreview && (
+                        <div className="preview-container">
+                            <h3>Cover Photo Preview:</h3>
+                            <img
+                                src={coverPhotoPreview}
+                                alt="Cover Preview"
+                                style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                            />
+                        </div>
+                    )}
 
                     <button type="submit">Create</button>
                     <p className="prompt">{prompt}</p>
                 </form>
             </div>
-            
         </>
     );
 }

@@ -23,6 +23,7 @@ export default function AlbumItem({ album }) {
                 height="200px" 
                 width="140px" 
                 alt="Album Cover" 
+                style={{ objectFit: "contain" }}
             />
             <h4>{album.albumName}</h4>
             <p>Date Created: {album.dateCreated}</p>

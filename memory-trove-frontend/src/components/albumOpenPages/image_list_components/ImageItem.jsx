@@ -7,7 +7,13 @@ export function ImageItem({ img, index }) {
 
     return (
         <div key={index} className="image-item">
-            <img src={convertToWebPath(img.image_url)} alt={`Image ${index}`} />
+            <img 
+                src={convertToWebPath(img.image_url)} 
+                alt={`Image ${index}`}  
+                height="200px" 
+                width="140px" 
+                style={{ objectFit: "contain" }}
+            />
             <p>{img.caption || img.uploadedAt}</p>
         </div>
     );
