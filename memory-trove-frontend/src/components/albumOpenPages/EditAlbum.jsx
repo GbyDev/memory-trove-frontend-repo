@@ -28,7 +28,8 @@ export default function EditAlbum() {
             const convertedPath = convertToWebPath(albumCoverImagePath);
             if (convertedPath) {
                 setCoverPhotoPreview(convertedPath);
-            } else {
+            } 
+            else {
                 setCoverPhotoPreview(null); // Or a fallback default image URL
             }
         }
