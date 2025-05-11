@@ -9,7 +9,8 @@ export default function Media() {
         welcomeText,
         albumDescription,
         dateCreated,
-        albumId
+        albumId,
+        albumName,
     } = useContext(AlbumContext);
 
     const [imageCount, setImageCount] = useState(0);
@@ -33,7 +34,7 @@ export default function Media() {
         if (albumId) {
             fetchImageCount();
         }
-    }, [albumId]);
+    }, [albumId, welcomeText, albumDescription, albumName]);
 
     if (openAlbumState === false) {
         return <p>No album selected</p>;
