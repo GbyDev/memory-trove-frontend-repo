@@ -13,37 +13,75 @@ export default function AccountSettings(){
     const [prompt, setPrompt] = useState("");
     const {user, userId, logout, login, isLoggedIn} = useContext(AuthContext);
     const navigate = useNavigate();
+    const promptElement = document.querySelector('.prompt');
+    
+    function setPromptColor(msgType) {
+        if (msgType === 'error') 
+            promptElement.style.color = "red";
+        else if (msgType === 'success') 
+            promptElement.style.color = "green";
+        else 
+            promptElement.style.color = "black"; // Default color
+    }
 
     function handleLogOut(){
         //alert(`${username} is logged out.`);
         logout();
     }
+
+    //Literally just returns email, since i'm too lazy to change my code and have it be posted on AuthContext
+    async function getEmail(){
+
+        async function getEmailFromBackend(){
+            let response = {}; // Initialize response variable
+            try {
+                    response = await axios.post('http://localhost/memory-trove-backend/getEmail.php', {
+                    userId: userId,
+                    username: username,
+                    email: email,
+                    password: password,
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    }
+                });
+                console.log('Data sent!');
+                setPromptColor(response.data.messageType);
+                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
+            } 
+            catch (error) {
+                console.error('Error sending data', error);
+                setPromptColor('error');
+                setPrompt("There was an error during registration.");
+            }
+            return response.data; // Return the response
+        }
+        let response = await getEmailFromBackend();
+        return response.newEmail;
+    }
 
     useEffect(() => {
-        //Predetermined values (old values)
-        if (user){
-            set_username(username);
-            set_password(password);
+        async function initializeFields() {
+        if (user) {
+            const fetchedEmail = await getEmail();
+            set_username(user.username); 
+            set_email(fetchedEmail);
+            set_password(user.password); 
         }
-        if (isLoggedIn == false){
+        if (!isLoggedIn) {
             navigate('/pages/welcome');
         }
+    }
+
+    initializeFields();
     }, [username, email, password, isLoggedIn]);
 
 
     async function handle_submit(e){
         e.preventDefault();
-        const promptElement = document.querySelector('.prompt');
         
-        function setPromptColor(msgType) {
-            if (msgType === 'error') 
-                promptElement.style.color = "red";
-            else if (msgType === 'success') 
-                promptElement.style.color = "green";
-            else 
-                promptElement.style.color = "black"; // Default color
-        }
 
         function areInputsInvalid(){
             //If username has an @ symbol
