@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { AlbumContext } from "../../contexts/AlbumContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function EditAlbum() {
@@ -10,6 +11,7 @@ export default function EditAlbum() {
     const [coverPhoto, setCoverPhoto] = useState(null);
     const [coverPhotoPreview, setCoverPhotoPreview] = useState(null);
     const [prompt, setPrompt] = useState("");
+    const navigate = useNavigate();
 
     const { userId } = useContext(AuthContext);
     const {albumId, albumName, welcomeText, albumDescription, albumCoverImagePath, albumFolderPath, openAlbum, closeAlbum} = useContext(AlbumContext);
@@ -17,6 +19,7 @@ export default function EditAlbum() {
 
     // Fetch album details from the AlbumContext when the component mounts/loads
     useEffect(() => {
+        console.log("Album path: " + albumFolderPath + ", album id: " + albumId);
         if (albumId) {
             setNameOfAlbum(albumName);
             setWelcomeTxt(welcomeText);
@@ -47,11 +50,11 @@ export default function EditAlbum() {
         }
     };
 
-    function handleDeleteAlbum(){
+    async function handleDeleteAlbum(){
         const confirmed = window.confirm("Are you sure you want to delete this album? This action cannot be undone.");
         if (!confirmed) return;
         
-        axios.post('http://localhost/memory-trove-backend/deleteAlbum.php', {
+        let response = await axios.post('http://localhost/memory-trove-backend/deleteAlbum.php', {
             album_id: albumId,
             album_folder_path: albumFolderPath,
         })
@@ -59,10 +62,10 @@ export default function EditAlbum() {
             console.error('Delete failed:', error);
         });
 
-        setPromptColor("success");
-        setPrompt("Album deleted successfully.");
+        alert(response.data.message);
         //Clear from album context
-        closeAlbum(null);
+        closeAlbum();
+        navigate('/pages/albumList');
     }
 
     async function handleSubmit(e) {
