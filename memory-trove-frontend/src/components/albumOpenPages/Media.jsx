@@ -1,22 +1,44 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AlbumContext } from '../../contexts/AlbumContext';
 import ListOfImages from './image_list_components/ListOfImages';
+import axios from 'axios';
 
 export default function Media() {
-    const {openAlbumState, welcomeText, albumDescription, dateCreated} = useContext(AlbumContext);
+    const {
+        openAlbumState,
+        welcomeText,
+        albumDescription,
+        dateCreated,
+        albumId
+    } = useContext(AlbumContext);
 
-    //This part catches a scenario where the user has returned to the album list page,
-    //and when he uses the forward button in browser and tries to open the album again,
-    //where all the recent album data have been cleared, it redirects it here.
-    if (openAlbumState == false) {
-        return (
-            <>
-                <p>No album selected</p>
-            </>
-        );
+    const [imageCount, setImageCount] = useState(0);
+
+    useEffect(() => {
+        async function fetchImageCount() {
+            const formData = new FormData();
+            formData.append("album_id", albumId);
+
+            try {
+                const response = await axios.post(
+                    "http://localhost/memory-trove-backend/countNumberOfImages.php",
+                    formData
+                );
+                setImageCount(response.data.imageCount || 0);
+            } catch (error) {
+                console.error("Failed to fetch image count:", error);
+            }
+        }
+
+        if (albumId) {
+            fetchImageCount();
+        }
+    }, [albumId]);
+
+    if (openAlbumState === false) {
+        return <p>No album selected</p>;
     }
-        
-    //Main page
+
     return (
         <div className="main-container">
             <div className="text-content">
@@ -29,7 +51,7 @@ export default function Media() {
                     <p>bla bla</p>
                 </div>
                 <div className="img-list">
-                    <ListOfImages/>
+                    <ListOfImages imageTotal={imageCount} />
                 </div>
             </div>
         </div>

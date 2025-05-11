@@ -1,14 +1,12 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { AlbumContext } from "../../../contexts/AlbumContext";
 import axios from "axios";
+import { ImageItem } from "./ImageItem";
 
-// 📦 Loop-based fetch for each image
 async function fetchImages(imageTotal, albumId, albumFolderPath) {
     const imageDataList = [];
 
     for (let i = 0; i < imageTotal; i++) {
-        console.log(`Fetching image #${i}`);
-
         const formData = new FormData();
         formData.append("album_id", albumId);
         formData.append("album_folder_path", albumFolderPath);
@@ -24,8 +22,8 @@ async function fetchImages(imageTotal, albumId, albumFolderPath) {
                     },
                 }
             );
-
-            console.log(`✅ Response for image #${i}:`, response.data);
+            
+            console.log("Image API Response:", response.data);  // Log API response to verify
             imageDataList.push(response.data);
         } catch (error) {
             console.error(`❌ Error fetching image #${i}:`, error);
@@ -53,13 +51,11 @@ export default function ListOfImages({ imageTotal }) {
         loadImages();
     }, [albumId, albumFolderPath, imageTotal]);
 
+    console.log(imageList);
     return (
         <>
             {imageList.map((img, index) => (
-                <div key={index} className="image-item">
-                    <img src={img.image_url} alt={`Image ${index}`} />
-                    <p>{img.caption}</p>
-                </div>
+                <ImageItem key={index} img={img} />
             ))}
         </>
     );
