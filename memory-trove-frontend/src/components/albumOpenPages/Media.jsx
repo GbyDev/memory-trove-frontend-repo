@@ -49,7 +49,7 @@ export default function Media() {
             </div>
             <div className="section">
                 <div className="floating-toolbar">
-                    <p>bla bla</p>
+                    <p>tool bar here</p>
                 </div>
                 <div className="img-list">
                     <ListOfImages imageTotal={imageCount} />

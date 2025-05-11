@@ -21,17 +21,23 @@ export default function EditAlbum() {
     useEffect(() => {
         console.log("Album path: " + albumFolderPath + ", album id: " + albumId);
         if (albumId) {
-            setNameOfAlbum(albumName);
-            setWelcomeTxt(welcomeText);
-            setDescription(albumDescription);
-            setCoverPhotoPreview(convertToWebPath(albumCoverImagePath));
+            setNameOfAlbum(albumName || "");
+            setWelcomeTxt(welcomeText || "");
+            setDescription(albumDescription || "");
+
+            const convertedPath = convertToWebPath(albumCoverImagePath);
+            if (convertedPath) {
+                setCoverPhotoPreview(convertedPath);
+            } else {
+                setCoverPhotoPreview(null); // Or a fallback default image URL
+            }
         }
     }, [albumId, albumName, welcomeText, albumDescription, albumCoverImagePath]);
 
-    function convertToWebPath(localPath) { 
-        // Replace local path with web path
+    function convertToWebPath(localPath) {
+        if (!localPath || typeof localPath !== "string") return null;
         return localPath.replace("C:/xampp/htdocs", "http://localhost");
-    }   
+    }
 
     function setPromptColor(msgType) {
         if (msgType === "error")
@@ -61,8 +67,7 @@ export default function EditAlbum() {
         .catch(error => {
             console.error('Delete failed:', error);
         });
-
-        alert(response.data.message);
+        console.log(response.data)
         //Clear from album context
         closeAlbum();
         navigate('/pages/albumList');
@@ -114,6 +119,7 @@ export default function EditAlbum() {
             formData.append("new_album_name", nameOfAlbum);
             formData.append("welcome_text", welcomeTxt);
             formData.append("album_desc", description);
+            formData.append("album_folder_path", albumFolderPath);
             formData.append("url", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 
             // ✅ Append file ONLY if present
@@ -149,7 +155,17 @@ export default function EditAlbum() {
         setPromptColor("success");
         setPrompt("Updating album...");
         let response = await updateAlbum();
-        openAlbum(response.data);
+        console.log(response);
+        openAlbum({
+            albumId: response.albumId,
+            albumName: response.albumName,
+            albumFolderPath: response.albumFolderPath,
+            welcomeText: response.albumWelcomeText,
+            albumDescription: response.albumDescription,
+            albumCoverImagePath: response.albumCoverImagePath,
+            dateCreated: response.dateCreated
+        });
+        navigate(`/pages/media`);
     }
     return(
         <>  
