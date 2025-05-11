@@ -1,25 +1,30 @@
+import React from "react";
+
 export function ImageItem({ img, index }) {
-    console.log(img);
+    console.log("🧩 ImageItem received props:", { img, index });
+
+    // Check if the image object or image_url is undefined
     if (!img || !img.image_url) {
-        console.error(`Image URL is undefined for image at index ${index}`);
-        return null; // Don't render anything if image_url is not provided
+        console.error(`⚠️ Image URL is undefined for image at index ${index}`, img);
+        return null; // Don't render anything if image_url is missing
     }
 
+    // Handle image load errors
+    const handleError = () => {
+        console.error(`❌ Image failed to load at index ${index}`);
+    };
+
     return (
-        <div key={index} className="image-item">
-            <img 
-                src={convertToWebPath(img.image_url)} 
-                alt={`Image ${index}`}  
-                height="200px" 
-                width="140px" 
-                style={{ objectFit: "contain" }}
+        <div className="image-item">
+            <img
+                src={img.image_url} // Use the image_url directly
+                alt={`Image ${index}`}
+                height="200px"
+                width="140px"
+                style={{ objectFit: "contain",  backgroundColor:"lightgray" }}
+                onError={handleError} // If the image fails to load, log an error
             />
-            <p>{img.caption || img.uploadedAt}</p>
+            <p>Uploaded at: {img.uploadedAt}</p>
         </div>
     );
-}
-
-function convertToWebPath(localPath) {
-    if (!localPath) return ''; // Ensure we return an empty string if no path is provided
-    return localPath.replace("C:/xampp/htdocs", "http://localhost");
 }

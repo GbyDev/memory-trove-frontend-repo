@@ -3,6 +3,7 @@ import { AlbumContext } from "../../../contexts/AlbumContext";
 import axios from "axios";
 import { ImageItem } from "./ImageItem";
 
+// Fetch each image detail one by one
 async function fetchImages(imageTotal, albumId, albumFolderPath) {
     const imageDataList = [];
 
@@ -22,8 +23,8 @@ async function fetchImages(imageTotal, albumId, albumFolderPath) {
                     },
                 }
             );
-            
-            console.log("Image API Response:", response.data);  // Log API response to verify
+
+            console.log(`✅ API response for image ${i}:`, response.data);
             imageDataList.push(response.data);
         } catch (error) {
             console.error(`❌ Error fetching image #${i}:`, error);
@@ -45,18 +46,22 @@ export default function ListOfImages({ imageTotal }) {
 
         async function loadImages() {
             const images = await fetchImages(imageTotal, albumId, albumFolderPath);
+            console.log("🚀 Final image list set:", images); // Log final image list
             setImageList(images);
         }
 
         loadImages();
     }, [albumId, albumFolderPath, imageTotal]);
 
-    console.log(imageList);
     return (
         <>
-            {imageList.map((img, index) => (
-                <ImageItem key={index} img={img} />
-            ))}
+            {imageList.length > 0 ? (
+                imageList.map((img, index) => (
+                    <ImageItem key={index} img={img} index={index} />
+                ))
+            ) : (
+                <p>No images to display.</p>
+            )}
         </>
     );
 }

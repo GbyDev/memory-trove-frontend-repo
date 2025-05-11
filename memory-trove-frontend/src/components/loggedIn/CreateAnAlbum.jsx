@@ -47,10 +47,10 @@ export default function CreateAnAlbum() {
             return false;
         }
 
-        function descriptionExceeds300Chars() {
-            if (description.length > 300) {
+        function descriptionExceeds200Chars() {
+            if (description.length > 200) {
                 setPromptColor("error");
-                setPrompt("Description cannot exceed 110 characters.");
+                setPrompt("Description cannot exceed 200 characters.");
                 return true;
             }
             return false;
@@ -92,7 +92,7 @@ export default function CreateAnAlbum() {
 
         if (albumNameIsInvalid()) return;
         if (welcomeTextExceeds100Chars()) return;
-        if (descriptionExceeds300Chars()) return;
+        if (descriptionExceeds200Chars()) return;
 
         let response = await createTheAlbum();
         if (response.messageType === "error") return;
