@@ -91,30 +91,45 @@ export default function ListOfImages({ imageTotal }) {
             );
 
             console.log("Backend response:", response.data);
-            /*
-            if (response.data.success) {
-                console.log("Images deleted successfully");
-                setImageList(imageList.filter((img) => !selectedImages.includes(img.image_url)));
-                setSelectedImages([]);
-            } 
-            else {
-                console.error("Failed to delete images", response.data.message);
-            }
-                */
-        } catch (err) {
+        } 
+        catch (err) {
             console.error("Error deleting images:", err);
         }
 
-        //Necessary reload every after delete. Comment it for testing
-        //window.location.reload();
+        setImageList((prevList) => prevList.filter((img) => !selectedImages.includes(img.image_url)));
+        setSelectedImages([]);
     };
-    const handleDownload = () => {
-        selectedImages.forEach((url) => {
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = url.split("/").pop();
-            link.click();
+    
+    const handleDownload = async () => {
+
+        // Extract the filenames from the image URLs
+        const selectedFilenames = selectedImages.map((url) => {
+            const parts = url.split('/');
+            return parts[parts.length - 1]; // Extract filename from the URL
         });
+        console.log("Selected image filenames:", selectedFilenames);
+      
+        const data = {
+            album_folder_path: albumFolderPath,
+            selected_images: selectedFilenames, 
+        };
+
+        try {
+            const response = await axios.post(
+                "http://localhost/memory-trove-backend/deleteImages.php",
+                data, // Send JSON data instead of FormData
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            console.log("Backend response:", response.data);
+        } 
+        catch (err) {
+            console.error("Error deleting images:", err);
+        }
     };
 
     const handleExitSelectMode = () => {
