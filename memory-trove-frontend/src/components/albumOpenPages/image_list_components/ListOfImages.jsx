@@ -60,6 +60,9 @@ export default function ListOfImages({ imageTotal }) {
         console.log("Delete these:", selectedImages); // Log selected images to make sure they are correct
 
         let numOfSelectedImages = selectedImages.length;
+
+        if (numOfSelectedImages <= 0) return;
+
         let confirm = window.confirm(`Are you sure you want to delete ${numOfSelectedImages} images? This action cannot be undone.`);
         if (!confirm) return;
 
@@ -102,7 +105,7 @@ export default function ListOfImages({ imageTotal }) {
             console.error("Error deleting images:", err);
         }
 
-        //Necessary reload. Comment it for testing
+        //Necessary reload every after delete. Comment it for testing
         //window.location.reload();
     };
     const handleDownload = () => {
@@ -131,7 +134,7 @@ export default function ListOfImages({ imageTotal }) {
         <div>
             <div className="toolbar" style={{ marginBottom: "10px" }}>
                 <button onClick={handleSelectModeToggle}>
-                    {selectMode ? "Exit Select Mode" : "Select Mode"}
+                    {selectMode ? "Cancel" : "Select"}
                 </button>
                 {selectMode && (
                     <>
