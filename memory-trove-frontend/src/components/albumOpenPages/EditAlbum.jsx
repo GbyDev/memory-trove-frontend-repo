@@ -33,7 +33,7 @@ export default function EditAlbum() {
                 setCoverPhotoPreview(null); // Or a fallback default image URL
             }
         }
-    }, [albumId, albumName, welcomeText, albumDescription, albumCoverImagePath]);
+    }, [albumId, albumName, welcomeText, albumDescription, albumCoverImagePath, albumFolderPath]);
 
     function convertToWebPath(localPath) {
         if (!localPath || typeof localPath !== "string") return null;

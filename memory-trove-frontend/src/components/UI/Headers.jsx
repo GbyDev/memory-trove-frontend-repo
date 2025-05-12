@@ -22,7 +22,6 @@ export function GuestHeader(){
                     <Link to="/pages/welcome">Home</Link>
                     <Link to="/pages/login">Login</Link>
                     <Link to="/pages/register">Register</Link>
-                    <Link to="/pages/openAnAlbum">Open an Album</Link>
                 </nav>
             </header>
         </>
@@ -30,7 +29,6 @@ export function GuestHeader(){
 }
 
 export function LoggedInHeader(){
-    const {userId} = useContext(AuthContext);
     const {username} = useContext(AuthContext);
     return(
         <>
@@ -46,7 +44,7 @@ export function LoggedInHeader(){
                         Create an Album
                     </Link>
                     <Link to = "/pages/accountSettings">
-                        {username ? username : "User"}, ID {userId ? userId : "?"}
+                        {username ? username : "User"}
                     </Link>
                 </nav>
             </header>
@@ -67,9 +65,6 @@ export function AlbumHeader(){
                 </Link>
                 <Link to = "/pages/uploadImage">
                     Upload an Image
-                </Link>
-                <Link to = "/pages/getQRCode">
-                    Get QR Code
                 </Link>
                 <Link to = "/pages/editAlbum">
                     Edit Album

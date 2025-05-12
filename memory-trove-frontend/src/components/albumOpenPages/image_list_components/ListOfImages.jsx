@@ -9,6 +9,7 @@ export default function ListOfImages({ imageTotal }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectMode, setSelectMode] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
+    const [slideshowIndex, setSlideshowIndex] = useState(null);
     const hasFetched = useRef(false);
 
     useEffect(() => {
@@ -57,42 +58,32 @@ export default function ListOfImages({ imageTotal }) {
     };
 
     const handleDelete = async () => {
-        console.log("Delete these:", selectedImages); // Log selected images to make sure they are correct
+        console.log("Delete these:", selectedImages);
+        if (selectedImages.length <= 0) return;
 
-        let numOfSelectedImages = selectedImages.length;
-
-        if (numOfSelectedImages <= 0) return;
-
-        let confirm = window.confirm(`Are you sure you want to delete ${numOfSelectedImages} images? This action cannot be undone.`);
+        let confirm = window.confirm(`Are you sure you want to delete ${selectedImages.length} images? This action cannot be undone.`);
         if (!confirm) return;
 
-        // Extract the filenames from the image URLs
-        const selectedFilenames = selectedImages.map((url) => {
-            const parts = url.split('/');
-            return parts[parts.length - 1]; // Extract filename from the URL
-        });
-        console.log("Selected image filenames:", selectedFilenames); // Log filenames
+        const selectedFilenames = selectedImages.map((url) => url.split('/').pop());
 
         const data = {
             album_id: albumId,
             album_folder_path: albumFolderPath,
-            selected_images: selectedFilenames, 
+            selected_images: selectedFilenames,
         };
 
         try {
             const response = await axios.post(
                 "http://localhost/memory-trove-backend/deleteImages.php",
-                data, // Send JSON data instead of FormData
+                data,
                 {
                     headers: {
                         "Content-Type": "application/json",
                     },
                 }
             );
-
             console.log("Backend response:", response.data);
-        } 
-        catch (err) {
+        } catch (err) {
             console.error("Error deleting images:", err);
         }
 
@@ -103,10 +94,7 @@ export default function ListOfImages({ imageTotal }) {
     const handleDownload = async () => {
         if (selectedImages.length === 0) return;
 
-        const selectedFilenames = selectedImages.map((url) => {
-            const parts = url.split('/');
-            return parts[parts.length - 1];
-        });
+        const selectedFilenames = selectedImages.map((url) => url.split('/').pop());
 
         const data = {
             album_name: albumName,
@@ -127,7 +115,7 @@ export default function ListOfImages({ imageTotal }) {
 
             const blob = await response.blob();
             const contentDisposition = response.headers.get("Content-Disposition");
-            let filename = albumName + ".zip";  // Default filename as album name with .zip extension
+            let filename = albumName + ".zip";
             if (contentDisposition && contentDisposition.includes("filename=")) {
                 filename = contentDisposition.split("filename=")[1].replace(/["']/g, "").trim();
             }
@@ -146,6 +134,10 @@ export default function ListOfImages({ imageTotal }) {
         }
     };
 
+    const handleSlideshow = () => {
+        if (imageList.length === 0) return;
+        setSlideshowIndex(0); // Start from first image
+    };
 
     const handleExitSelectMode = () => {
         setSelectMode(false);
@@ -160,9 +152,35 @@ export default function ListOfImages({ imageTotal }) {
         }
     };
 
+    // Keyboard navigation + auto-play
+    useEffect(() => {
+        if (slideshowIndex === null) return;
+
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowRight") {
+                setSlideshowIndex((prev) => (prev + 1) % imageList.length);
+            } else if (e.key === "ArrowLeft") {
+                setSlideshowIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
+            } else if (e.key === "Escape") {
+                setSlideshowIndex(null);
+            }
+        };
+
+        const interval = setInterval(() => {
+            setSlideshowIndex((prev) => (prev + 1) % imageList.length);
+        }, 3000); // change every 3s
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            clearInterval(interval);
+        };
+    }, [slideshowIndex, imageList.length]);
+
     return (
         <div>
             <div className="toolbar" style={{ marginBottom: "10px" }}>
+                <button onClick={handleSlideshow}>Slideshow</button>
                 <button onClick={handleSelectModeToggle}>
                     {selectMode ? "Cancel" : "Select"}
                 </button>
@@ -216,6 +234,82 @@ export default function ListOfImages({ imageTotal }) {
                             border: "2px solid white",
                         }}
                     />
+                </div>
+            )}
+
+            {slideshowIndex !== null && (
+                <div
+                    onClick={() => setSlideshowIndex(null)}
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "black",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 10000,
+                    }}
+                >
+                    {/* Previous Button */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setSlideshowIndex((prev) => (prev - 1 + imageList.length) % imageList.length);
+                        }}
+                        style={{
+                            position: "absolute",
+                            left: 20,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            background: "rgba(255, 255, 255, 0.2)",
+                            border: "none",
+                            color: "white",
+                            fontSize: "2rem",
+                            padding: "10px 15px",
+                            cursor: "pointer",
+                            zIndex: 10001,
+                        }}
+                    >
+                        ‹
+                    </button>
+
+                    <img
+                        src={imageList[slideshowIndex].image_url}
+                        alt={`Slideshow ${slideshowIndex + 1}`}
+                        style={{
+                            maxWidth: "90%",
+                            maxHeight: "90%",
+                            border: "2px solid white",
+                            transition: "opacity 0.3s ease-in-out",
+                            cursor: "pointer",
+                        }}
+                    />
+
+                    {/* Next Button */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setSlideshowIndex((prev) => (prev + 1) % imageList.length);
+                        }}
+                        style={{
+                            position: "absolute",
+                            right: 20,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            background: "rgba(255, 255, 255, 0.2)",
+                            border: "none",
+                            color: "white",
+                            fontSize: "2rem",
+                            padding: "10px 15px",
+                            cursor: "pointer",
+                            zIndex: 10001,
+                        }}
+                    >
+                        ›
+                    </button>
                 </div>
             )}
         </div>

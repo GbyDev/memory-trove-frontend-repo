@@ -12,7 +12,6 @@ import CreateAnAlbum from './components/loggedIn/CreateAnAlbum.jsx';
 import AccountSettings from './components/loggedIn/AccountSettings.jsx';
 
 import Media from './components/albumOpenPages/Media.jsx';
-import GetQRCode from './components/albumOpenPages/GetQRCode.jsx';
 import EditAlbum from './components/albumOpenPages/EditAlbum.jsx';
 import UploadImage from './components/albumOpenPages/UploadImage.jsx';
 
@@ -46,7 +45,6 @@ function App() {
               <Route path="/pages/createAnAlbum" element={<CreateAnAlbum/>}/>
               <Route path="/pages/accountSettings" element={<AccountSettings/>}/>
               <Route path ="/pages/media" element={<Media/>}/>
-              <Route path="/pages/getQRCode" element={<GetQRCode/>}/>
               <Route path="/pages/editAlbum" element={<EditAlbum/>}/>
               <Route path="/pages/uploadImage" element={<UploadImage/>}/>
 
