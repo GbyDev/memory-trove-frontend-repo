@@ -8,6 +8,9 @@ export function ImageItem({ img, index, onClick, isSelected }) {
         console.error(`❌ Image failed to load at index ${index}`);
     };
 
+    // Format the uploadedAt timestamp to show only the date (YYYY-MM-DD)
+    const formattedDate = new Date(img.uploadedAt).toLocaleDateString();
+
     return (
         <div
             className="image-item"
@@ -39,7 +42,7 @@ export function ImageItem({ img, index, onClick, isSelected }) {
                 }}
                 onError={handleError}
             />
-            <p style={{ textAlign: "center" }}>Uploaded at: {img.uploadedAt}</p>
+            <p style={{ textAlign: "center" }}>Uploaded on: {formattedDate}</p>
         </div>
     );
 }

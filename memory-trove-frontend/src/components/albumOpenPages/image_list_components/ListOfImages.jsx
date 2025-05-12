@@ -41,7 +41,6 @@ export default function ListOfImages({ imageTotal }) {
 
     const handleImageClick = (img) => {
         if (selectMode) {
-            // Toggle selection
             setSelectedImages((prev) =>
                 prev.includes(img.image_url)
                     ? prev.filter((url) => url !== img.image_url)
@@ -57,9 +56,32 @@ export default function ListOfImages({ imageTotal }) {
         setSelectedImages(allUrls);
     };
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         console.log("Delete these:", selectedImages);
-        // Add your backend call for deletion here
+
+        const formData = new FormData();
+        formData.append("album_id", albumId);
+        formData.append("album_folder_path", albumFolderPath);
+        formData.append("selected_images", JSON.stringify(selectedImages));
+
+        try {
+            const response = await axios.post(
+                "http://localhost/memory-trove-backend/deleteImages.php",
+                formData
+            );
+
+            console.log(response.data); // Log the full response for debugging
+
+            if (response.data.success) {
+                console.log("Images deleted successfully");
+                setImageList(imageList.filter((img) => !selectedImages.includes(img.image_url)));
+                setSelectedImages([]);
+            } else {
+                console.error("Failed to delete images", response.data.message);
+            }
+        } catch (err) {
+            console.error("Error deleting images:", err);
+        }
     };
 
     const handleDownload = () => {
@@ -72,16 +94,14 @@ export default function ListOfImages({ imageTotal }) {
     };
 
     const handleExitSelectMode = () => {
-        setSelectMode(false); // Exit select mode
-        setSelectedImages([]); // Deselect all images immediately
+        setSelectMode(false);
+        setSelectedImages([]);
     };
 
     const handleSelectModeToggle = () => {
         if (selectMode) {
-            // Exit select mode and reset selections
-            handleExitSelectMode(); // Call the exit function directly
+            handleExitSelectMode();
         } else {
-            // Enter select mode
             setSelectMode(true);
         }
     };
