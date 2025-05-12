@@ -4,7 +4,7 @@ import axios from "axios";
 import { ImageItem } from "./ImageItem";
 
 export default function ListOfImages({ imageTotal }) {
-    const { albumId, albumFolderPath } = useContext(AlbumContext);
+    const { albumId, albumFolderPath, albumName } = useContext(AlbumContext);
     const [imageList, setImageList] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectMode, setSelectMode] = useState(false);
@@ -99,38 +99,53 @@ export default function ListOfImages({ imageTotal }) {
         setImageList((prevList) => prevList.filter((img) => !selectedImages.includes(img.image_url)));
         setSelectedImages([]);
     };
-    
-    const handleDownload = async () => {
 
-        // Extract the filenames from the image URLs
+    const handleDownload = async () => {
+        if (selectedImages.length === 0) return;
+
         const selectedFilenames = selectedImages.map((url) => {
             const parts = url.split('/');
-            return parts[parts.length - 1]; // Extract filename from the URL
+            return parts[parts.length - 1];
         });
-        console.log("Selected image filenames:", selectedFilenames);
-      
+
         const data = {
+            album_name: albumName,
             album_folder_path: albumFolderPath,
-            selected_images: selectedFilenames, 
+            selected_images: selectedFilenames,
         };
 
         try {
-            const response = await axios.post(
-                "http://localhost/memory-trove-backend/deleteImages.php",
-                data, // Send JSON data instead of FormData
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch("http://localhost/memory-trove-backend/downloadImages.php", {
+                method: "POST",
+                body: JSON.stringify(data),
+            });
 
-            console.log("Backend response:", response.data);
-        } 
-        catch (err) {
-            console.error("Error deleting images:", err);
+            if (!response.ok) {
+                console.error("Download failed with status:", response.status);
+                return;
+            }
+
+            const blob = await response.blob();
+            const contentDisposition = response.headers.get("Content-Disposition");
+            let filename = albumName + ".zip";  // Default filename as album name with .zip extension
+            if (contentDisposition && contentDisposition.includes("filename=")) {
+                filename = contentDisposition.split("filename=")[1].replace(/["']/g, "").trim();
+            }
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            console.error("Download failed with error:", error);
         }
     };
+
 
     const handleExitSelectMode = () => {
         setSelectMode(false);
