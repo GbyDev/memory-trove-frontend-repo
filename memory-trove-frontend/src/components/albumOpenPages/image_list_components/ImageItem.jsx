@@ -1,30 +1,34 @@
 import React from "react";
 
-export function ImageItem({ img, index }) {
-    console.log("🧩 ImageItem received props:", { img, index });
-
-    // Check if the image object or image_url is undefined
+export function ImageItem({ img, index, onClick }) {
     if (!img || !img.image_url) {
         console.error(`⚠️ Image URL is undefined for image at index ${index}`, img);
-        return null; // Don't render anything if image_url is missing
+        return null;
     }
 
-    // Handle image load errors
     const handleError = () => {
         console.error(`❌ Image failed to load at index ${index}`);
     };
 
     return (
-        <div className="image-item">
+        <div
+            className="image-item"
+            onClick={onClick}
+            style={{ cursor: "pointer", margin: "10px", display: "inline-block" }}
+        >
             <img
-                src={img.image_url} // Use the image_url directly
+                src={img.image_url}
                 alt={`Image ${index}`}
                 height="200px"
                 width="140px"
-                style={{ objectFit: "contain",  backgroundColor:"lightgray" }}
-                onError={handleError} // If the image fails to load, log an error
+                style={{
+                    objectFit: "contain",
+                    backgroundColor: "lightgray",
+                    display: "block",
+                }}
+                onError={handleError}
             />
-            <p>Uploaded at: {img.uploadedAt}</p>
+            <p style={{ textAlign: "center" }}>Uploaded at: {img.uploadedAt}</p>
         </div>
     );
 }

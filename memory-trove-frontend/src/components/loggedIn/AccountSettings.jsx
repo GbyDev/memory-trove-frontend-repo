@@ -22,6 +22,23 @@ export default function AccountSettings(){
         logout();
     }
 
+    async function handleDeleteAlbum(){
+        const confirmed = window.confirm("All your albums and pictures will be deleted. This action cannot be undone. Are you sure?");
+        if (!confirmed) return;
+        
+        let response = await axios.post('http://localhost/memory-trove-backend/deleteAlbum.php', {
+
+        })
+        .catch(error => {
+            console.error('Delete failed:', error);
+        });
+        console.log(response.data)
+        //Clear from authContext
+        logout();
+        navigate('/pages/albumList');
+    }
+
+
     //Literally just returns email, since i'm too lazy to change my code and have it be posted on AuthContext
     async function getEmail(){
 
@@ -198,10 +215,12 @@ export default function AccountSettings(){
                     </p>
                 </form>
                 <button>Cancel</button>
-                <button>Delete Account</button>
                 <button type = "button" onClick = {handleLogOut}>
                     Click to log out
                 </button>
+                <p>Want to delete your account?</p>
+                <button>Delete Account</button>
+                
             </div>
             
         </>
