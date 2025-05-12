@@ -74,10 +74,13 @@ export default function EditAlbum() {
         navigate('/pages/albumList');
     }
 
+    function handleCancel(e){
+        e.preventDefault();
+        navigate('/pages/media');
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
-
-        
 
         function areInputsInvalid(){
             if (!albumName.trim()) {
@@ -223,9 +226,10 @@ export default function EditAlbum() {
                     )}
 
                     <button type="submit">Update</button>
-                    <button>Cancel</button>
+                    <button type="button" onClick={handleCancel}>Cancel</button>
                     <p className="prompt">{prompt}</p>
             </form>
+            
             <p>Want to delete this album?</p>
             <button onClick = {handleDeleteAlbum}>Delete</button>
         </>

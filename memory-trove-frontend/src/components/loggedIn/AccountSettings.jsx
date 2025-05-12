@@ -37,6 +37,7 @@ export default function AccountSettings(){
                     }
                 });
                 console.log('Data sent!');
+                console.log(response.data);
                 setPromptType(response.data.messageType);
                 setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
@@ -75,80 +76,73 @@ export default function AccountSettings(){
         e.preventDefault();
 
         function areInputsInvalid(){
-            //If username has an @ symbol
             if (input_username.includes('@')){
                 setPromptType('error');
                 setPrompt("Username cannot contain an '@' symbol.");
                 return true;
             }
 
-            //If empty
             if (input_username === '' || input_email === '' || input_password === ''){ 
                 setPromptType('error');
                 setPrompt("Please fill in all fields.");
                 return true;
             }   
 
-            //If username is less than 3 characters
             if (input_username.length < 3){
                 setPromptType('error');
                 setPrompt("Username must be at least 3 characters long.");
                 return true;
             }
 
-            //If username exceeds 30 characters
             if (input_username.length > 30){
                 setPromptType('error');
                 setPrompt("Username cannot exceed 30 characters.");
                 return true;
             }
 
-            //If password is less than 8 characters
             if (input_password.length < 8){
                 setPromptType('error');
                 setPrompt("Password must be at least 8 characters long.");
                 return true;
             }
-            return false; // All inputs are valid
+            return false;
         }
 
         async function sendToBackend(){
-            let response = {}; // Initialize response variable
+            let response = {};
             try {
-                    response = await axios.post('http://localhost/memory-trove-backend/updateAccount.php', {
-                    userId: userId,
+                response = await axios.post('http://localhost/memory-trove-backend/updateAccount.php', {
+                    user_id: userId,
                     username: input_username,
                     email: input_email,
                     password: input_password,
-                }, 
-                {
+                }, {
                     headers: {
-                        'Content-Type': 'application/json', 
+                        'Content-Type': 'application/json',
                     }
                 });
                 console.log('Data sent!');
+                console.log(response.data);
                 setPromptType(response.data.messageType);
-                setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
-    
+                setPrompt(response.data.message);
             } 
             catch (error) {
                 console.error('Error sending data', error);
                 setPromptType('error');
                 setPrompt("There was an error during registration.");
             }
-            return response.data; // Return the response
+            return response.data;
         }
 
-
-
-        //Function calls
+        // Main logic
         if (areInputsInvalid()) return;
         let response = await sendToBackend();
-        storeUserData({
-            username: response.newUsername,
-            password: response.newPassword,
-        });
 
+        storeUserData({
+            userId: userId, // Make sure we keep this!
+            username: response.newUsername,
+            contextPassword: response.newPassword, // IMPORTANT: use `contextPassword` not `password`
+        });
     }
     return(
         <>
