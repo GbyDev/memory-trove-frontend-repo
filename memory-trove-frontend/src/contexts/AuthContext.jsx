@@ -50,6 +50,18 @@ export function AuthProvider({ children }) {
         localStorage.removeItem("isLoggedIn");
     }
 
+    //Only for storing data in account settings portion
+    function storeUserData(userData) {
+        setUserName(userData.username);
+        setPassword(userData.contextPassword);
+        setUserId(userData.userId); 
+
+        // Store in localStorage
+        localStorage.setItem("username", userData.username);
+        localStorage.setItem("password", userData.contextPassword);
+        localStorage.setItem("userId", userData.userId); 
+        localStorage.setItem("isLoggedIn", "true");
+    }
     return (
         <AuthContext.Provider value={{ 
             username, 
@@ -58,6 +70,7 @@ export function AuthProvider({ children }) {
             isLoggedIn, 
             login, 
             logout, 
+            storeUserData,
             loading }}>
             {children}
         </AuthContext.Provider>

@@ -6,23 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 export default function AccountSettings(){
-    const [username, set_username] = useState("");
-    const [email, set_email] = useState("");
-    const [password, set_password] = useState("");
+    const [input_username, set_input_username] = useState("");
+    const [input_email, set_input_email] = useState("");
+    const [input_password, set_input_password] = useState("");
     const [password_reveal, set_password_reveal] = useState(false);
     const [prompt, setPrompt] = useState("");
-    const {user, userId, logout, login, isLoggedIn} = useContext(AuthContext);
+    const [promptType, setPromptType] = useState("");
+    const {userId, logout, storeUserData, isLoggedIn, username, password, loading} = useContext(AuthContext);
     const navigate = useNavigate();
-    const promptElement = document.querySelector('.prompt');
     
-    function setPromptColor(msgType) {
-        if (msgType === 'error') 
-            promptElement.style.color = "red";
-        else if (msgType === 'success') 
-            promptElement.style.color = "green";
-        else 
-            promptElement.style.color = "black"; // Default color
-    }
+     
 
     function handleLogOut(){
         //alert(`${username} is logged out.`);
@@ -36,10 +29,7 @@ export default function AccountSettings(){
             let response = {}; // Initialize response variable
             try {
                     response = await axios.post('http://localhost/memory-trove-backend/getEmail.php', {
-                    userId: userId,
-                    username: username,
-                    email: email,
-                    password: password,
+                    user_id: userId,
                 }, 
                 {
                     headers: {
@@ -47,28 +37,30 @@ export default function AccountSettings(){
                     }
                 });
                 console.log('Data sent!');
-                setPromptColor(response.data.messageType);
+                setPromptType(response.data.messageType);
                 setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
             } 
             catch (error) {
                 console.error('Error sending data', error);
-                setPromptColor('error');
+                setPromptType('error');
                 setPrompt("There was an error during registration.");
             }
             return response.data; // Return the response
         }
         let response = await getEmailFromBackend();
+        
         return response.newEmail;
     }
 
     useEffect(() => {
         async function initializeFields() {
-        if (user) {
+        if (loading) return;
+        if (userId) {
             const fetchedEmail = await getEmail();
-            set_username(user.username); 
-            set_email(fetchedEmail);
-            set_password(user.password); 
+            set_input_username(username); 
+            set_input_email(fetchedEmail);
+            set_input_password(password); 
         }
         if (!isLoggedIn) {
             navigate('/pages/welcome');
@@ -76,45 +68,44 @@ export default function AccountSettings(){
     }
 
     initializeFields();
-    }, [username, email, password, isLoggedIn]);
+    }, [username, input_email, password, isLoggedIn]);
 
 
     async function handle_submit(e){
         e.preventDefault();
-        
 
         function areInputsInvalid(){
             //If username has an @ symbol
-            if (username.includes('@')){
-                setPromptColor('error');
+            if (input_username.includes('@')){
+                setPromptType('error');
                 setPrompt("Username cannot contain an '@' symbol.");
                 return true;
             }
 
             //If empty
-            if (username === '' || email === '' || password === ''){ 
-                setPromptColor('error');
+            if (input_username === '' || input_email === '' || input_password === ''){ 
+                setPromptType('error');
                 setPrompt("Please fill in all fields.");
                 return true;
             }   
 
             //If username is less than 3 characters
-            if (username.length < 3){
-                setPromptColor('error');
+            if (input_username.length < 3){
+                setPromptType('error');
                 setPrompt("Username must be at least 3 characters long.");
                 return true;
             }
 
             //If username exceeds 30 characters
-            if (username.length > 30){
-                setPromptColor('error');
+            if (input_username.length > 30){
+                setPromptType('error');
                 setPrompt("Username cannot exceed 30 characters.");
                 return true;
             }
 
             //If password is less than 8 characters
-            if (password.length < 8){
-                setPromptColor('error');
+            if (input_password.length < 8){
+                setPromptType('error');
                 setPrompt("Password must be at least 8 characters long.");
                 return true;
             }
@@ -126,9 +117,9 @@ export default function AccountSettings(){
             try {
                     response = await axios.post('http://localhost/memory-trove-backend/updateAccount.php', {
                     userId: userId,
-                    username: username,
-                    email: email,
-                    password: password,
+                    username: input_username,
+                    email: input_email,
+                    password: input_password,
                 }, 
                 {
                     headers: {
@@ -136,13 +127,13 @@ export default function AccountSettings(){
                     }
                 });
                 console.log('Data sent!');
-                setPromptColor(response.data.messageType);
+                setPromptType(response.data.messageType);
                 setPrompt(response.data.message); //Display connection message from the backend (IMPORTANT NI)
     
             } 
             catch (error) {
                 console.error('Error sending data', error);
-                setPromptColor('error');
+                setPromptType('error');
                 setPrompt("There was an error during registration.");
             }
             return response.data; // Return the response
@@ -153,9 +144,8 @@ export default function AccountSettings(){
         //Function calls
         if (areInputsInvalid()) return;
         let response = await sendToBackend();
-        login({
+        storeUserData({
             username: response.newUsername,
-            email: response.newEmail,
             password: response.newPassword,
         });
 
@@ -170,23 +160,23 @@ export default function AccountSettings(){
                     <input 
                         type = "text" 
                         name = "username"
-                        value = {username}
-                        onChange = {(e) => set_username(e.target.value)}
+                        value = {input_username || ""}
+                        onChange = {(e) => set_input_username(e.target.value)}
                     />
                     <label>Email</label>
                     <input 
                         type = "email" 
                         name = "email"
-                        value = {email}
-                        onChange = {(e) => set_email(e.target.value)}
+                        value = {input_email || ""}
+                        onChange = {(e) => set_input_email(e.target.value)}
                     />
                     <label>Password</label>
                     <div className="password-field">
                         <input 
                             type = {password_reveal ? "text" : "password"}
                             name = "password"
-                            value={password}
-                            onChange = {(e) => set_password(e.target.value)}
+                            value={input_password || ""}
+                            onChange = {(e) => set_input_password(e.target.value)}
                         />
                         
                         <button 
@@ -199,7 +189,19 @@ export default function AccountSettings(){
                     <div className="submit-btn">
                         <button type = "submit">Save Changes</button>
                     </div>
-                    <p className="prompt">{prompt}</p>
+                    <p 
+                        className="prompt"
+                        style={{
+                            color: 
+                            promptType === 'error' 
+                            ? 'red' 
+                            : promptType === 'success' 
+                                ? 'green' 
+                                : 'black'
+                        }}
+                    >
+                        {prompt}
+                    </p>
                 </form>
                 <button>Cancel</button>
                 <button>Delete Account</button>
