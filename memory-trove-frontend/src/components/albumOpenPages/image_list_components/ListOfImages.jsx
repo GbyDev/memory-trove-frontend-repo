@@ -57,33 +57,54 @@ export default function ListOfImages({ imageTotal }) {
     };
 
     const handleDelete = async () => {
-        console.log("Delete these:", selectedImages);
+        console.log("Delete these:", selectedImages); // Log selected images to make sure they are correct
 
-        const formData = new FormData();
-        formData.append("album_id", albumId);
-        formData.append("album_folder_path", albumFolderPath);
-        formData.append("selected_images", JSON.stringify(selectedImages));
+        let numOfSelectedImages = selectedImages.length;
+        let confirm = window.confirm(`Are you sure you want to delete ${numOfSelectedImages} images? This action cannot be undone.`);
+        if (!confirm) return;
+
+        // Extract the filenames from the image URLs
+        const selectedFilenames = selectedImages.map((url) => {
+            const parts = url.split('/');
+            return parts[parts.length - 1]; // Extract filename from the URL
+        });
+        console.log("Selected image filenames:", selectedFilenames); // Log filenames
+
+        const data = {
+            album_id: albumId,
+            album_folder_path: albumFolderPath,
+            selected_images: selectedFilenames, 
+        };
 
         try {
             const response = await axios.post(
                 "http://localhost/memory-trove-backend/deleteImages.php",
-                formData
+                data, // Send JSON data instead of FormData
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
             );
 
-            console.log(response.data); // Log the full response for debugging
-
+            console.log("Backend response:", response.data);
+            /*
             if (response.data.success) {
                 console.log("Images deleted successfully");
                 setImageList(imageList.filter((img) => !selectedImages.includes(img.image_url)));
                 setSelectedImages([]);
-            } else {
+            } 
+            else {
                 console.error("Failed to delete images", response.data.message);
             }
+                */
         } catch (err) {
             console.error("Error deleting images:", err);
         }
-    };
 
+        //Necessary reload. Comment it for testing
+        //window.location.reload();
+    };
     const handleDownload = () => {
         selectedImages.forEach((url) => {
             const link = document.createElement("a");
