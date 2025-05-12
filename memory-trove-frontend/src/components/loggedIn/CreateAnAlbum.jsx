@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAnAlbum() {
     const { userId } = useContext(AuthContext);
@@ -11,6 +12,13 @@ export default function CreateAnAlbum() {
     const [coverPhoto, setCoverPhoto] = useState(null);
     const [coverPhotoPreview, setCoverPhotoPreview] = useState("");
 
+    const navigate = useNavigate();
+
+
+    function handleCancel(e) {
+        e.preventDefault();
+        navigate("/pages/albumList");
+    }
     async function handleSubmit(e) {
         e.preventDefault();
         const promptElement = document.querySelector(".prompt");
@@ -164,6 +172,7 @@ export default function CreateAnAlbum() {
                     )}
 
                     <button type="submit">Create</button>
+                    <button type="button" onClick={handleCancel}>Cancel</button>
                     <p className="prompt">{prompt}</p>
                 </form>
             </div>

@@ -8,7 +8,6 @@ export function ImageItem({ img, index, onClick, isSelected }) {
         console.error(`❌ Image failed to load at index ${index}`);
     };
 
-    // Format the uploadedAt timestamp to show only the date (YYYY-MM-DD)
     const formattedDate = new Date(img.uploadedAt).toLocaleDateString();
 
     return (
@@ -17,16 +16,15 @@ export function ImageItem({ img, index, onClick, isSelected }) {
             onClick={onClick}
             style={{
                 cursor: "pointer",
-                margin: "10px",
-                display: "inline-block",
-                position: "relative",
-                border: isSelected ? "4px solid blue" : "none", // Border for selected image
-                backgroundColor: isSelected ? "#e0f0ff" : "transparent", // Set background to transparent when not selected
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                border: isSelected ? "4px solid blue" : "none",
+                backgroundColor: isSelected ? "#e0f0ff" : "transparent",
                 width: "200px",
-                height: "auto",
-                maxHeight: "280px",
+                height: "280px",
                 overflow: "hidden",
-                transition: "background-color 0.3s ease, border-color 0.3s ease", // Smooth transition
+                margin: "10px",
             }}
         >
             <img
@@ -35,14 +33,18 @@ export function ImageItem({ img, index, onClick, isSelected }) {
                 style={{
                     width: "100%",
                     height: "auto",
-                    maxHeight: "100%",
+                    maxHeight: "230px",
                     objectFit: "cover",
-                    display: "block",
-                    margin: "0 auto",
                 }}
                 onError={handleError}
             />
-            <p style={{ textAlign: "center" }}>Uploaded on: {formattedDate}</p>
+            <p style={{
+                textAlign: "center",
+                fontSize: "0.9em",
+                margin: "4px 0",
+            }}>
+                Uploaded on: {formattedDate}
+            </p>
         </div>
     );
 }

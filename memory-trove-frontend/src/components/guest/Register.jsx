@@ -149,6 +149,7 @@ export default function Register(){
                     <div className="submit-btn">
                         <button type = "submit">Register</button>
                     </div>
+                    <p>Already have an account? <a href="/pages/login">Login here</a></p>
                     <p className="prompt">{prompt}</p>
                 </form>
             </div>

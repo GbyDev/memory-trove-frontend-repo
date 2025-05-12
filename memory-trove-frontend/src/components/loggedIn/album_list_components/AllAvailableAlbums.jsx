@@ -70,11 +70,6 @@ export default function AllAvailableAlbums({ albumCount }) {
                 <h1>{username}&apos;s Album Collection</h1>
                 <p>You have {albumCount} albums.</p>
             </div>
-            <div className = "album-list-sidebar">
-                <p>Sort by</p>
-                <button>Date Created</button>
-                <button>Alphabetical</button>
-            </div>
             <ListOfAlbums albumTotal={albumCount} />
         </>
     );

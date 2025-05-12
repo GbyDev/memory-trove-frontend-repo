@@ -157,6 +157,7 @@ export default function Login(){
                         <button>Login</button>
                     </div>
                     <p className="prompt">{prompt}</p>
+                    <p>Don't have an account? <a href="/pages/register">Register here</a></p>
                 </form>
             </div>
             

@@ -195,15 +195,17 @@ export default function ListOfImages({ imageTotal }) {
             </div>
 
             {imageList.length > 0 ? (
-                imageList.map((img, i) => (
-                    <ImageItem
-                        key={i}
-                        img={img}
-                        index={i}
-                        onClick={() => handleImageClick(img)}
-                        isSelected={selectedImages.includes(img.image_url)}
-                    />
-                ))
+                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                    {imageList.map((img, i) => (
+                        <ImageItem
+                            key={i}
+                            img={img}
+                            index={i}
+                            onClick={() => handleImageClick(img)}
+                            isSelected={selectedImages.includes(img.image_url)}
+                        />
+                    ))}
+                </div>
             ) : (
                 <p>No images to display.</p>
             )}

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AlbumContext } from '../../contexts/AlbumContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function UploadImage() {
   const [previews, setPreviews] = useState([]);
@@ -10,6 +11,8 @@ export default function UploadImage() {
   const { userId } = useContext(AuthContext);
   const { albumId, albumFolderPath } = useContext(AlbumContext);
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     const previewUrls = selectedFiles.map(file => URL.createObjectURL(file));
@@ -17,6 +20,9 @@ export default function UploadImage() {
     setFiles(selectedFiles);
   };
 
+  const handleCancel = () => {
+    navigate('/pages/media');
+  }
   const handleSubmit = () => {
     const promptElement = document.querySelector('.prompt');
 
@@ -83,6 +89,7 @@ export default function UploadImage() {
       <button onClick={handleSubmit} style={{ marginTop: '20px' }}>
         Upload
       </button>
+      <button onClick={handleCancel}>Cancel</button>
       <p className='prompt'>{prompt}</p>
     </div>
   );
