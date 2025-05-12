@@ -7,6 +7,8 @@ export default function ListOfImages({ imageTotal }) {
     const { albumId, albumFolderPath } = useContext(AlbumContext);
     const [imageList, setImageList] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [selectMode, setSelectMode] = useState(false);
+    const [selectedImages, setSelectedImages] = useState([]);
     const hasFetched = useRef(false);
 
     useEffect(() => {
@@ -37,19 +39,84 @@ export default function ListOfImages({ imageTotal }) {
         fetchImages();
     }, [albumId, albumFolderPath, imageTotal]);
 
-    const handleImageClick = (img) => setSelectedImage(img.image_url);
+    const handleImageClick = (img) => {
+        if (selectMode) {
+            // Toggle selection
+            setSelectedImages((prev) =>
+                prev.includes(img.image_url)
+                    ? prev.filter((url) => url !== img.image_url)
+                    : [...prev, img.image_url]
+            );
+        } else {
+            setSelectedImage(img.image_url);
+        }
+    };
+
+    const handleSelectAll = () => {
+        const allUrls = imageList.map((img) => img.image_url);
+        setSelectedImages(allUrls);
+    };
+
+    const handleDelete = () => {
+        console.log("Delete these:", selectedImages);
+        // Add your backend call for deletion here
+    };
+
+    const handleDownload = () => {
+        selectedImages.forEach((url) => {
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = url.split("/").pop();
+            link.click();
+        });
+    };
+
+    const handleExitSelectMode = () => {
+        setSelectMode(false); // Exit select mode
+        setSelectedImages([]); // Deselect all images immediately
+    };
+
+    const handleSelectModeToggle = () => {
+        if (selectMode) {
+            // Exit select mode and reset selections
+            handleExitSelectMode(); // Call the exit function directly
+        } else {
+            // Enter select mode
+            setSelectMode(true);
+        }
+    };
 
     return (
-        <>
+        <div>
+            <div className="toolbar" style={{ marginBottom: "10px" }}>
+                <button onClick={handleSelectModeToggle}>
+                    {selectMode ? "Exit Select Mode" : "Select Mode"}
+                </button>
+                {selectMode && (
+                    <>
+                        <button onClick={handleSelectAll}>Select All</button>
+                        <button onClick={handleDelete}>Delete</button>
+                        <button onClick={handleDownload}>Download</button>
+                        <p>{selectedImages.length} selected</p>
+                    </>
+                )}
+            </div>
+
             {imageList.length > 0 ? (
                 imageList.map((img, i) => (
-                    <ImageItem key={i} img={img} index={i} onClick={() => handleImageClick(img)} />
+                    <ImageItem
+                        key={i}
+                        img={img}
+                        index={i}
+                        onClick={() => handleImageClick(img)}
+                        isSelected={selectedImages.includes(img.image_url)}
+                    />
                 ))
             ) : (
                 <p>No images to display.</p>
             )}
 
-            {selectedImage && (
+            {!selectMode && selectedImage && (
                 <div
                     onClick={() => setSelectedImage(null)}
                     style={{
@@ -63,6 +130,7 @@ export default function ListOfImages({ imageTotal }) {
                         justifyContent: "center",
                         alignItems: "center",
                         zIndex: 9999,
+                        cursor: "zoom-out",
                     }}
                 >
                     <img
@@ -76,6 +144,6 @@ export default function ListOfImages({ imageTotal }) {
                     />
                 </div>
             )}
-        </>
+        </div>
     );
 }

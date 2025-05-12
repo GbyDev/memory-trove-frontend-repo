@@ -10,7 +10,6 @@ export default function Media() {
         albumDescription,
         dateCreated,
         albumId,
-        albumName,
     } = useContext(AlbumContext);
 
     const [imageCount, setImageCount] = useState(0);
@@ -34,7 +33,7 @@ export default function Media() {
         if (albumId) {
             fetchImageCount();
         }
-    }, [albumId, welcomeText, albumDescription, albumName]);
+    }, [albumId]);
 
     if (openAlbumState === false) {
         return <p>No album selected</p>;
@@ -48,12 +47,6 @@ export default function Media() {
                 <p>{dateCreated}</p>
             </div>
             <div className="section">
-                <div className="floating-toolbar">
-                    <p>Tool bar</p>
-                    <button>Select</button>
-                    <button>Select All</button>
-                    <button>Delete</button>
-                </div>
                 <div className="img-list">
                     <ListOfImages imageTotal={imageCount} />
                 </div>
