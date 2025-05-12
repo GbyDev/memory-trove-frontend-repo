@@ -63,6 +63,7 @@ export default function EditAlbum() {
         
         let response = await axios.post('http://localhost/memory-trove-backend/deleteAlbum.php', {
             album_id: albumId,
+            album_name: albumName,
             album_folder_path: albumFolderPath,
         })
         .catch(error => {
@@ -73,6 +74,29 @@ export default function EditAlbum() {
         closeAlbum();
         navigate('/pages/albumList');
     }
+
+        function handleDownloadAlbum() {
+        const payload = {
+            album_id: albumId,
+            album_folder_path: albumFolderPath,
+        };
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'http://localhost/memory-trove-backend/downloadAlbum.php';
+        form.style.display = 'none';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'payload';
+        input.value = JSON.stringify(payload);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
 
     function handleCancel(e){
         e.preventDefault();
@@ -229,9 +253,11 @@ export default function EditAlbum() {
                     <button type="button" onClick={handleCancel}>Cancel</button>
                     <p className="prompt">{prompt}</p>
             </form>
-            
+            <p>Download this album</p>
+            <button onClick = {handleDownloadAlbum}>Download Album</button>
             <p>Want to delete this album?</p>
             <button onClick = {handleDeleteAlbum}>Delete</button>
+            
         </>
     );
 }
