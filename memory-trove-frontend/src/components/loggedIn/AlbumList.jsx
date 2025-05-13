@@ -5,6 +5,7 @@ import axios from "axios";
 import EmptyAlbums from "./album_list_components/EmptyAlbums";
 import AllAvailableAlbums from "./album_list_components/AllAvailableAlbums";
 import {useNavigationType } from "react-router-dom";
+import { LoggedInHeader } from "../UI/Headers";
 
 //NOTE: This component serves as a junction, between the album list and the empty album list components.
 //You know the thing bla bla if empty, the empty component is used
@@ -61,6 +62,7 @@ export default function AlbumList() {
     (
         <>
             <div className="main-container">
+                <LoggedInHeader/>
                 <AllAvailableAlbums albumCount={numOfAlbums} />
             </div>
         </>
@@ -70,6 +72,7 @@ export default function AlbumList() {
     (
         <>
             <div className="main-container">
+                <LoggedInHeader/>
                 <EmptyAlbums />
             </div>
         </>

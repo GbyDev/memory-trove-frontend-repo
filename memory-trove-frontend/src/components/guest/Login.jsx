@@ -5,6 +5,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { GuestHeader } from "../UI/Headers.jsx";
+import Footer from "../UI/Footer.jsx";
 
 export default function Login(){
     const {login, isLoggedIn} = useContext(AuthContext);
@@ -131,36 +132,47 @@ export default function Login(){
         <>
             <div className="LoginPage">
                 <GuestHeader/>
-                <h1>Login Page</h1>
-                <form onSubmit = {handle_submit}>
-                    <label>Username or Email</label>
-                    <input 
-                        type = "text" 
-                        name = "username_email" 
-                        value = {username_email} 
-                        onChange = {(e) => set_username_Email(e.target.value)}
-                    />
-                    <label>Password</label>
-                    <div className="password-field">
-                        <input 
-                            type = {password_reveal ? "text" : "password"}
-                            name = "password"
-                            value = {password}
-                            onChange = {(e) => set_password(e.target.value)}
-                        />
-                        <button
-                            type = "button"
-                            onClick = {() => set_password_reveal(!password_reveal)}    
-                        >   
-                            <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
-                        </button>
-                    </div>
-                    <div className="submit-btn">
-                        <button>Login</button>
-                    </div>
-                    <p className="prompt">{prompt}</p>
-                    <p>Don't have an account? <a href="/pages/register">Register here</a></p>
-                </form>
+                <div className="main-container">
+                    <form onSubmit = {handle_submit}>
+                        <h1>Login</h1>
+
+                        <div className="username-email-field">
+                            <label>Username or Email</label>
+                            <input 
+                                type = "text" 
+                                name = "username_email" 
+                                value = {username_email} 
+                                onChange = {(e) => set_username_Email(e.target.value)}
+                            />
+                        </div>
+                        
+                        <div className="password-field">
+                            <label>Password</label>
+                            <div className="password-txt-fld">
+                                <input 
+                                    type = {password_reveal ? "text" : "password"}
+                                    name = "password"
+                                    value = {password}
+                                    onChange = {(e) => set_password(e.target.value)}
+                                />
+                                <button
+                                    type = "button"
+                                    onClick = {() => set_password_reveal(!password_reveal)}    
+                                >   
+                                    <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="submit-btn">
+                            <button>Sign in</button>
+                        </div>
+
+                        <p>Don't have an account? <a href="/pages/register">Register here</a></p>
+                        <p className="prompt">{prompt}</p>
+                    </form>
+                </div>
+                <Footer/>
             </div>
             
         </> 

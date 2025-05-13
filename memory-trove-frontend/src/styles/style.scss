@@ -19,6 +19,7 @@ $container-dark-blue: #020129;
 $default-gradient: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 50%, rgba(255, 229, 0, 1) 100%);
 $default-gradient-narrow: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 10%, rgba(255, 229, 0, 1) 20%);
 $default-gradient-transparent: linear-gradient(90deg,rgba(255, 0, 204, 0.5) 0%, rgba(255, 98, 0, 0.5) 50%, rgba(255, 229, 0, 0.5) 100%);
+$login-register-field-transparent-black: rgba(0, 0, 0, 0.5);
 $transparent: rgba(0, 0, 0, 0);
 
 // For debug
@@ -89,7 +90,6 @@ header {
         }
     }
 }
-
 footer {
     width: 100%;
     background-color: $container-dark-blue;
@@ -168,9 +168,6 @@ footer {
             }
         }
     }
-    
-
-
     
     .hero-section{
         height: 800px;
@@ -300,6 +297,13 @@ footer {
                         color: white;
                         font-size: 1.4rem;
                     }
+
+                    .login-button:hover{
+                        border: 4px solid black;
+                    }
+                    .login-button:active{
+                        background-image: $default-gradient-transparent;
+                    }
                 }
             }
 
@@ -339,6 +343,53 @@ footer {
         width: 55vw;
         margin-bottom: 10vh;
         margin-top: 15vh;
+    }
+}
+.LoginPage{
+
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 600px;
+        padding: 50px;
+        background-image: url("../assets/welcome-hero-section-img.jpg");
+        background-position: center center;
+        background-size: cover;
+
+
+        *{
+            color: white;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2vh;
+            background-color: $login-register-field-transparent-black;
+            padding: 50px;
+            border-radius: 50px;
+
+            .username-email-field, .password-field{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .username-email-field{
+                input{
+                    background-color: grey;
+                    border: none;
+                    border-radius: 7px;
+                    padding: 5px 10px;
+                    width: 300px;
+                }
+            }
+
+        }
     }
 }
 
