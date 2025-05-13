@@ -66,6 +66,7 @@ export default function AllAvailableAlbums({ albumCount }) {
 
     return (
         <>
+            <LoggedInHeader/>
             <div className="album-list-header">
                 <h1>{username}&apos;s Album Collection</h1>
                 <p>You have {albumCount} albums.</p>

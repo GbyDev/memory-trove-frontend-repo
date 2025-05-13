@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LoggedInHeader } from "../UI/Headers";
 
 export default function CreateAnAlbum() {
     const { userId } = useContext(AuthContext);
@@ -117,6 +118,7 @@ export default function CreateAnAlbum() {
     return (
         <>
             <div className="CreateAnAlbumPage">
+                <LoggedInHeader/>
                 <h1>Create an Album</h1>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
 

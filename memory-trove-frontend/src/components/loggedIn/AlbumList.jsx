@@ -62,7 +62,7 @@ export default function AlbumList() {
     (
         <>
             <div className="main-container">
-                <LoggedInHeader/>
+                
                 <AllAvailableAlbums albumCount={numOfAlbums} />
             </div>
         </>

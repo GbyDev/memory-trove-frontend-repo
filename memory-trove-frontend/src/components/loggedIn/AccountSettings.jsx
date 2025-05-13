@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { LoggedInHeader } from "../UI/Headers";
 
 export default function AccountSettings(){
     const [input_username, set_input_username] = useState("");
@@ -23,7 +24,6 @@ export default function AccountSettings(){
     }
 
     async function handleDeleteAccount(){
-        /*
         const confirmed = window.confirm("All your albums and pictures will be deleted. This action cannot be undone. Are you sure?");
         if (!confirmed) return;
         
@@ -37,7 +37,6 @@ export default function AccountSettings(){
         //Clear from authContext
         //logout();
         //navigate('/pages/welcome');
-        */
     }
 
     function handleCancel(e){
@@ -170,6 +169,7 @@ export default function AccountSettings(){
     return(
         <>
             <div className="AccountSettingsPage">
+                <LoggedInHeader/>
                 <h1>Account Settings</h1>
                 <h2>Edit Account Details</h2>
                 <form onSubmit={handle_submit}>
