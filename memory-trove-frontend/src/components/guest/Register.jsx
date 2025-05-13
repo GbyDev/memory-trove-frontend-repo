@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { GuestHeader } from "../UI/Headers";
 
 
 export default function Register(){
@@ -114,6 +115,7 @@ export default function Register(){
     return (
         <>
             <div className="RegisterPage">
+                <GuestHeader/>
                 <h1>Register Page</h1>
                 <form onSubmit={handle_submit}>
                     <label>Username</label>

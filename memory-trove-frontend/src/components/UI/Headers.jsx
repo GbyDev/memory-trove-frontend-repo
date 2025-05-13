@@ -3,14 +3,6 @@ import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AlbumContext } from '../../contexts/AlbumContext';
 
-export function Headers() {
-    const { isLoggedIn } = useContext(AuthContext);
-    const { openAlbumState} = useContext(AlbumContext);
-
-    if (openAlbumState) return <AlbumHeader />;
-    return isLoggedIn ? <LoggedInHeader /> : <GuestHeader />;
-}
-
 export function GuestHeader(){
     return(
         <>
@@ -19,9 +11,15 @@ export function GuestHeader(){
                     <h1>Memory Trove</h1>
                 </div>
                 <nav>
-                    <Link to="/pages/welcome">Home</Link>
-                    <Link to="/pages/login">Login</Link>
-                    <Link to="/pages/register">Register</Link>
+                    <Link to="/pages/welcome" className = "home-btn">
+                        <span>Home</span>
+                    </Link>
+                    <Link to="/pages/login" className = "login-btn">
+                        <span>Login</span>
+                    </Link>
+                    <Link to="/pages/register" className = "register-btn">
+                        <span>Register</span>
+                    </Link>
                 </nav>
             </header>
         </>
@@ -38,13 +36,13 @@ export function LoggedInHeader(){
                 </div>
                 <nav>
                     <Link to = "/pages/albumList">
-                        All Albums
+                        <span>All Albums</span>
                     </Link>
                     <Link to = "/pages/createAnAlbum">
-                        Create an Album
+                        <span>Create an Album</span>
                     </Link>
                     <Link to = "/pages/accountSettings">
-                        {username ? username : "User"}
+                        <span>{username ? username : "User"}</span>
                     </Link>
                 </nav>
             </header>

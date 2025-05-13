@@ -15,7 +15,11 @@ html, body {
 
 //Variables
 $background-blue: #032c42;
+$container-dark-blue: #020129;
 $default-gradient: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 50%, rgba(255, 229, 0, 1) 100%);
+$default-gradient-narrow: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 10%, rgba(255, 229, 0, 1) 20%);
+$default-gradient-transparent: linear-gradient(90deg,rgba(255, 0, 204, 0.5) 0%, rgba(255, 98, 0, 0.5) 50%, rgba(255, 229, 0, 0.5) 100%);
+$transparent: rgba(0, 0, 0, 0);
 
 // For debug
 /**/
@@ -50,6 +54,7 @@ header {
     width: 100%;
     display: flex;
     height: 100px;
+    z-index: 100; //very top
 
     .logo, .logo-album-name{
         display: flex;
@@ -74,15 +79,40 @@ header {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5vw;
+        gap: 3vw;
 
         a{
             color: white;
-            font-size: 1.7rem;
+            font-size: 1.3rem;
+            padding: 15px 30px;
+            border-radius: 30px;
         }
     }
 }
 
+footer {
+    width: 100%;
+    background-color: $container-dark-blue;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h4{
+        flex: 1;
+        font-size: 1.5rem;
+        background: $default-gradient-narrow;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; /* gradient-small */  
+    }
+    p{
+        flex: 0.05;
+        color: white;
+        font-size: 1.3rem;
+    }
+    
+}
 .WelcomePage{
     display: flex;
     flex-direction: column;
@@ -91,8 +121,59 @@ header {
         color: white;
     }
 
+    //Specific styling
+    header {
+        nav {
+            .home-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            //All the other elements
+            .login-btn:hover, .register-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .login-btn:active, .register-btn:active{
+                background-image: $default-gradient-transparent;
+            }
+        }
+    }
+    
+
+
+    
     .hero-section{
-        height: 900px;
+        height: 800px;
         background-image: url("../assets/welcome-hero-section-img.jpg");
         background-position: center center;
         background-size: cover;
@@ -111,23 +192,22 @@ header {
             }
 
             p{
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             h1{
-                font-size: 8rem;
-                margin-bottom: 370px;
+                font-size: 6rem;
+                margin-bottom: 300px;
                 background: $default-gradient;
                 background-clip: text;
                 -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent; /* Make text transparent */
+                -webkit-text-fill-color: transparent; /* gradient-big */
                 -webkit-text-stroke: 5px #14004C;
             }
 
             //First P tag
             :nth-child(1){
                 margin-top: 40px;
-                margin-bottom: 20px;
             }
 
         }
@@ -152,28 +232,28 @@ header {
                     color: white;
                 }
                 h1{
-                    font-size: 4rem;
+                    font-size: 3.2rem;
                     margin-bottom: 30px;
                 }
                 p{
-                    font-size: 1.5rem;
-                    margin-bottom: 100px;
+                    font-size: 1.3rem;
                 }
                 .memory-trove-big{
                     background: $default-gradient;
                     background-clip: text;
                     -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent; /* Make text transparent */
+                    -webkit-text-fill-color: transparent; /* gradient-small*/
                     -webkit-text-stroke: 1.5px #14004C;
                 }
                 .memory-trove-small{
                     background: $default-gradient;
                     background-clip: text;
                     -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent; /* Make text transparent */
+                    -webkit-text-fill-color: transparent; /* gradient-small */
                 }
 
                 .button-container{
+                    margin-top: 60px;
                     display: flex;
                     align-items: center;
                     gap: 2vw;
@@ -186,44 +266,79 @@ header {
 
                         .get-started-button {
                             padding: 15px 30px;
-                            border: none;
+                            border: 2px solid transparent;
                             border-radius: 30px;
-                            background-color: transparent; // Transparent background
-                            font-size: 1.5rem;
-                            cursor: pointer;
+                            background-image: linear-gradient($background-blue, $background-blue), $default-gradient;
+                            background-origin: border-box;
+                            background-clip: padding-box, border-box;
 
-                            // Gradient Text Only
-                            background: $default-gradient; // or use $default-gradient if using SCSS variables
-                            background-clip: text;
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            color: transparent; // fallback
+
+                            .button-text {
+                                background: $default-gradient;
+                                background-clip: text;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                                color: transparent;
+                                font-size: 1.4rem;
+                            }
                         }
-                        
+
+                        .get-started-button:hover{
+                            outline: 2px solid white;
+                        }
+
+                        .get-started-button:active{
+                            background-image: $default-gradient-transparent;
+                        }
                     }
-                    
 
                     .login-button{
                         padding: 15px 30px;
-                        border: 2px solid white;
+                        border: 4px solid white;
                         border-radius: 30px;
                         background-color: transparent;
                         color: white;
+                        font-size: 1.4rem;
                     }
+                }
+            }
+
+            .img-content {
+                position: relative;
+                display: inline-block; // Allowing the pseudo-element to wrap the image properly
+
+                img {
+                    border-radius: 30px;
+                    position: relative; // Ensuring the image stays above the gradient pseudo-element
+                    z-index: 2;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 15px;  // Adjust the gradient border's distance from the image
+                    left: 15px;
+                    right: -30px;
+                    bottom: -10px;
+                    background: $default-gradient; // Your gradient variable
+                    border-radius: 30px; // Matches the image's border-radius
+                    z-index: 1; // Ensure the gradient stays below the image
+                    transform: rotate(5deg);
                 }
             }
         }
     }
 
     h2{
-        margin-top: 150px;
-        font-size: 3.4rem;
+        color: white;
+        font-size: 3rem;
+        margin-bottom: 70px;
     }
     hr{
         border: 2px solid white;
         width: 55vw;
-        margin-bottom: 7vh;
-        margin-top: 7vh;
+        margin-bottom: 10vh;
+        margin-top: 15vh;
     }
 }
 

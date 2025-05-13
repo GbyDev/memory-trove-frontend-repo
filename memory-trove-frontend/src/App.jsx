@@ -16,7 +16,6 @@ import EditAlbum from './components/albumOpenPages/EditAlbum.jsx';
 import UploadImage from './components/albumOpenPages/UploadImage.jsx';
 
 //UI
-import { Headers } from './components/UI/Headers.jsx';
 
 import './styles/style.scss';
 import { AuthContext } from './contexts/AuthContext.jsx';
@@ -27,7 +26,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Headers/>
         <div className="main-container">
           <Routes>  
               {/*Default route*/}

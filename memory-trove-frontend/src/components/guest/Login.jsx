@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { GuestHeader } from "../UI/Headers.jsx";
 
 export default function Login(){
     const {login, isLoggedIn} = useContext(AuthContext);
@@ -129,6 +130,7 @@ export default function Login(){
     return (
         <>
             <div className="LoginPage">
+                <GuestHeader/>
                 <h1>Login Page</h1>
                 <form onSubmit = {handle_submit}>
                     <label>Username or Email</label>

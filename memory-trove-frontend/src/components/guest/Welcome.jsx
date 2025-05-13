@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import welcomeImage from '../../assets/welcome-page-section-img.jpg';
+import Footer from '../UI/Footer';
+import { GuestHeader } from '../UI/Headers';
 
 export default function Welcome(){
     const navigate = useNavigate();
@@ -12,6 +14,7 @@ export default function Welcome(){
     return(
         <>
             <div className = "WelcomePage">
+                <GuestHeader/>
                 <div className='hero-section'>
                     <div className="text-content">
                         <p>Your memories are cherished here at</p>
@@ -31,7 +34,7 @@ export default function Welcome(){
                             <div className="button-container">
                                 <div className="button-wrapper">
                                     <button type = "button" className = "get-started-button" onClick={redirectToRegister} >
-                                        <span>Get started</span>
+                                        <span className = "button-text">Get started</span>
                                     </button>
                                 </div>
                                 
@@ -39,13 +42,13 @@ export default function Welcome(){
                             </div>
                         </div>
                         <div className="img-content">
-                            <img src={welcomeImage} alt="Welcome Image" width="400px" height = "auto"></img>
+                            <img src={welcomeImage} alt="Welcome Image" width="350px" height = "auto"></img>
                         </div>
                     </div>
-                    <h2>Create an album, now!</h2>
                     <hr/>
+                    <h2>Create an album, now!</h2>
                 </div>
-                
+                <Footer/>
             </div>
             
             
