@@ -1,4 +1,6 @@
 import { Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AlbumContext } from '../../contexts/AlbumContext';
@@ -35,14 +37,18 @@ export function LoggedInHeader(){
                     <h1>Memory Trove</h1>
                 </div>
                 <nav>
-                    <Link to = "/pages/albumList">
+                    <Link to = "/pages/albumList" className='all-albums-btn'>
                         <span>All Albums</span>
                     </Link>
-                    <Link to = "/pages/createAnAlbum">
+                    <Link to = "/pages/createAnAlbum" className='create-album-btn'>
                         <span>Create an Album</span>
                     </Link>
-                    <Link to = "/pages/accountSettings">
-                        <span>{username ? username : "User"}</span>
+                    <Link to = "/pages/accountSettings" className='account-settings-btn'>
+                        <span>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                             &nbsp;&nbsp;                                                                
+                            {username ? username : "User"}
+                        </span>
                     </Link>
                 </nav>
             </header>
