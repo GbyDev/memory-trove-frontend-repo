@@ -518,7 +518,55 @@ footer {
         }
     }
 }
+
 .RegisterPage{
+
+    header {
+        nav {
+            .register-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            //All the other elements
+            .home-btn:hover, .login-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .home-btn:active, .login-btn:active{
+                background-image: $default-gradient-transparent;
+            }
+        }
+    }
 
     .main-container{
         display: flex;
@@ -561,6 +609,75 @@ footer {
                 width: 300px;
                 color: white; /* Ensure the text color inside the input is white */
             }
+        }
+
+        .password-field {
+
+            .password-txt-fld {
+                display: flex;
+                align-items: center;
+                input {
+                    background-color: grey;
+                    border: none;
+                    border-radius: 7px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    padding: 5px 10px;
+                    width: 250px;
+                    color: white; /* Ensure the text color inside the input is white */
+                }
+
+                button {
+                    background-color: white;
+                    border: none;
+                    border-radius: 7px;
+                    padding: 5px 10px;
+                    width: 50px;
+                    height: 30px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+
+                    * {
+                        color: black; /* Ensure button text color is black */
+                    }
+                }
+            }
+        }
+
+        .create-account-btn{
+            margin-top: 35px;
+            padding: 10px 30px;
+            border-radius: 30px;
+            width: 300px;
+            background-color: transparent;
+            outline: 2px solid white;
+
+            span{
+                color: white;
+                font-size: 1.2rem;
+            }
+        }
+
+        .create-account-btn:hover{
+            background-color: $almost-white-grey-transparent;
+        }
+
+        .create-account-btn:active{
+            background-image: $default-gradient-transparent;
+        }
+
+        .login-redirect{
+
+            a{
+                text-decoration: underline;
+                background: $default-gradient; 
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+        }
+
+        .prompt{
+            text-align: center;
         }
     }
 }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { GuestHeader } from "../UI/Headers";
+import Footer from "../UI/Footer";
 
 
 export default function Register(){
@@ -169,6 +170,7 @@ export default function Register(){
                         <p className="prompt">{prompt}</p>
                     </form>
                 </div>
+                <Footer/>
             </div>
         </>
 
