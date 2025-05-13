@@ -16,11 +16,15 @@ html, body {
 //Variables
 $background-blue: #032c42;
 $container-dark-blue: #020129;
+
 $default-gradient: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 50%, rgba(255, 229, 0, 1) 100%);
 $default-gradient-narrow: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 10%, rgba(255, 229, 0, 1) 20%);
 $default-gradient-transparent: linear-gradient(90deg,rgba(255, 0, 204, 0.5) 0%, rgba(255, 98, 0, 0.5) 50%, rgba(255, 229, 0, 0.5) 100%);
+
 $login-register-field-transparent-black: rgba(0, 0, 0, 0.5);
 $transparent: rgba(0, 0, 0, 0);
+
+$almost-white-grey-transparent:rgba(194, 194, 194, 0.5);
 
 // For debug
 /**/
@@ -49,6 +53,11 @@ button, a{
     cursor: pointer;
 }
 
+input{
+    font-size: 1.2rem;
+    height: 30px;
+}
+
 // Header styles
 header {
     position: fixed;
@@ -67,6 +76,7 @@ header {
         
         h1 {
             background: $default-gradient;
+            background-clip: text;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; /* Make text transparent */
@@ -345,54 +355,215 @@ footer {
         margin-top: 15vh;
     }
 }
-.LoginPage{
+.LoginPage {
+    //Specific styling
+    header {
+        nav {
+            .login-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            //All the other elements
+            .home-btn:hover, .register-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .home-btn:active, .register-btn:active{
+                background-image: $default-gradient-transparent;
+            }
+        }
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 673px;
+        background-image: url("../assets/welcome-hero-section-img.jpg");
+        background-position: center center;
+        background-size: cover;
+
+        /* Apply white color to text-related elements */
+        p, span, label, h1 {
+            color: white;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 470px;
+            gap: 2vh;
+            background-color: $login-register-field-transparent-black;
+            padding: 50px;
+            border-radius: 50px;
+
+            .username-email-field, .password-field {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .username-email-field {
+                input {
+                    background-color: grey;
+                    border: none;
+                    border-radius: 7px;
+                    padding: 5px 10px;
+                    width: 300px;
+                    color: white; /* Ensure the text color inside the input is white */
+                }
+            }
+
+            .password-field {
+
+                .password-txt-fld {
+                    display: flex;
+                    align-items: center;
+                    input {
+                        background-color: grey;
+                        border: none;
+                        border-radius: 7px;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        padding: 5px 10px;
+                        width: 250px;
+                        color: white; /* Ensure the text color inside the input is white */
+                    }
+
+                    button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 7px;
+                        padding: 5px 10px;
+                        width: 50px;
+                        height: 30px;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+
+                        * {
+                            color: black; /* Ensure button text color is black */
+                        }
+                    }
+                }
+            }
+
+            .sign-in-btn{
+                margin-top: 35px;
+                padding: 10px 30px;
+                border-radius: 30px;
+                width: 300px;
+                background-color: transparent;
+                outline: 2px solid white;
+
+                span{
+                    color: white;
+                    font-size: 1.2rem;
+                }
+            }
+
+            .sign-in-btn:hover{
+                background-color: $almost-white-grey-transparent;
+            }
+
+            .sign-in-btn:active{
+                background-image: $default-gradient-transparent;
+            }
+
+            .register-redirect{
+
+                a{
+                    text-decoration: underline;
+                    background: $default-gradient; 
+                    -webkit-background-clip: text;
+                    color: transparent;
+                }
+            }
+
+            .prompt{
+                text-align: center;
+            }
+        }
+    }
+}
+.RegisterPage{
 
     .main-container{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 600px;
-        padding: 50px;
+        height: 673px;
         background-image: url("../assets/welcome-hero-section-img.jpg");
         background-position: center center;
         background-size: cover;
 
-
-        *{
+        p, span, label, h1 {
             color: white;
         }
 
-        form{
+        form {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 470px;
             gap: 2vh;
             background-color: $login-register-field-transparent-black;
             padding: 50px;
             border-radius: 50px;
+        }
 
-            .username-email-field, .password-field{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+        .username-field, .email-field, .password-field{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .username-field, .email-field {
+            input {
+                background-color: grey;
+                border: none;
+                border-radius: 7px;
+                padding: 5px 10px;
+                width: 300px;
+                color: white; /* Ensure the text color inside the input is white */
             }
-
-            .username-email-field{
-                input{
-                    background-color: grey;
-                    border: none;
-                    border-radius: 7px;
-                    padding: 5px 10px;
-                    width: 300px;
-                }
-            }
-
         }
     }
 }
-
 
 // Album List Hierarchy (all available albums) 
 // kapoy sigeg balik balik tanaw

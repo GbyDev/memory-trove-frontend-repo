@@ -163,12 +163,11 @@ export default function Login(){
                                 </button>
                             </div>
                         </div>
+                        <button className = "sign-in-btn">
+                            <span>Sign in</span>
+                        </button>
 
-                        <div className="submit-btn">
-                            <button>Sign in</button>
-                        </div>
-
-                        <p>Don't have an account? <a href="/pages/register">Register here</a></p>
+                        <p className = "register-redirect">Don't have an account? <a href="/pages/register">Register here</a></p>
                         <p className="prompt">{prompt}</p>
                     </form>
                 </div>

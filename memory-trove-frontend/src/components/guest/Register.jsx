@@ -116,44 +116,59 @@ export default function Register(){
         <>
             <div className="RegisterPage">
                 <GuestHeader/>
-                <h1>Register Page</h1>
-                <form onSubmit={handle_submit}>
-                    <label>Username</label>
-                    <input 
-                        type = "text" 
-                        name = "username"
-                        value = {username}
-                        onChange = {(e) => set_username(e.target.value)}
-                    />
-                    <label>Email</label>
-                    <input 
-                        type = "email" 
-                        name = "email"
-                        value = {email}
-                        onChange = {(e) => set_email(e.target.value)}
-                    />
-                    <label>Password</label>
-                    <div className="password-field">
-                        <input 
-                            type = {password_reveal ? "text" : "password"}
-                            name = "password"
-                            value={password}
-                            onChange = {(e) => set_password(e.target.value)}
-                        />
+                <div className="main-container">
+                    
+                    <form onSubmit={handle_submit}>
+
+                        <h1>Register Page</h1>
+
+                        <div className="username-field">
+                            <label>Username</label>
+                            <input 
+                                type = "text" 
+                                name = "username"
+                                value = {username}
+                                onChange = {(e) => set_username(e.target.value)}
+                            />
+                        </div>
                         
-                        <button 
-                            type = "button"
-                            onClick = {() => set_password_reveal(!password_reveal)}
-                        >
-                            <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
+                        <div className="email-field">
+                            <label>Email</label>
+                            <input 
+                                type = "email" 
+                                name = "email"
+                                value = {email}
+                                onChange = {(e) => set_email(e.target.value)}
+                            />
+                        </div>
+                        
+                        <div className="password-field">
+                            <label>Password</label>
+
+                            <div className="password-txt-fld">
+                                <input 
+                                    type = {password_reveal ? "text" : "password"}
+                                    name = "password"
+                                    value={password}
+                                    onChange = {(e) => set_password(e.target.value)}
+                                />
+                                <button 
+                                    type = "button"
+                                    onClick = {() => set_password_reveal(!password_reveal)}
+                                >
+                                    <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type = "submit" className="create-account-btn">
+                            <span>Create Account</span>
                         </button>
-                    </div>
-                    <div className="submit-btn">
-                        <button type = "submit">Register</button>
-                    </div>
-                    <p>Already have an account? <a href="/pages/login">Login here</a></p>
-                    <p className="prompt">{prompt}</p>
-                </form>
+
+                        <p className="login-redirect">Already have an account? <a href="/pages/login">Login here</a></p>
+                        <p className="prompt">{prompt}</p>
+                    </form>
+                </div>
             </div>
         </>
 
