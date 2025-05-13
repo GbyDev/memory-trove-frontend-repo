@@ -17,6 +17,9 @@ html, body {
 $background-blue: #032c42;
 $container-dark-blue: #020129;
 $almost-green: rgb(0, 211, 0);
+$almost-green-transparent: rgba(0, 211, 0, 0.5);
+$almost-red: rgb(255, 54, 54);
+$almost-red-transparent: rgba(255, 54, 54, 0.5);
 
 $default-gradient: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 50%, rgba(255, 229, 0, 1) 100%);
 $default-gradient-narrow: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 10%, rgba(255, 229, 0, 1) 20%);
@@ -25,7 +28,7 @@ $default-gradient-transparent: linear-gradient(90deg,rgba(255, 0, 204, 0.5) 0%, 
 $login-register-field-transparent-black: rgba(0, 0, 0, 0.5);
 $transparent: rgba(0, 0, 0, 0);
 
-$almost-white-grey-transparent:rgba(194, 194, 194, 0.5);
+$almost-white-grey-transparent:rgba(125, 125, 125, 0.5);
 
 
 // For debug
@@ -752,11 +755,11 @@ footer {
     }
 
     .main-container{
-        margin-top: 100px;
+        padding-top: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 600px;
+        height: 100vh;
         gap: 30px;
 
         *{
@@ -845,94 +848,289 @@ footer {
 
     .main-container{
         position: relative;
-        top: 125px;
+        padding-top: 125px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 600px;
+        height: 60vw;
         gap: 30px;
+
+        p, h1, h2, h3, h4, h5, h6, label {
+            color: white;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            h1{
+                font-size: 4rem;
+                text-align: center;
+            }
+            .all-fields{
+                display: flex;
+                gap: 75px;
+
+                .input-fields-container{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 10px;
+                    width: 400px;
+
+                    .album-name-field{
+                        margin-bottom: 20px;
+                    }
+
+                    > *{
+                        display: flex;
+                        flex-direction: column;
+
+                        input, textarea{
+                            border: none;
+                            background-color: $almost-white-grey-transparent;
+                            border-radius: 7px;
+                            padding: 5px 10px;
+                            width: 400px;
+                            color: white;
+                        }
+                        h3{
+                            text-align: center;
+                        }
+                        p{
+                            font-size: 0.7rem;
+                        }
+                        textarea{
+                            resize: none;
+                            overflow: auto;
+                        }
+
+                    }
+                    
+                }
+
+                .upload-img-container{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    width: 400px;
+
+                    .upload-image-field{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        align-items: center;
+
+                        label{
+                            font-size: 1rem;
+                        }
+                        .upload-label{
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: black;
+                            background-color: white;
+                            padding: 5px 10px;
+                            border-radius: 7px;
+                            gap: 5px;
+
+                            .upload-icon{
+                                color: black;
+                            }
+                        }
+                    }
+
+                    .cover-photo-preview{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        align-items: center;
+
+                        .preview-container{
+
+                            h3{
+                                text-align: center;
+                            }
+                            img{
+                                border-radius: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+            .buttons{
+                display: flex;
+                gap: 25px;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                height: 30vh;
+
+                button{
+                    width: 500px;
+                    padding: 10px 30px;
+                    font-size: 1.1rem;
+                    background-color: transparent;
+                    border-radius: 30px;
+                    
+                }
+                .create-album-btn{
+                    outline: 3px solid $almost-green;
+                    color: $almost-green;
+                }
+                .create-album-btn:hover{
+                    background-color: $almost-white-grey-transparent;
+                }
+                .create-album-btn:active{
+                    background-color: $almost-green-transparent;
+                }
+                .cancel-btn{
+                    outline: 3px solid $almost-white-grey-transparent;
+                    color: $almost-white-grey-transparent;
+                }
+                
+                .cancel-btn:hover{
+                    background-color: $almost-white-grey-transparent;
+                }
+                .cancel-btn:active{
+                    background-color: $almost-red-transparent;
+                }
+            }
+        }
+    }
+}
+
+.AccountSettingsPage{
+    header{
+        position: fixed;
+
+        nav{
+            flex: 1;
+
+            .account-settings-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                
+                // Apply gradient to the icon directly
+                .account-icon {
+                    color: #ff2a6d
+                }
+                
+                span {
+                    background: $default-gradient;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+
+
+            }
+
+            //All the other elements
+            .all-albums-btn:hover, .create-album-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .all-albums-btn:active, .create-album-btn:active{
+                background-image: $default-gradient-transparent
+            }
+        }
+    }
+
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
 
         h1, h2, h3, h4, h5, h6, p, label{
             color: white;
         }
 
-        h1{
-            font-size: 4rem;
-        }
-
         .all-fields{
             display: flex;
-            gap: 100px;
+            gap: 50px;
 
-            .input-fields-container{
+            form{
                 display: flex;
                 flex-direction: column;
-                align-items: center;
                 gap: 10px;
                 width: 400px;
 
                 > *{
                     display: flex;
                     flex-direction: column;
+                    gap: 5px;
 
-                    input, textarea{
+                    input{
                         border: none;
-                        background-color: grey;
+                        background-color: $almost-white-grey-transparent;
                         border-radius: 7px;
                         padding: 5px 10px;
                         width: 400px;
                         color: white;
                     }
+                    h3{
+                        text-align: center;
+                    }
                     p{
-                        font-size: 0.9rem;
+                        font-size: 0.7rem;
                     }
-                    textarea{
-                        resize: none;
-                        overflow: auto;
-                    }
-
                 }
-                
-            }
 
-            .upload-img-container{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-
-                > *{
+                .password-field{
                     display: flex;
                     flex-direction: column;
-                    gap: 30px;
-                }
+                    gap: 5px;
 
-                .upload-image-field{
-                    label{
-                        font-size: 0.9rem;
-                    }
-                    .upload-label{
+                    .password-input-fld{
                         display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 30px;
-                        outline: white solid 2px;
-                        color: black;
-                        cursor: "pointer";  
-                        text-decoration: "underline";
-                        font-size: 1rem;
-                        background-color: white;
-                        border-radius: 30px;
 
-                        .upload-icon{
-                            color: black;
+                        input{
+                            border-radius: 10px;
+                            width: 350px;
+                            border-top-right-radius: 0;
+                            border-bottom-right-radius: 0;
                         }
-                    }
-                    #cover-photo-upload{
-                        display: none;
+
+                        button{
+                            width:50px;
+                            border-top-left-radius: 0;
+                            border-bottom-left-radius: 0;
+                        }
                     }
                 }
             }
+
+            
         }
     }
 }

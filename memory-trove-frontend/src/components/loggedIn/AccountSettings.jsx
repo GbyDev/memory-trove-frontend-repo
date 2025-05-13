@@ -5,6 +5,7 @@ import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { LoggedInHeader } from "../UI/Headers";
+import Footer from "../UI/Footer";
 
 export default function AccountSettings(){
     const [input_username, set_input_username] = useState("");
@@ -170,63 +171,102 @@ export default function AccountSettings(){
         <>
             <div className="AccountSettingsPage">
                 <LoggedInHeader/>
-                <h1>Account Settings</h1>
-                <h2>Edit Account Details</h2>
-                <form onSubmit={handle_submit}>
-                    <label>Username</label>
-                    <input 
-                        type = "text" 
-                        name = "username"
-                        value = {input_username || ""}
-                        onChange = {(e) => set_input_username(e.target.value)}
-                    />
-                    <label>Email</label>
-                    <input 
-                        type = "email" 
-                        name = "email"
-                        value = {input_email || ""}
-                        onChange = {(e) => set_input_email(e.target.value)}
-                    />
-                    <label>Password</label>
-                    <div className="password-field">
-                        <input 
-                            type = {password_reveal ? "text" : "password"}
-                            name = "password"
-                            value={input_password || ""}
-                            onChange = {(e) => set_input_password(e.target.value)}
-                        />
+
+                <div className="main-container">
+
+                    <h1>Account Settings</h1>
+
+                    <div className="all-fields">
+                        <form onSubmit={handle_submit}>
+
+                            <div className="edit-account-text-container">
+                                <h2>Edit Account Details</h2>
+                            </div>
+                            
+
+                            <div className="username-field">
+                                <label>Username</label>
+                                <input 
+                                    type = "text" 
+                                    name = "username"
+                                    value = {input_username || ""}
+                                    onChange = {(e) => set_input_username(e.target.value)}
+                                />
+                            </div>
+                            
+                            <div className="email-field">
+                                <label>Email</label>
+                                <input 
+                                    type = "email" 
+                                    name = "email"
+                                    value = {input_email || ""}
+                                    onChange = {(e) => set_input_email(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="password-field">
+
+                                <label>Password</label>
+
+                                <div className="password-input-fld">
+                                    <input 
+                                        type = {password_reveal ? "text" : "password"}
+                                        name = "password"
+                                        value={input_password || ""}
+                                        onChange = {(e) => set_input_password(e.target.value)}
+                                    />
+                                    <button 
+                                        type = "button"
+                                        onClick = {() => set_password_reveal(!password_reveal)}
+                                    >
+                                        <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
+                                    </button>
+                                </div>
+
+                            </div>
+                            
+                                <button type = "submit">Save Changes</button>
+                                <button type = "button" onClick = {handleCancel}>Cancel</button>
+                        </form>
+
+                        <div className="other-options">
+
+                            <div className="log-out-section">
+                                <p>Want to log out?</p>
+                                <button type = "button" onClick = {handleLogOut}>Log out</button>
+                            </div>
+                            
+
+                            <div className="delete-section">
+                                <h3>!DANGER ZONE!</h3>
+                                <button type = "button" onClick = {handleDeleteAccount}>Delete Account</button>
+                            </div>
                         
-                        <button 
-                            type = "button"
-                            onClick = {() => set_password_reveal(!password_reveal)}
-                        >
-                            <FontAwesomeIcon icon = {password_reveal ? faEyeSlash : faEye}/>
-                        </button>
+                        </div>
                     </div>
-                    <div className="submit-btn">
-                        <button type = "submit">Save Changes</button>
-                    </div>
-                    <p 
-                        className="prompt"
-                        style={{
-                            color: 
-                            promptType === 'error' 
-                            ? 'red' 
-                            : promptType === 'success' 
-                                ? 'green' 
-                                : 'black'
-                        }}
-                    >
-                        {prompt}
-                    </p>
-                </form>
-                <button type = "button" onClick = {handleCancel}>Cancel</button>
-                <button type = "button" onClick = {handleLogOut}>
-                    Click to log out
-                </button>
-                <p>Want to delete your account?</p>
-                <button type = "button" onClick = {handleDeleteAccount}>Delete Account</button>
+                    
+                    
+                </div>
                 
+                
+                
+                
+                
+                <p 
+                    className="prompt"
+                    style={{
+                        color: 
+                        promptType === 'error' 
+                        ? 'red' 
+                        : promptType === 'success' 
+                            ? 'green' 
+                            : 'black'
+                    }}
+                >
+                    {prompt}
+                </p>
+
+                <Footer/>
             </div>
             
         </>

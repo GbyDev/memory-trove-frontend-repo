@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LoggedInHeader } from "../UI/Headers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../UI/Footer";
 
 export default function CreateAnAlbum() {
     const { userId } = useContext(AuthContext);
@@ -122,10 +123,10 @@ export default function CreateAnAlbum() {
             <div className="CreateAnAlbumPage">
                 <LoggedInHeader/>
                 <div className="main-container">
-                    <h1>Create New Album</h1>
+                    
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
-
-                       <div className="all-fields">
+                        <h1>Create New Album</h1>
+                        <div className="all-fields">
                             <div className="input-fields-container">
 
                                 <div className="album-name-field">
@@ -171,13 +172,15 @@ export default function CreateAnAlbum() {
                                     <label>You can also set your cover image later. </label>
                                     <label className = "upload-label" htmlFor="cover-photo-upload">
                                         Upload Cover Image
-                                        <FontAwesomeIcon className="upload-icon" icon={faUpload} color = "black" />
+                                        &nbsp;&nbsp;
+                                        <FontAwesomeIcon className="upload-icon" icon={faUpload} />
                                     </label>
                                     <input
                                         id="cover-photo-upload"
                                         type="file"
                                         accept="image/*"
                                         onChange={handleCoverPhotoChange}
+                                        style = {{display : "none"}}
                                     />
                                 </div>
                                 
@@ -188,7 +191,7 @@ export default function CreateAnAlbum() {
                                             <img
                                                 src={coverPhotoPreview}
                                                 alt="Cover Preview"
-                                                style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                                                style={{ width: "200px", height: "auto", maxHeight: "200px", objectFit: "cover" }}
                                             />
                                         </div>
                                     )}
@@ -198,14 +201,15 @@ export default function CreateAnAlbum() {
                        </div>
                         
                         <div className="buttons">
-                            <button type="submit">Create</button>
-                            <button type="button" onClick={handleCancel}>Cancel</button>
                             <p className="prompt">{prompt}</p>
+                            <button type="submit" className="create-album-btn">Create</button>
+                            <button type="button" onClick={handleCancel} className="cancel-btn">Cancel</button>
+                            
                         </div>
                         
                     </form>
                 </div>
-                
+                <Footer/>
             </div>
         </>
     );

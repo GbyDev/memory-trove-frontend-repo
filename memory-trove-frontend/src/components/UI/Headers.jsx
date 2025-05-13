@@ -33,22 +33,32 @@ export function LoggedInHeader(){
     return(
         <>
             <header>
-                <div className = "logo">
+                {/* Add this SVG definition for the gradient */}
+                <svg width="0" height="0" style={{ position: 'absolute' }}>
+                    <defs>
+                        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#ff2a6d" />
+                            <stop offset="100%" stopColor="#05d9e8" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                
+                <div className="logo">
                     <h1>Memory Trove</h1>
                 </div>
                 <nav>
-                    <Link to = "/pages/albumList" className='all-albums-btn'>
+                    <Link to="/pages/albumList" className='all-albums-btn'>
                         <span>All Albums</span>
                     </Link>
-                    <Link to = "/pages/createAnAlbum" className='create-album-btn'>
+                    <Link to="/pages/createAnAlbum" className='create-album-btn'>
                         <span>Create an Album</span>
                     </Link>
-                    <Link to = "/pages/accountSettings" className='account-settings-btn'>
-                        <span>
-                            <FontAwesomeIcon icon={faCircleUser} />
-                             &nbsp;&nbsp;                                                                
-                            {username ? username : "User"}
-                        </span>
+                    <Link to="/pages/accountSettings" className='account-settings-btn'>
+                        <FontAwesomeIcon 
+                            icon={faCircleUser} 
+                            className="account-icon" 
+                        />
+                        <span>&nbsp;{username ? username : "User"}</span>
                     </Link>
                 </nav>
             </header>

@@ -1,4 +1,5 @@
 import { LoggedInHeader } from "../../UI/Headers";
+import Footer from "../../UI/Footer";
 
 export default function EmptyAlbums(){
     return(
@@ -10,6 +11,7 @@ export default function EmptyAlbums(){
                     <p>Click the button below to create an album.</p>
                     <a href = "/pages/createAnAlbum">Create an Album</a>
                 </div>
+                <Footer/>
             </div>
             
         </>
