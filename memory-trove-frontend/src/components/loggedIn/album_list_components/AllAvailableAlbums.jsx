@@ -79,7 +79,6 @@ export default function AllAvailableAlbums({ albumCount }) {
                     </div>
                     <ListOfAlbums albumTotal={albumCount}  />
                 </div>
-                <Footer/>
             </div>
 
         </>

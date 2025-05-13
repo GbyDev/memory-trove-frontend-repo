@@ -74,16 +74,16 @@ export function AlbumHeader(){
                 <h1>{albumName}</h1>
             </div>
             <nav>
-                <Link to = "/pages/media">
-                    Media
+                <Link to = "/pages/media" className = "media-btn">
+                    <span>Media</span>
                 </Link>
-                <Link to = "/pages/uploadImage">
+                <Link to = "/pages/uploadImage" className = "upload-image-btn">
                     Upload an Image
                 </Link>
-                <Link to = "/pages/editAlbum">
+                <Link to = "/pages/editAlbum" className='edit-album-btn'>
                     Edit Album
                 </Link>
-                <Link to = "/pages/albumList">
+                <Link to = "/pages/albumList" className='back-to-albums-list-btn'>
                     Back to Albums List
                 </Link>
             </nav>

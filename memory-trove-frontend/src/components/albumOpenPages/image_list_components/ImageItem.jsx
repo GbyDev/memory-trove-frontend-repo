@@ -43,7 +43,7 @@ export function ImageItem({ img, index, onClick, isSelected }) {
                 fontSize: "0.9em",
                 margin: "4px 0",
             }}>
-                Uploaded on: {formattedDate}
+                {formattedDate}
             </p>
         </div>
     );

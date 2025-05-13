@@ -3,6 +3,7 @@ import { AlbumContext } from '../../contexts/AlbumContext';
 import ListOfImages from './image_list_components/ListOfImages';
 import axios from 'axios';
 import { AlbumHeader } from '../UI/Headers';
+import Footer from '../UI/Footer';
 
 export default function Media() {
     const {
@@ -47,7 +48,7 @@ export default function Media() {
                 <div className="text-content">
                     <h3>{welcomeText}</h3>
                     <p>{albumDescription}</p>
-                    <p>{dateCreated}</p>
+                    <p>Date Created:{dateCreated}</p>
                 </div>
                 <div className="section">
                     <div className="img-list">
