@@ -1,45 +1,235 @@
+// Default font
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-//CSS reset
-*{
+// CSS reset
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
 }
-html, body{
+
+html, body {
     overflow-x: hidden;
 }
 
-
 //Variables
-$site-default-blue:#51c3c4;
-$site-default-yellow:#fbc363;
+$background-blue: #032c42;
+$default-gradient: linear-gradient(90deg,rgba(255, 0, 204, 1) 0%, rgba(255, 98, 0, 1) 50%, rgba(255, 229, 0, 1) 100%);
 
-//For debug
+// For debug
 /**/
+/*
 * {
     background-color: rgba(0, 255, 0, 0.1);
 }
-
-//Global Styles
-//Default font
-*{
-    font-family: 'Roboto', sans-serif;
+*/
+/*
+* {
+    outline: 1px solid red;
+}
+*/
+// Global Styles
+* {
+    font-family: 'Madimi One', sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-header{
+body{
+    background-color: #032c42;
+}
+
+button, a{
+    cursor: pointer;
+}
+
+// Header styles
+header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    height: 100px;
+
+    .logo, .logo-album-name{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 3vw;
+        font-size: 1.5rem;
+        flex: 1;
+        
+        h1 {
+            background: $default-gradient;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Make text transparent */
+            -webkit-text-stroke: 2px #14004C;
+        }
+    }
 
     nav{
+        margin-right: 3vw;
+        flex: 0.3;
         display: flex;
-        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        gap: 5vw;
+
+        a{
+            color: white;
+            font-size: 1.7rem;
+        }
+    }
+}
+
+.WelcomePage{
+    display: flex;
+    flex-direction: column;
+
+    *{
+        color: white;
+    }
+
+    .hero-section{
+        height: 900px;
+        background-image: url("../assets/welcome-hero-section-img.jpg");
+        background-position: center center;
+        background-size: cover;
+
+        .text-content{
+            position: relative;
+            top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+
+            > *{
+                text-align: center;
+            }
+
+            p{
+                font-size: 2rem;
+            }
+
+            h1{
+                font-size: 8rem;
+                margin-bottom: 370px;
+                background: $default-gradient;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; /* Make text transparent */
+                -webkit-text-stroke: 5px #14004C;
+            }
+
+            //First P tag
+            :nth-child(1){
+                margin-top: 40px;
+                margin-bottom: 20px;
+            }
+
+        }
+    }
+
+    .section{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .flex-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70vw;
+            gap: 5vw;
+
+            .text-content{
+
+                *{
+                    color: white;
+                }
+                h1{
+                    font-size: 4rem;
+                    margin-bottom: 30px;
+                }
+                p{
+                    font-size: 1.5rem;
+                    margin-bottom: 100px;
+                }
+                .memory-trove-big{
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent; /* Make text transparent */
+                    -webkit-text-stroke: 1.5px #14004C;
+                }
+                .memory-trove-small{
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent; /* Make text transparent */
+                }
+
+                .button-container{
+                    display: flex;
+                    align-items: center;
+                    gap: 2vw;
+
+                    .button-wrapper{
+                        padding: 2px; /* Border thickness */
+                        border-radius: 30px;
+                        background: $default-gradient;
+
+
+                        .get-started-button {
+                            padding: 15px 30px;
+                            border: none;
+                            border-radius: 30px;
+                            background-color: transparent; // Transparent background
+                            font-size: 1.5rem;
+                            cursor: pointer;
+
+                            // Gradient Text Only
+                            background: $default-gradient; // or use $default-gradient if using SCSS variables
+                            background-clip: text;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            color: transparent; // fallback
+                        }
+                        
+                    }
+                    
+
+                    .login-button{
+                        padding: 15px 30px;
+                        border: 2px solid white;
+                        border-radius: 30px;
+                        background-color: transparent;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    h2{
+        margin-top: 150px;
+        font-size: 3.4rem;
+    }
+    hr{
+        border: 2px solid white;
+        width: 55vw;
+        margin-bottom: 7vh;
+        margin-top: 7vh;
     }
 }
 
 
-//Album List Hierarchy (all available albums) 
-//kapoy sigeg balik balik tanaw
+// Album List Hierarchy (all available albums) 
+// kapoy sigeg balik balik tanaw
 /* 
 .main-container 
       |
