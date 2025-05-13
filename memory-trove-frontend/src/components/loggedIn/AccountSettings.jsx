@@ -224,9 +224,12 @@ export default function AccountSettings(){
                                 </div>
 
                             </div>
-                            
-                                <button type = "submit">Save Changes</button>
-                                <button type = "button" onClick = {handleCancel}>Cancel</button>
+
+                            <div className="buttons">
+                                <button type = "submit" className="save-changes-btn">Save Changes</button>
+                                <button type = "button" onClick = {handleCancel} className="cancel-changes-btn">Cancel</button>
+                            </div>
+                                
                         </form>
 
                         <div className="other-options">
@@ -239,7 +242,8 @@ export default function AccountSettings(){
 
                             <div className="delete-section">
                                 <h3>!DANGER ZONE!</h3>
-                                <button type = "button" onClick = {handleDeleteAccount}>Delete Account</button>
+                                <button type = "button" onClick = {handleDeleteAccount}>DELETE ACCOUNT</button>
+                                <p>All the albums,  images, associated with this account, and its records will be deleted forever. The action cannot be undone.</p>
                             </div>
                         
                         </div>
