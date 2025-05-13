@@ -852,12 +852,87 @@ footer {
         height: 600px;
         gap: 30px;
 
-        * {
+        h1, h2, h3, h4, h5, h6, p, label{
             color: white;
         }
 
         h1{
             font-size: 4rem;
+        }
+
+        .all-fields{
+            display: flex;
+            gap: 100px;
+
+            .input-fields-container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                width: 400px;
+
+                > *{
+                    display: flex;
+                    flex-direction: column;
+
+                    input, textarea{
+                        border: none;
+                        background-color: grey;
+                        border-radius: 7px;
+                        padding: 5px 10px;
+                        width: 400px;
+                        color: white;
+                    }
+                    p{
+                        font-size: 0.9rem;
+                    }
+                    textarea{
+                        resize: none;
+                        overflow: auto;
+                    }
+
+                }
+                
+            }
+
+            .upload-img-container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                > *{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+
+                .upload-image-field{
+                    label{
+                        font-size: 0.9rem;
+                    }
+                    .upload-label{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 30px;
+                        outline: white solid 2px;
+                        color: black;
+                        cursor: "pointer";  
+                        text-decoration: "underline";
+                        font-size: 1rem;
+                        background-color: white;
+                        border-radius: 30px;
+
+                        .upload-icon{
+                            color: black;
+                        }
+                    }
+                    #cover-photo-upload{
+                        display: none;
+                    }
+                }
+            }
         }
     }
 }
