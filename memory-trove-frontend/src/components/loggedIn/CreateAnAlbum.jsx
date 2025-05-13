@@ -204,7 +204,6 @@ export default function CreateAnAlbum() {
                             <p className="prompt">{prompt}</p>
                             <button type="submit" className="create-album-btn">Create</button>
                             <button type="button" onClick={handleCancel} className="cancel-btn">Cancel</button>
-                            
                         </div>
                         
                     </form>

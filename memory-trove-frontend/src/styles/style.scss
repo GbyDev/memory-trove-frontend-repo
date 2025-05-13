@@ -1706,7 +1706,296 @@ footer {
     }
 }
 
+.EditAlbumPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    
 
+    header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo-album-name{
+            flex: 0.3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .edit-album-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            .back-to-albums-list-btn{
+                color: $almost-red;
+            }
+            //All the other elements
+            .media-btn:hover, .upload-image-btn:hover{
+                outline: 2px solid white;  
+            }   
+            .media-btn:active, .upload-image-btn:active{
+                background-image: $default-gradient-transparent
+            }
+
+            .back-to-albums-list-btn:hover{
+                outline: 2px solid $almost-red;
+            }
+            .back-to-albums-list-btn:active{
+                background-color: $almost-red-transparent;
+            }
+        }
+    }
+
+
+
+    .main-container {
+        padding-top: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        height: 130vh;
+
+        h1, h2, h3, h4, h5, h6, label, p{
+            color: white;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+
+            .all-fields{
+                display: flex;
+                align-items: center;
+                gap: 100px;
+
+                .input-text-fields{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    width: 400px;
+
+                    div{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+
+                        input, textarea{
+                            border: none;
+                            background-color: $almost-white-grey-transparent;
+                            border-radius: 7px;
+                            padding: 5px 10px;
+                            width: 400px;
+                            color: white;
+                        }
+                        h3{
+                            text-align: center;
+                        }
+                        p{
+                            font-size: 0.7rem;
+                        }
+                        textarea{
+                            resize: none;
+                            overflow: auto;
+                        }
+                    }
+                }
+                .cover-img-section{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+
+                    .upload-img-field{
+                        .upload-label{
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: black;
+                            background-color: white;
+                            padding: 5px 10px;
+                            border-radius: 7px;
+                            gap: 5px;
+                            width: 300px;
+
+                            .upload-icon{
+                                color: black;
+                            }
+                        }
+                        input{
+                            display: none;
+                        }
+                    }
+
+                    .preview-img-section{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 10px;
+                        max-height: 300px;
+                        max-width: 400px;
+                        overflow: hidden;
+                    }
+                }
+            }
+
+            .buttons-section{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                flex-direction: column;
+
+                .update-button{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $almost-green;
+                    background-color: transparent;
+                    padding: 5px 10px;
+                    border-radius: 7px;
+                    gap: 5px;
+                    outline: 4px solid $almost-green-transparent;
+                    width: 350px;
+                }
+
+                .update-button:hover{
+                    background-color: $almost-white-grey-transparent;
+                }
+
+                .update-button:active{
+                    background-color: $almost-green-transparent;
+                }
+
+                .cancel-button{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $almost-white-grey-transparent;
+                    background-color: transparent;
+                    padding: 5px 10px;
+                    border-radius: 7px;
+                    gap: 5px;
+                    outline: 4px solid $almost-white-grey-transparent;
+                    width: 350px;
+                }
+
+                .cancel-button:hover{
+                    background-color: $almost-white-grey-transparent;
+                }
+
+                .cancel-button:active{
+                    background-color: $almost-red-transparent;
+                }
+            }
+
+            
+        }
+
+        .bottom-section{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-direction: column;
+
+            .download-button{
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                background-color: transparent;
+                padding: 5px 10px;
+                border-radius: 7px;
+                gap: 5px;
+                outline: 2px solid white;
+                width: 350px;
+                margin-bottom: 100px;
+            }
+
+            .download-button:hover{
+                background-color: $almost-white-grey-transparent;
+            }
+
+            .download-button:active{
+                background-image: $default-gradient-transparent;
+            }
+            .warning{
+                color: $almost-red;
+            }
+
+            .delete-button{
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $almost-red;
+                background-color: transparent;
+                padding: 5px 10px;
+                border-radius: 7px;
+                gap: 5px;
+                outline: 4px solid $almost-red-transparent;
+                width: 300px;
+            }
+
+            .delete-button:hover{
+                background-color: $almost-white-grey-transparent;
+            }
+
+            .delete-button:active{
+                background-color: $almost-red-transparent;
+            }
+        }
+
+            
+
+    }
+}
 
 
 

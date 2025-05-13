@@ -3,6 +3,10 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { AlbumContext } from "../../contexts/AlbumContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AlbumHeader } from "../UI/Headers";
+import Footer from "../UI/Footer";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function EditAlbum() {
     const [nameOfAlbum, setNameOfAlbum] = useState("");
@@ -197,66 +201,99 @@ export default function EditAlbum() {
     }
     return(
         <>  
-            <h1>Edit Album</h1>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <label>Album Name</label>
-                    <br />
-                    <input
-                        type="text"
-                        name="album_name"
-                        value={nameOfAlbum}
-                        onChange={(e) => setNameOfAlbum(e.target.value)}
-                    />
-                    <br/>
-                    <label>Welcome text</label>
-                    <br />
-                    <textarea
-                        name="welcomeTxt"
-                        value={welcomeTxt}
-                        onChange={(e) => setWelcomeTxt(e.target.value)}
-                        className="welcomeTxt-textarea"
-                    />
-                    <br />
+            <div className="EditAlbumPage">
+                <AlbumHeader/>
+                <div className="main-container">
+                    <h1>Edit Album</h1>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
 
-                    <label>Description (maximum 200 characters)</label>
-                    <br />
-                    <textarea
-                        name="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="description-textarea"
-                    />
-                    <br />
-                    
-                    <label>Cover Photo </label>
-                    <br />
-                    <input
-                        type="file"
-                        name="cover_photo"  // <-- Added name attribute
-                        accept="image/*"
-                        onChange={handleCoverPhotoChange}
-                    />
-                    <br />
+                        <div className="all-fields">
+                            <div className="input-text-fields">
+                                <div>
+                                    <label>Album Name</label>
+                                    <input
+                                        type="text"
+                                        name="album_name"
+                                        value={nameOfAlbum}
+                                        onChange={(e) => setNameOfAlbum(e.target.value)}
+                                    />
+                                </div>
+                                
+                                <div>
+                                    <label>Welcome text</label>
+                                    <textarea
+                                        name="welcomeTxt"
+                                        value={welcomeTxt}
+                                        onChange={(e) => setWelcomeTxt(e.target.value)}
+                                        className="welcomeTxt-textarea"
+                                    />
+                                </div>
+                                
 
-                    {coverPhotoPreview && (
-                        <div className="preview-container">
-                            <h3>Cover Photo Preview:</h3>
-                            <img
-                                src={coverPhotoPreview}
-                                alt="Cover Preview"
-                                style={{ width: "200px", height: "auto", objectFit: "cover" }}
-                            />
+                                <div>
+                                    <label>Description (maximum 200 characters)</label>
+                                    <textarea
+                                        name="description"
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        className="description-textarea"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="cover-img-section">
+                                <div className="upload-img-field">
+                                    <label className = "upload-label" htmlFor="cover-photo-upload">
+                                        Upload Cover Image
+                                        &nbsp;&nbsp;
+                                        <FontAwesomeIcon className="upload-icon" icon={faUpload} />
+                                    </label>
+                                    <input
+                                        id="cover-photo-upload"
+                                        type="file"
+                                        name="cover_photo"  // <-- Added name attribute
+                                        accept="image/*"
+                                        onChange={handleCoverPhotoChange}
+                                    />
+                                </div>
+                                
+                                <div className="preview-img-section">
+                                    {coverPhotoPreview && (
+                                        <div className="preview-container">
+                                            <h3>Cover Photo Preview:</h3>
+                                            <img
+                                                src={coverPhotoPreview}
+                                                alt="Cover Preview"
+                                                style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                    )}
-
-                    <button type="submit">Update</button>
-                    <button type="button" onClick={handleCancel}>Cancel</button>
-                    <p className="prompt">{prompt}</p>
-            </form>
-            <p>Download this album</p>
-            <button onClick = {handleDownloadAlbum}>Download Album</button>
-            <p>Want to delete this album?</p>
-            <button onClick = {handleDeleteAlbum}>Delete</button>
+                        
+                        <div className="buttons-section">
+                            <button type="submit" className="update-button">Update</button>
+                            <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+                            <p className="prompt">{prompt}</p>
+                        </div>
+                    </form>
+                    
+                    <div className="bottom-section">
+                        <p>Download all photos in this album</p>
+                        <button onClick = {handleDownloadAlbum} className="download-button">Download Album</button>
+                        <p className="warning">Warning, this action cannot be undone.</p>
+                        <button onClick = {handleDeleteAlbum} className="delete-button">Delete</button>
+                        
+                    </div>
+                    
+                    
+                </div>
+                <Footer/>
+            </div>
+            
+            
+            
             
         </>
     );

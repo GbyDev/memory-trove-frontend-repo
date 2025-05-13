@@ -108,6 +108,7 @@ export default function UploadImage() {
           type="file"
           multiple
           accept="image/*"
+          capture="environment"
           onChange={handleChange}
           id="fileInput"
         />
