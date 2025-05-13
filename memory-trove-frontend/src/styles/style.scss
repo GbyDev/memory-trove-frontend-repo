@@ -1550,6 +1550,165 @@ footer {
     }
 }
 
+.UploadImagePage{
+    header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo-album-name{
+            flex: 0.3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .upload-image-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            .back-to-albums-list-btn{
+                color: $almost-red;
+            }
+            //All the other elements
+            .media-btn:hover, .edit-album-btn:hover{
+                outline: 2px solid white;  
+            }   
+            .media-btn:active, .edit-album-btn:active{
+                background-image: $default-gradient-transparent
+            }
+
+            .back-to-albums-list-btn:hover{
+                outline: 2px solid $almost-red;
+            }
+            .back-to-albums-list-btn:active{
+                background-color: $almost-red-transparent;
+            }
+        }
+    }
+
+    .main-container {
+        
+        padding-top: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+        h1, h2, h3, h4, h5, h6, label, p{
+            color: white;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-upload-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover {
+                background: $default-gradient-transparent;
+                outline: 2px solid white;
+            }
+
+            &:active {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+
+            img {
+                border-radius: 4px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .upload-confirm-btn, .upload-cancel-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            width: 350px;
+        }
+
+        .upload-confirm-btn {
+            color: $almost-green;
+            outline: 2px solid $almost-green;
+        }
+        .upload-confirm-btn:hover {
+                background-color: $almost-white-grey-transparent;
+        }
+        .upload-confirm-btn:active {
+                background-color: $almost-green-transparent;
+        }
+
+        .upload-cancel-btn {
+            color: $almost-white-grey-transparent;
+            outline: 2px solid $almost-white-grey-transparent;
+        }
+        .upload-cancel-btn:hover {
+                background-color: $almost-white-grey-transparent;
+        }
+        .upload-cancel-btn:active {
+                background-color: $almost-red-transparent
+        }
+    }
+}
+
+
+
+
 
 
 // Album List Hierarchy (all available albums) 
