@@ -75,7 +75,7 @@ export default function EditAlbum() {
         navigate('/pages/albumList');
     }
 
-        function handleDownloadAlbum() {
+    function handleDownloadAlbum() {
         const payload = {
             album_id: albumId,
             album_folder_path: albumFolderPath,

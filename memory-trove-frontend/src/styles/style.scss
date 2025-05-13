@@ -30,6 +30,15 @@ $transparent: rgba(0, 0, 0, 0);
 
 $almost-white-grey-transparent:rgba(125, 125, 125, 0.5);
 
+// ============== NOTE ================================
+/*
+BOILERPLATE CODE FOR STYLING GRADIENTS IN TEXT
+background: $default-gradient; 
+-webkit-background-clip: text;
+color: transparent;
+
+NOTE: ONLY FOR TEXT, APPLYING GRADIENT TO OTHER PARTS IS MUCH MORE COMPLICATED :>
+*/
 
 // For debug
 /**/
@@ -38,11 +47,11 @@ $almost-white-grey-transparent:rgba(125, 125, 125, 0.5);
     background-color: rgba(0, 255, 0, 0.1);
 }
 */
-
+/*
 * {
     outline: 1px solid red;
 }
-
+*/
 // Global Styles
 * {
     font-family: 'Madimi One', sans-serif;
@@ -690,102 +699,6 @@ footer {
     }
 }
 
-.EmptyAlbumsPage{
-
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    header{
-        
-        nav{
-            flex: 1;
-
-            .all-albums-btn {
-                position: relative;
-                padding: 15px 30px;
-                border-radius: 30px;
-                text-decoration: none;
-                cursor: default;
-
-                span {
-                    background: $default-gradient;
-                    background-clip: text;
-                    -webkit-background-clip: text;
-                    color: transparent;
-                    font-size: 1.4rem;
-                    font-weight: bold;
-                }
-                
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 30px;
-                    padding: 2px;
-                    background: $default-gradient;
-                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                    mask-composite: exclude;
-                    -webkit-mask-composite: xor;
-                    pointer-events: none;
-                }
-            }
-
-            .account-settings-btn{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-            }
-
-            //All the other elements
-            .create-album-btn:hover, .account-settings-btn:hover{
-                outline: 2px solid white;
-                
-            }   
-            .create-album-btn:active, .account-settings-btn:active{
-                background-image: $default-gradient-transparent
-            }
-        }
-    }
-
-    .main-container{
-        padding-top: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100vh;
-        gap: 30px;
-
-        *{
-            color: white;
-        }
-
-        h1{
-            margin-top: 100px;
-            font-size: 4rem;
-        }
-        a{
-            border: 1px solid $almost-green;
-            color: $almost-green;
-            padding: 15px 90px;
-            border-radius: 20px;
-            font-size: 1.6rem;
-        }
-        a:hover{
-            background-color: $almost-white-grey-transparent;
-        }
-        a:active{
-            background-image: $almost-green;
-        }
-    }
-}
-
 .CreateAnAlbumPage{
 
     header{
@@ -864,7 +777,6 @@ footer {
             flex-direction: column;
             gap: 15px;
             h1{
-                font-size: 4rem;
                 text-align: center;
             }
             .all-fields{
@@ -1098,6 +1010,7 @@ footer {
                         background-color: $almost-white-grey-transparent;
                         border-radius: 7px;
                         padding: 5px 10px;
+                        height: 40px;
                         width: 400px;
                         color: white;
                     }
@@ -1126,8 +1039,10 @@ footer {
 
                         button{
                             width:50px;
+                            border-radius: 10px;
                             border-top-left-radius: 0;
                             border-bottom-left-radius: 0;
+                            height: 40px;
                         }
                     }
                 }
@@ -1251,6 +1166,215 @@ footer {
         }
     }
 }
+
+.EmptyAlbumsPage{
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header{
+        
+        nav{
+            flex: 1;
+
+            .all-albums-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            .account-settings-btn{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            //All the other elements
+            .create-album-btn:hover, .account-settings-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .create-album-btn:active, .account-settings-btn:active{
+                background-image: $default-gradient-transparent
+            }
+        }
+    }
+
+    .main-container{
+        padding-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        gap: 30px;
+
+        *{
+            color: white;
+        }
+
+        h1{
+            margin-top: 100px;
+            font-size: 4rem;
+        }
+        a{
+            border: 1px solid $almost-green;
+            color: $almost-green;
+            padding: 15px 90px;
+            border-radius: 20px;
+            font-size: 1.6rem;
+        }
+        a:hover{
+            background-color: $almost-white-grey-transparent;
+        }
+        a:active{
+            background-image: $almost-green;
+        }
+    }
+}
+
+.AllAvailableAlbumsPage{
+    header{
+        
+        nav{
+            flex: 1;
+
+            .all-albums-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            .account-settings-btn{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            //All the other elements
+            .create-album-btn:hover, .account-settings-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .create-album-btn:active, .account-settings-btn:active{
+                background-image: $default-gradient-transparent
+            }
+        }
+    }
+
+    .main-container{
+        padding-top: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        gap: 30px;
+
+        h1, h2, h3, h4, h5, h6, label, p{
+            color: white;
+        }
+        .album-list-header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+
+            span{
+                background: $default-gradient; 
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+        }
+
+        .album-item-container{
+            display: flex;
+            gap: 50px;
+
+            .album-item{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer; //important
+                
+                .img-background{
+                    border-radius: 30px;
+                    overflow: hidden;
+                    background-color: $almost-white-grey-transparent;
+
+                    img{//important
+                        object-fit: contain;
+                        background-image: black;
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
+
 
 // Album List Hierarchy (all available albums) 
 // kapoy sigeg balik balik tanaw

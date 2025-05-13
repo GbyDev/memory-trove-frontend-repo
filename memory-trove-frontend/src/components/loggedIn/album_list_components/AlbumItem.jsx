@@ -17,17 +17,20 @@ export default function AlbumItem({ album }) {
     }
 
     return (
-        <div className="album-item" onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <img 
+        <div className="album-item" onClick={handleClick} /*style={{ cursor: 'pointer' }}*/>
+            <div className="img-background">
+                <img 
                 src={convertToWebPath(album.albumCoverImagePath)} 
                 height="200px" 
                 width="140px" 
                 alt="Album Cover" 
-                style={{ objectFit: "contain" }}
+                /*style={{ objectFit: "contain" }}*/
             />
+            </div>
+            
             <h4>{album.albumName}</h4>
-            <p>Date Created: {album.dateCreated}</p>
-            <p>Description: {album.albumDescription || "No description"}</p>
+            <p>{album.dateCreated}</p>
+            <p>{album.albumDescription || "No description"}</p>
         </div>
         
     );

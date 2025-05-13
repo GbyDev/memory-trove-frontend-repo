@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AlbumContext } from '../../contexts/AlbumContext';
 import ListOfImages from './image_list_components/ListOfImages';
 import axios from 'axios';
+import { AlbumHeader } from '../UI/Headers';
 
 export default function Media() {
     const {
@@ -40,17 +41,21 @@ export default function Media() {
     }
 
     return (
-        <div className="main-container">
-            <div className="text-content">
-                <h3>{welcomeText}</h3>
-                <p>{albumDescription}</p>
-                <p>{dateCreated}</p>
-            </div>
-            <div className="section">
-                <div className="img-list">
-                    <ListOfImages imageTotal={imageCount} />
+        <div className="MediaPage">
+            <AlbumHeader />
+            <div className="main-container">
+                <div className="text-content">
+                    <h3>{welcomeText}</h3>
+                    <p>{albumDescription}</p>
+                    <p>{dateCreated}</p>
+                </div>
+                <div className="section">
+                    <div className="img-list">
+                        <ListOfImages imageTotal={imageCount} />
+                    </div>
                 </div>
             </div>
         </div>
+        
     );
 }

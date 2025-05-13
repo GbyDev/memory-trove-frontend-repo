@@ -3,6 +3,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import AlbumItem from "./AlbumItem";
 import axios from "axios";
 import { LoggedInHeader } from "../../UI/Headers";
+import Footer from "../../UI/Footer";
 
 async function fetchAlbums(albumTotal, userId) {
     const albumDataList = [];
@@ -66,13 +67,21 @@ export default function AllAvailableAlbums({ albumCount }) {
     console.log("albumCount passed to AllAvailableAlbums:", albumCount);
 
     return (
-        <>
-            <LoggedInHeader/>
-            <div className="album-list-header">
-                <h1>{username}&apos;s Album Collection</h1>
-                <p>You have {albumCount} albums.</p>
+        <>  
+            <div className="AllAvailableAlbumsPage">
+                <LoggedInHeader/>
+                <div className="main-container">
+                    <div className="album-list-header">
+                        <h1>
+                            <span>{username}&apos;s</span> Album Collection
+                        </h1>
+                        <p>You have {albumCount} albums.</p>
+                    </div>
+                    <ListOfAlbums albumTotal={albumCount}  />
+                </div>
+                <Footer/>
             </div>
-            <ListOfAlbums albumTotal={albumCount} />
+
         </>
     );
 }
