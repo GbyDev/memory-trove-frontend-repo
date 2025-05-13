@@ -12,39 +12,17 @@ export function ImageItem({ img, index, onClick, isSelected }) {
 
     return (
         <div
-            className="image-item"
+            className={`image-item${isSelected ? " selected" : ""}`}
             onClick={onClick}
-            style={{
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                border: isSelected ? "4px solid blue" : "none",
-                backgroundColor: isSelected ? "#e0f0ff" : "transparent",
-                width: "200px",
-                height: "280px",
-                overflow: "hidden",
-                margin: "10px",
-            }}
         >
-            <img
-                src={img.image_url}
-                alt={`Image ${index}`}
-                style={{
-                    width: "100%",
-                    height: "auto",
-                    maxHeight: "230px",
-                    objectFit: "cover",
-                }}
-                onError={handleError}
-            />
-            <p style={{
-                textAlign: "center",
-                fontSize: "0.9em",
-                margin: "4px 0",
-            }}>
-                {formattedDate}
-            </p>
+            <div className="image-wrapper">
+                <img
+                    src={img.image_url}
+                    alt={`Image ${index}`}
+                    onError={handleError}
+                />
+            </div>
+            <p>{formattedDate}</p>
         </div>
     );
 }

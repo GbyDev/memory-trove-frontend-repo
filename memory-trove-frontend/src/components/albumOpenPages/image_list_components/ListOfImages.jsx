@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { AlbumContext } from "../../../contexts/AlbumContext";
 import axios from "axios";
 import { ImageItem } from "./ImageItem";
+import { SelectIcon } from "../../UI/Icons";
 
 export default function ListOfImages({ imageTotal }) {
     const { albumId, albumFolderPath, albumName } = useContext(AlbumContext);
@@ -168,7 +169,7 @@ export default function ListOfImages({ imageTotal }) {
 
         const interval = setInterval(() => {
             setSlideshowIndex((prev) => (prev + 1) % imageList.length);
-        }, 3000); // change every 3s
+        }, 5000); // change every 5s
 
         window.addEventListener("keydown", handleKeyDown);
         return () => {
@@ -178,24 +179,44 @@ export default function ListOfImages({ imageTotal }) {
     }, [slideshowIndex, imageList.length]);
 
     return (
-        <div>
-            <div className="toolbar" style={{ marginBottom: "10px" }}>
-                <button onClick={handleSlideshow}>Slideshow</button>
-                <button onClick={handleSelectModeToggle}>
-                    {selectMode ? "Cancel" : "Select"}
-                </button>
-                {selectMode && (
-                    <>
-                        <button onClick={handleSelectAll}>Select All</button>
-                        <button onClick={handleDelete}>Delete</button>
-                        <button onClick={handleDownload}>Download</button>
-                        <p>{selectedImages.length} selected</p>
-                    </>
-                )}
+        <div className="list-of-images">
+            <div className="toolbar">
+                <div className="buttons">
+                    <button onClick={handleSlideshow}>slideshow</button>
+
+                    <button onClick={handleSelectModeToggle}>
+                        {selectMode ? "cancel" : "select"}
+                    </button>
+
+                    <button
+                        onClick={handleSelectAll}
+                        disabled={!selectMode}
+                        style={{ opacity: selectMode ? 1 : 0.5 }}
+                    >
+                        select all
+                    </button>
+
+                    <button
+                        onClick={handleDelete}
+                        disabled={!selectMode}
+                        style={{ opacity: selectMode ? 1 : 0.5 }}
+                    >
+                        delete
+                    </button>
+
+                    <button
+                        onClick={handleDownload}
+                        disabled={!selectMode}
+                        style={{ opacity: selectMode ? 1 : 0.5 }}
+                    >
+                        download
+                    </button>
+                </div>
+
             </div>
 
             {imageList.length > 0 ? (
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                <div className = "image-item-container"/*style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}*/>
                     {imageList.map((img, i) => (
                         <ImageItem
                             key={i}
