@@ -35,8 +35,8 @@ export default function AccountSettings(){
         });
         console.log(response.data)
         //Clear from authContext
-        //logout();
-        //navigate('/pages/welcome');
+        logout();
+        navigate('/pages/welcome');
     }
 
     function handleCancel(e){

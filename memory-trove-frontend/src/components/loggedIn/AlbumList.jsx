@@ -61,8 +61,7 @@ export default function AlbumList() {
     return numOfAlbums > 0 ? 
     (
         <>
-            <div className="main-container">
-                
+            <div className="main-container">    
                 <AllAvailableAlbums albumCount={numOfAlbums} />
             </div>
         </>
@@ -72,7 +71,6 @@ export default function AlbumList() {
     (
         <>
             <div className="main-container">
-                <LoggedInHeader/>
                 <EmptyAlbums />
             </div>
         </>

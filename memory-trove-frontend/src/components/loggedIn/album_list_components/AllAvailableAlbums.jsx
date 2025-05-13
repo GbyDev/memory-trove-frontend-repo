@@ -2,6 +2,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import AlbumItem from "./AlbumItem";
 import axios from "axios";
+import { LoggedInHeader } from "../../UI/Headers";
 
 async function fetchAlbums(albumTotal, userId) {
     const albumDataList = [];
