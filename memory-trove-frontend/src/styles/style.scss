@@ -35,11 +35,11 @@ $almost-white-grey-transparent:rgba(194, 194, 194, 0.5);
     background-color: rgba(0, 255, 0, 0.1);
 }
 */
-/*
+
 * {
     outline: 1px solid red;
 }
-*/
+
 // Global Styles
 * {
     font-family: 'Madimi One', sans-serif;
@@ -779,6 +779,85 @@ footer {
         }
         a:active{
             background-image: $almost-green;
+        }
+    }
+}
+
+.CreateAnAlbumPage{
+
+    header{
+        position: fixed;
+
+        nav{
+            flex: 1;
+
+            .create-album-btn {
+                position: relative;
+                padding: 15px 30px;
+                border-radius: 30px;
+                text-decoration: none;
+                cursor: default;
+
+                span {
+                    background: $default-gradient;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: $default-gradient;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    -webkit-mask-composite: xor;
+                    pointer-events: none;
+                }
+            }
+
+            .account-settings-btn{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            //All the other elements
+            .all-albums-btn:hover, .account-settings-btn:hover{
+                outline: 2px solid white;
+                
+            }   
+            .all-albums-btn:active, .account-settings-btn:active{
+                background-image: $default-gradient-transparent
+            }
+        }
+    }
+
+    .main-container{
+        position: relative;
+        top: 125px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 600px;
+        gap: 30px;
+
+        * {
+            color: white;
+        }
+
+        h1{
+            font-size: 4rem;
         }
     }
 }

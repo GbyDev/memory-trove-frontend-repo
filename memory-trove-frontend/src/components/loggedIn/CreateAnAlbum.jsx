@@ -119,64 +119,81 @@ export default function CreateAnAlbum() {
         <>
             <div className="CreateAnAlbumPage">
                 <LoggedInHeader/>
-                <h1>Create an Album</h1>
-                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <div className="main-container">
+                    <h1>Create New Album</h1>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
 
-                    <label>Album Name</label>
-                    <br />
-                    <input
-                        type="text"
-                        name="album_name"
-                        value={albumName}
-                        onChange={(e) => setAlbumName(e.target.value)}
-                    />
-                    <p>The following options below are optional. You may fill them in later.</p>
-                    <br />
-
-                    <label>Welcome text</label>
-                    <br />
-                    <textarea
-                        name="welcomeTxt"
-                        value={welcomeTxt}
-                        onChange={(e) => setWelcomeTxt(e.target.value)}
-                        className="welcomeTxt-textarea"
-                    />
-                    <br />
-
-                    <label>Description (maximum 110 characters)</label>
-                    <br />
-                    <textarea
-                        name="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="description-textarea"
-                    />
-                    <br />
-                    
-                    <label>Cover Photo </label>
-                    <br />
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleCoverPhotoChange}
-                    />
-                    <br />
-
-                    {coverPhotoPreview && (
-                        <div className="preview-container">
-                            <h3>Cover Photo Preview:</h3>
-                            <img
-                                src={coverPhotoPreview}
-                                alt="Cover Preview"
-                                style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                        <div className="album-name-field">
+                            <label>Album Name</label>
+                            <input
+                                type="text"
+                                name="album_name"
+                                value={albumName}
+                                onChange={(e) => setAlbumName(e.target.value)}
                             />
                         </div>
-                    )}
+                        
+                        <div className="optional-options-text">
+                            <h3>Optional Settings</h3>
+                            <p>The following options below are optional. You may set them later after creation.</p>
+                        </div>
+                        
+                        <div className="greeting-text-field">
+                            <label>Greeting text</label>
+                            <textarea
+                                name="welcomeTxt"
+                                value={welcomeTxt}
+                                onChange={(e) => setWelcomeTxt(e.target.value)}
+                                className="welcomeTxt-textarea"
+                            />
+                        </div>
 
-                    <button type="submit">Create</button>
-                    <button type="button" onClick={handleCancel}>Cancel</button>
-                    <p className="prompt">{prompt}</p>
-                </form>
+                        <div className="description-field">
+                            <label>Description (maximum 110 characters)</label>
+                            <textarea
+                                name="description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                className="description-textarea"
+                            />
+                        </div>
+                        
+                        <div className="upload-image-field">
+                            <label>You can also set your cover image later. </label>
+                            <label htmlFor="cover-photo-upload" style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}>
+                                Upload Cover Image 
+                            </label>
+                            <input
+                                id="cover-photo-upload"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleCoverPhotoChange}
+                                style={{ display: "none" }}
+                            />
+                        </div>
+                        
+                        <div className="cover-photo-preview">
+                            {coverPhotoPreview && (
+                                <div className="preview-container">
+                                    <h3>Cover Photo Preview:</h3>
+                                    <img
+                                        src={coverPhotoPreview}
+                                        alt="Cover Preview"
+                                        style={{ width: "200px", height: "auto", objectFit: "cover" }}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="buttons">
+                            <button type="submit">Create</button>
+                            <button type="button" onClick={handleCancel}>Cancel</button>
+                            <p className="prompt">{prompt}</p>
+                        </div>
+                        
+                    </form>
+                </div>
+                
             </div>
         </>
     );
