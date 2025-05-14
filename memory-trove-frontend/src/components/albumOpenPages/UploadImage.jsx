@@ -99,7 +99,7 @@ export default function UploadImage() {
         <h1>Upload Image</h1>
 
         <label htmlFor="fileInput" className="custom-upload-btn">
-            Upload Cover Image
+            Upload Image
             &nbsp;&nbsp;
             <FontAwesomeIcon className="upload-icon" icon={faUpload} />
         </label>

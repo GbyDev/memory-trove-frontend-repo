@@ -5,43 +5,45 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AlbumContext } from '../../contexts/AlbumContext';
 
-// Common hook used across all headers
+// Hook to track scroll
 function useScrolled(threshold = 10) {
     const [scrolled, setScrolled] = useState(false);
-
     useEffect(() => {
-        const onScroll = () => {
-            setScrolled(window.scrollY > threshold);
-        };
-
+        const onScroll = () => setScrolled(window.scrollY > threshold);
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     }, [threshold]);
-
     return scrolled;
 }
 
-// Shared header style when scrolled
+// Base header style
 const headerBaseStyle = {
-    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
+    left: 0,
+    width: '100%',
     zIndex: 100,
+    height: '70px',
+    padding: '10px 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+    backgroundColor: 'transparent',  // Keep transparent initially
+    boxSizing: 'border-box',
 };
 
+// Style when scrolled
 const headerScrolledStyle = {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#020129',  // Change to a whiteish color on scroll
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',  // Add a shadow for the effect
 };
 
 export function GuestHeader() {
     const scrolled = useScrolled();
-
     return (
         <header style={{ ...headerBaseStyle, ...(scrolled ? headerScrolledStyle : {}) }}>
-            <div className="logo">
-                <h1>Memory Trove</h1>
-            </div>
+            <div className="logo"><h1>Memory Trove</h1></div>
             <nav>
                 <Link to="/pages/welcome" className="home-btn">
                     <span>Home</span>
@@ -60,7 +62,6 @@ export function GuestHeader() {
 export function LoggedInHeader() {
     const { username } = useContext(AuthContext);
     const scrolled = useScrolled();
-
     return (
         <header style={{ ...headerBaseStyle, ...(scrolled ? headerScrolledStyle : {}) }}>
             <svg width="0" height="0" style={{ position: 'absolute' }}>
@@ -71,10 +72,7 @@ export function LoggedInHeader() {
                     </linearGradient>
                 </defs>
             </svg>
-
-            <div className="logo">
-                <h1>Memory Trove</h1>
-            </div>
+            <div className="logo"><h1>Memory Trove</h1></div>
             <nav>
                 <Link to="/pages/albumList" className="all-albums-btn">
                     <span>All Albums</span>
@@ -83,11 +81,7 @@ export function LoggedInHeader() {
                     <span>Create an Album</span>
                 </Link>
                 <Link to="/pages/accountSettings" className="account-settings-btn">
-                    <FontAwesomeIcon
-                        icon={faCircleUser}
-                        className="account-icon"
-                    />
-                    <span>&nbsp;{username || 'User'}</span>
+                    <FontAwesomeIcon icon={faCircleUser} /> {username || 'User'}
                 </Link>
             </nav>
         </header>
@@ -97,12 +91,9 @@ export function LoggedInHeader() {
 export function AlbumHeader() {
     const { albumName } = useContext(AlbumContext);
     const scrolled = useScrolled();
-
     return (
         <header style={{ ...headerBaseStyle, ...(scrolled ? headerScrolledStyle : {}) }}>
-            <div className="logo-album-name">
-                <h1>{albumName}</h1>
-            </div>
+            <div className="logo-album-name"><h1>{albumName}</h1></div>
             <nav>
                 <Link to="/pages/media" className="media-btn">
                     <span>Media</span>

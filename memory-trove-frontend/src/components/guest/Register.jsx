@@ -53,7 +53,7 @@ export default function Register(){
             }
 
             //If username exceeds 30 characters
-            if (username.length > 30){
+            if (username.length > 14){
                 setPromptColor('error');
                 setPrompt("Username cannot exceed 30 characters.");
                 return true;
