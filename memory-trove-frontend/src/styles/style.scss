@@ -127,15 +127,34 @@ header {
     }
 }
 
-@media (max-width: 880px) /*Headers*/{
-  header{
-    .logo, .logo-album-name{
-        flex: 0.1;
+@media (max-width: 950px) /*Headers*/{
+    header{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: -10px;
+        gap: 0.5vh;
+        background-color: #020129 !important;
+        
+
+        .logo, .logo-album-name{
+            margin-left: 0;
+            justify-content: center;
+            background-color: $container-dark-blue;
+            width: 100vw;
+        }
+        nav{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 0;
+            margin-left: 0;
+            gap: 2vw;
+            background-color: $container-dark-blue;
+            width: 100vw;
+        }
     }
-    nav{
-        flex: 2;
-    }
-  }
 }
 
 footer {
@@ -395,7 +414,7 @@ footer {
     }
 }
 
-@media (max-width: 880px) /*Welcome Page*/{
+@media (max-width: 950px) /*Welcome Page*/{
   .WelcomePage{
 
     .hero-section{
@@ -427,6 +446,57 @@ footer {
   }
 }
 
+@media (max-width: 600px) /*Welcome Page*/{
+    .WelcomePage{
+        .hero-section{
+            height: 100vh;
+
+            .text-content{
+                h1{
+                    font-size: 3rem;
+                    -webkit-text-stroke: 1.5px $container-dark-blue;
+                }
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .section{
+            .flex-container{
+                .text-content{
+                    h1{
+                        font-size: 2.3rem;
+                    }
+                    p{
+                        font-size: 1rem;
+                    }
+
+                    .button-container{
+                        flex-direction: column;
+                        gap: 5vh;
+                        
+                        button{
+                            width: 400px;
+                            padding: 10px 30px;
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+
+                .img-content{
+                    img{
+                        width: 35vw;
+                    }
+                }
+            }
+
+            h2{
+                font-size: 2.3rem;
+            }
+        }
+    }
+}
 
 .LoginPage {
     //Specific styling
@@ -646,6 +716,7 @@ footer {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding-top: 10vh;
         height: 673px;
         background-image: url("../assets/welcome-hero-section-img.jpg");
         background-position: center center;
@@ -825,7 +896,7 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 60vw;
+        height: 75vw;
         gap: 30px;
 
         p, h1, h2, h3, h4, h5, h6, label {
@@ -973,6 +1044,19 @@ footer {
     }
 }
 
+@media (max-width: 950px) /*Create an Album*/{
+    .CreateAnAlbumPage{
+        .main-container{
+            height: 130vh;
+        }
+
+        .all-fields{
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
 .AccountSettingsPage{
     header{
         position: fixed;
@@ -1047,7 +1131,7 @@ footer {
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding-top: 150px;
+        padding-top: 1vh;
         padding-bottom: 150px;
         justify-content: center;
         align-items: center;
@@ -1228,6 +1312,29 @@ footer {
                     button:active{
                         background-color: $almost-red-transparent;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) /*Account settings page*/{
+    .AccountSettingsPage{
+
+        .main-container{
+            height: 150vh;
+        }
+
+        .all-fields{
+            flex-direction: column;
+            align-items: center;
+            gap: 2vh !important;
+
+            .other-options{
+                gap: 10vh !important;
+
+                .delete-section{
+                    margin-top: -20px;
                 }
             }
         }
@@ -2077,6 +2184,31 @@ footer {
 
             
 
+    }
+}
+
+@media screen and (max-width: 950px) /*Edit Album Page*/ {
+    
+    .EditAlbumPage{
+
+        .main-container{
+            height: 200vh;
+
+            .all-fields{
+                flex-direction: column;
+                align-items: center;
+                gap: 50px !important;
+            }
+
+            .bottom-section{
+                
+                .download-button{
+                    margin-bottom: 50px;
+                }
+            }
+        }
+        
+        
     }
 }
 
