@@ -87,6 +87,9 @@ export default function UploadImage() {
 
     console.log('Selected files:', files);
     sendToBackend();
+    setTimeout(() => {
+      navigate('/pages/media');
+    }, 1000);
   };
 
   return (
