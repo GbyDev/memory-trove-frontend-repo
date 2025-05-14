@@ -77,8 +77,10 @@ input{
     width: 20px;
 }
 //Global heading style
-.MediaPage, .UploadImagePage, .EditAlbumPage{
-
+header .logo, header .logo-album-name{
+    h1{
+        font-size: 1.6rem !important;
+    }
 }
 
 // Header styles
@@ -103,7 +105,6 @@ header {
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; /* Make text transparent */
-            -webkit-text-stroke: 2px #14004C;
             font-size: 2rem;
         }
     }
@@ -1213,7 +1214,7 @@ footer {
                     background-clip: text;
                     -webkit-background-clip: text;
                     color: transparent;
-                    font-size: 1.4rem;
+                    font-size: 1rem;
                     font-weight: bold;
                 }
                 
