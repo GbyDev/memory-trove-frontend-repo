@@ -108,6 +108,7 @@ export default function CreateAnAlbum() {
 
         let response = await createTheAlbum();
         if (response.messageType === "error") return;
+        navigate('/pages/albumList');
     }
 
     const handleCoverPhotoChange = (e) => {

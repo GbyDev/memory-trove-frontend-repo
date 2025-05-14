@@ -72,6 +72,15 @@ input{
     height: 30px;
 }
 
+.account-icon{
+    height: 20px;
+    width: 20px;
+}
+//Global heading style
+.MediaPage, .UploadImagePage, .EditAlbumPage{
+
+}
+
 // Header styles
 header {
     position: fixed;
@@ -942,8 +951,9 @@ footer {
                 cursor: default;
                 
                 // Apply gradient to the icon directly
+                //Labad sa ulo man igradient so i pink nalang HAHAHAHA
                 .account-icon {
-                    color: #ff2a6d
+                    color: #ff2a6d !important;
                 }
                 
                 span {
@@ -951,8 +961,10 @@ footer {
                     -webkit-background-clip: text;
                     background-clip: text;
                     color: transparent;
-                    font-size: 1.4rem;
+                    font-size: 1rem;
                     font-weight: bold;
+
+                    
                 }
                 
                 &::before {
@@ -1372,9 +1384,13 @@ footer {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                justify-content: center;
                 align-items: center;
                 cursor: pointer; //important
+                width: 300px;
+                word-wrap: break-word;   
+                overflow-wrap: break-word; 
+                white-space: normal;     
+                padding: 10px;
                 
                 .img-background{
                     border-radius: 30px;
@@ -1386,7 +1402,10 @@ footer {
                         background-image: black;
                     }
                 }
-                
+                h3, p{
+                    width: 100%;
+                    max-width: 100%;
+                }
             }
         }
     }
@@ -1395,6 +1414,7 @@ footer {
 .MediaPage{
     header{
         display: flex;
+
         .logo-album-name{
             flex: 0.5;
             display: flex;
@@ -1731,18 +1751,16 @@ footer {
 
     header{
         display: flex;
-        justify-content: center;
-        align-items: center;
 
         .logo-album-name{
-            flex: 0.3;
+            flex: 0.5;
             display: flex;
             align-items: center;
             gap: 5px;
         }
 
         nav{
-            flex: 1;
+            flex: 1.3;
             display: flex;
             align-items: center;
             justify-content: center;

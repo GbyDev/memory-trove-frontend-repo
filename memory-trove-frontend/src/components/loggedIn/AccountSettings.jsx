@@ -166,6 +166,8 @@ export default function AccountSettings(){
             username: response.newUsername,
             contextPassword: response.newPassword, // IMPORTANT: use `contextPassword` not `password`
         });
+
+        navigate('/pages/albumList');
     }
     return(
         <>

@@ -81,7 +81,11 @@ export function LoggedInHeader() {
                     <span>Create an Album</span>
                 </Link>
                 <Link to="/pages/accountSettings" className="account-settings-btn">
-                    <FontAwesomeIcon icon={faCircleUser} /> {username || 'User'}
+                    <FontAwesomeIcon icon={faCircleUser} className='account-icon'/> 
+                    <span>
+                        {username || 'User'}
+                    </span>
+                    
                 </Link>
             </nav>
         </header>
