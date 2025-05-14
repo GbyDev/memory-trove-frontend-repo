@@ -127,6 +127,17 @@ header {
     }
 }
 
+@media (max-width: 880px) /*Headers*/{
+  header{
+    .logo, .logo-album-name{
+        flex: 0.1;
+    }
+    nav{
+        flex: 2;
+    }
+  }
+}
+
 footer {
     width: 100%;
     background-color: $container-dark-blue;
@@ -383,6 +394,39 @@ footer {
         margin-top: 15vh;
     }
 }
+
+@media (max-width: 880px) /*Welcome Page*/{
+  .WelcomePage{
+
+    .hero-section{
+        .text-content{
+            h1{
+                font-size: 4rem;
+                -webkit-text-stroke: 2px $container-dark-blue;
+            }
+            p{
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .section{
+        .flex-container{
+            flex-direction: column-reverse;
+
+            .text-content{
+                text-align: center;
+
+                .button-container{
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+  }
+}
+
 
 .LoginPage {
     //Specific styling
@@ -1417,6 +1461,8 @@ footer {
 .MediaPage{
     header{
         display: flex;
+        background-color: $container-dark-blue !important;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
         .logo-album-name{
             flex: 0.5;
