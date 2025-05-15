@@ -1530,7 +1530,7 @@ footer {
             display: flex;
             justify-content: center;
             gap: 50px;
-            width: 300px;
+            max-width: 300px;
 
             .album-item{
                 display: flex;
@@ -1560,6 +1560,16 @@ footer {
                     width: 100%;
                     max-width: 100%;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 850px) /*Media Page*/ {
+    .AllAvailableAlbumsPage{
+        .main-container{
+            .album-item-container{
+                flex-direction: column;
             }
         }
     }
